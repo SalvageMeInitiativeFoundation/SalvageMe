@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import "./index.css";
+import {BrowserRouter , Routes, Route } from "react-router-dom";
+import NavBar from "./components/navBar";
+import SignUp from "./pages/signUp";
+import Home from "./pages/home";
+import Donate from "./pages/donate";
+import Request from "./pages/request";
+import Login from "./pages/login";
+import PrivateRoute from "./components/privateRoute";
+import PrivateRoute1 from "./components/privateRoute1";
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      
+      <BrowserRouter>
+      <NavBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/request" element={<PrivateRoute />}>
+            <Route path="/request" element={<Request />} />
+          </Route>
+          <Route path="/donate" element={<PrivateRoute />}>
+            <Route path="/donate" element={<Donate />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signUp" element={<SignUp />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
