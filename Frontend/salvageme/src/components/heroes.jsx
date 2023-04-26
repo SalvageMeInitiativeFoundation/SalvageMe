@@ -1,7 +1,6 @@
 import {FaLinkedin} from 'react-icons/fa';
 import {MdOutlineFavoriteBorder,MdCloudUpload} from 'react-icons/md';
 import {BsArrowDownLeft} from 'react-icons/bs';
-import {IoFilter} from 'react-icons/io';
 
 function Heroes(){
 

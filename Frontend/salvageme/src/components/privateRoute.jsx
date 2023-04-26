@@ -3,7 +3,7 @@ import { Outlet,Navigate } from "react-router-dom";
 
 function PrivateRoute(){
 
-    const auth=false;
+    const auth=true;
     return(auth?<Outlet/>:<Navigate to={'/login'}/>)
 
 }
