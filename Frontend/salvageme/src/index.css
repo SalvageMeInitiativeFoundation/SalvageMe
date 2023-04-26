@@ -1,12 +1,48 @@
+*{
+  text-decoration: none;
+  
+}
 body {
   margin: 0;
-  padding: 0px 10px 0px 10px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   
+}
+input{
+  border-radius: 10px;
+  min-width: 400px;
+}
+button{
+  background-color: #9747FF;
+  padding: 10px 20px 10px 20px;
+  border-radius: 10px;
+  width: 100px;
+  border: none;
+  display: block;
+  margin: auto;
+  
+  
+}
+hr{
+  margin:0px 5px 0px 5px
+}
+h5{
+  margin: 0px;
+}
+h1{
+  margin: 5px 0px ;
+}
+p{margin: 0px;
+margin-bottom: 10px;}
+
+.flexLayout{
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 .navBarHeader{
   background-color: #9747FF;
@@ -15,7 +51,15 @@ body {
   margin: auto;
   justify-content: space-between;
   padding: 0px 10px 0px 20px;
+
 }
+.navBarHeader h1{
+  color: white;
+}
+.navBarHeader span{
+  color: black;
+}
+
 .navBarList{
   display: flex;
   justify-content: space-evenly;
@@ -35,10 +79,57 @@ ul{
   display: flex;
   place-items: center;
   flex-direction: column;
+  padding: 10px;
   width: 159px;
   height: 177px;
+  margin: 0px 5px 5px 5px;
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.Heroes:hover{
+  width: 175px;
+  height: 190px;
+}
+.Heroes img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+}
+
+.HeroesDetails{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.Volunteers{
+  display: flex;
+  place-items: center;
+  flex-direction: column;
+  padding: 10px;
+  width: 159px;
+  height: 177px;
+  margin: 0px 5px 5px 5px;
+  border-radius: 10px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.Volunteers img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50px;
+}
+
+.Partners{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  width: 150px;
+  height: 177px;
+}
+.Partners img{
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
 }
 
 
@@ -47,13 +138,107 @@ ul{
   background-color: #9747FF;
 }
 .Developers h4{
+  padding-top: 5px;
   text-align: center;
+  margin: 0px;
+}
+
+.DevelopersContainer{
+  display: flex;
+  align-items: center;
+}
+.DevelopersInfo{
+  display: flex;
+  flex-direction: column;
 }
 
 .Dashboard{
   display: flex;
   flex-direction: row;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
 }
+.DashboardMini{
+  width: 10vw;
+  display: block;
+  justify-content: center;
+  text-align: center;
+  height: 20vh;
+
+}
+.Dashboard div:nth-child(6){
+  display: flex;
+  flex-direction: column;
+  width: 160px;
+  height: 180px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+ border-radius: 10px;
+ justify-content: center;
+ text-align: center;
+}
+
+
+.C1{
+  background-color: #F5C109;
+  height: 7px;
+}
+.C2{
+  background-color: #38A405;
+  height: 7px;
+}
+.C3{
+  background-color: #B92E2E;
+  height: 7px;
+}
+.C4{
+  background-color: #B714A6;
+  height: 7px;
+}
+.C5{
+  background-color: #2A27B5;
+  height: 7px;
+}
+.C6{
+  background-color: #F5C109;
+  height: 7px;
+}
+.C7{
+  background-color: #38A405;
+  height: 7px;
+}
+.C8{
+  background-color: #B92E2E;
+  height: 7px;
+}
+.C9{
+  background-color: #B714A6;
+  height: 7px;
+}
+.C10{
+  background-color: #2A27B5;
+  height: 7px;
+}
+.Login{
+  display: flex;
+  
+  margin-top: 10vh;
+
+  background-image: "./assets/heropic.jpg";
+}
+.LoginForm{
+  display: block;
+  margin: auto;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 20px;
+  
+}
+.LoginForm form{
+  display: flex;
+  flex-direction: column; 
+}
+
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

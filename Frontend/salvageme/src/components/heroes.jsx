@@ -6,12 +6,12 @@ import {IoFilter} from 'react-icons/io';
 function Heroes(){
 
     return <div className="Heroes">
-        <img src="heropic.jpg" alt="Heroe's image" />
+        <img src={require('../assets/heropic.jpg')} alt="Heroe's image" />
         <p>Papa Kow Dadson</p>
         <div className="HeroesDetails">
             <a href="http://" target="_blank" rel="noopener noreferrer"><FaLinkedin/></a>
-            <MdOutlineFavoriteBorder/> 100 
-            <BsArrowDownLeft fill='red'/>100
+            <><MdOutlineFavoriteBorder/> 100 </>
+            <><BsArrowDownLeft fill='red'/>100</>
         </div>
     </div>
 

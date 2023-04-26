@@ -18,7 +18,9 @@ function NavBar(){
 
         <ul className='navBarList'>
         <Link to='/donate'>
-        {pathName('/donate')? <li>Donatea</li>:
+        {pathName('/donate')? <div>
+        <li>Donatea</li>
+        <hr color='white'></hr></div>:
         <li>Donate</li>}</Link>
         <Link to='/request'>{pathName('/request')? <li>Requesta</li>:
         <li>Request</li>}</Link>
