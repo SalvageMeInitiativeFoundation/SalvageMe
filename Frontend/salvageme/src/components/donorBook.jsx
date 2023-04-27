@@ -3,7 +3,7 @@ function DonorBook() {
   return (
     <>
       <div className="DonorBook">
-        <div style={{width:"150px",height:"200px"}}>
+        <div style={{width:"150px",height:"150px"}}>
           <img src={require("../assets/AkiOla.jpg")} alt="Image of Book" />
         </div>
 

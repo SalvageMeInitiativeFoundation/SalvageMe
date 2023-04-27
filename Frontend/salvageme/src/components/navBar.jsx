@@ -1,10 +1,9 @@
 import React from 'react';
-import {useLocation,useNavigate,Link} from 'react-router-dom';
+import {useLocation,Link} from 'react-router-dom';
 import '../index.css';
 
 function NavBar(){
   const location = useLocation();
-  const navigate = useNavigate();
 
   const pathName=(route)=>{
     if(route==location.pathname){
@@ -14,7 +13,7 @@ function NavBar(){
 
     return(<>
     <header className='navBarHeader'>
-        <Link to='/'><h1>Salvage<span>Me</span></h1></Link>
+        <Link to='/'><h2>Salvage<span>Me</span></h2></Link>
 
         <ul className='navBarList'>
         <Link to='/donate'>

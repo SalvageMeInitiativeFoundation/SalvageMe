@@ -1,83 +1,85 @@
-*{
+* {
   text-decoration: none;
-  
 }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
 }
-input{
+input {
   border-radius: 10px;
-  min-width: 400px;
   padding: 10px;
-
 }
-button{
-  background-color: #9747FF;
-  padding: 10px 20px 10px 20px;
+
+input[type-checkedbox]{
+  float: left;
+}
+
+button {
+  background-color: #9747ff;
+  padding: 15px 20px 15px 20px;
   border-radius: 10px;
-  width: 100px;
+  width: 20vw;
   border: none;
   display: block;
   margin: auto;
-  
-  
+  color: white;
 }
-hr{
-  margin:0px 5px 0px 5px
+hr {
+  margin: 5px 0px 0px 0px;
 }
-h5{
+h5 {
   margin: 0px;
 }
-h1{
-  margin: 5px 0px ;
+h1 {
+  margin: 5px 0px;
 }
-p{margin: 0px;
-margin-bottom: 10px;}
+p {
+  margin: 0px;
+  margin-bottom: 10px;
+}
 
-.flexLayout{
+.flexLayout {
   display: flex;
   place-items: center;
   justify-content: center;
   flex-wrap: wrap;
 }
-.navBarHeader{
-  background-color: #9747FF;
+.navBarHeader {
+  background-color: #9747ff;
   display: flex;
   flex-direction: row;
   margin: auto;
   justify-content: space-between;
-  padding: 0px 10px 0px 20px;
-
+  padding: 0px 10px 0px 0px;
 }
-.navBarHeader h1{
+.navBarHeader h2 {
   color: white;
+  margin: 5px 0px 5px 5px;
 }
-.navBarHeader span{
+.navBarHeader span {
   color: black;
 }
 
-.navBarList{
+.navBarList {
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: space-around;
+  /* align-items: center; */
 }
-.navBarList li{
-  margin: 0px 10px 0px 10px;
+.navBarList li {
+  margin: 0px 0px 0px 10px;
 }
-ul{
+ul {
   list-style-type: none;
 }
 
-.HeroesTitle{
+.HeroesTitle {
   text-align: center;
 }
-.Heroes{
+.Heroes {
   display: flex;
   place-items: center;
   flex-direction: column;
@@ -88,23 +90,23 @@ ul{
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-.Heroes:hover{
+.Heroes:hover {
   width: 175px;
   height: 190px;
 }
-.Heroes img{
+.Heroes img {
   width: 100px;
   height: 100px;
   border-radius: 50px;
 }
 
-.HeroesDetails{
+.HeroesDetails {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 }
 
-.Volunteers{
+.Volunteers {
   display: flex;
   place-items: center;
   flex-direction: column;
@@ -115,116 +117,113 @@ ul{
   border-radius: 10px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
-.Volunteers img{
+.Volunteers img {
   width: 100px;
   height: 100px;
   border-radius: 50px;
 }
 
-.Partners{
+.Partners {
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
   width: 150px;
   height: 177px;
 }
-.Partners img{
+.Partners img {
   width: 150px;
   height: 150px;
   border-radius: 10px;
 }
 
-
-.Developers{
+.Developers {
   color: white;
-  background-color: #9747FF;
+  background-color: #9747ff;
 }
-.Developers h4{
+.Developers h4 {
   padding-top: 5px;
   text-align: center;
   margin: 0px;
 }
 
-.DevelopersContainer{
+.DevelopersContainer {
   display: flex;
   align-items: center;
 }
-.DevelopersInfo{
+.DevelopersInfo {
   display: flex;
   flex-direction: column;
 }
 
-.Dashboard{
+.Dashboard {
   display: flex;
   flex-direction: row;
   margin-top: 20px;
   align-items: center;
   justify-content: center;
 }
-.DashboardMini{
+.DashboardMini {
   width: 10vw;
   display: block;
   justify-content: center;
   text-align: center;
   height: 20vh;
-
 }
-.Dashboard div:nth-child(6){
+.Dashboard div:nth-child(6) {
   display: flex;
   flex-direction: column;
   width: 160px;
   height: 180px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
- border-radius: 10px;
- justify-content: center;
- text-align: center;
+  border-radius: 10px;
+  justify-content: center;
+  text-align: center;
 }
 
-
-.C1{
-  background-color: #F5C109;
+.C1 {
+  background-color: #f5c109;
   height: 7px;
 }
-.C2{
-  background-color: #38A405;
+.C2 {
+  background-color: #38a405;
   height: 7px;
 }
-.C3{
-  background-color: #B92E2E;
+.C3 {
+  background-color: #b92e2e;
   height: 7px;
 }
-.C4{
-  background-color: #B714A6;
+.C4 {
+  background-color: #b714a6;
   height: 7px;
 }
-.C5{
-  background-color: #2A27B5;
+.C5 {
+  background-color: #2a27b5;
   height: 7px;
 }
-.C6{
-  background-color: #F5C109;
+.C6 {
+  background-color: #f5c109;
   height: 7px;
 }
-.C7{
-  background-color: #38A405;
+.C7 {
+  background-color: #38a405;
   height: 7px;
 }
-.C8{
-  background-color: #B92E2E;
+.C8 {
+  background-color: #b92e2e;
   height: 7px;
 }
-.C9{
-  background-color: #B714A6;
+.C9 {
+  background-color: #b714a6;
   height: 7px;
 }
-.C10{
-  background-color: #2A27B5;
+.C10 {
+  background-color: #2a27b5;
   height: 7px;
 }
-.Login{
+.Login {
   display: flex;
 }
-.LoginForm{
+.LoginForm {
   display: block;
   margin: auto;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -232,53 +231,137 @@ ul{
   margin-top: 10vh;
   backdrop-filter: blur(20px);
   border-radius: 10px;
-  
 }
-.LoginForm form{
+.LoginForm form {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
 }
 
-.DonorBook{
+.SignUp {
+  display: flex;
+}
+
+.SignUpForm {
+  display: block;
+  margin: auto;
+  width: 30rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 20px;
+  margin-top: 10vh;
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+}
+
+.SignUpForm form {
+  display: flex;
+  flex-direction: column;
+}
+
+.Donate {
+  display: flex;
+}
+.DonateForm {
+  display: block;
+  margin: auto;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 20px;
+  margin-top: 10vh;
+  backdrop-filter: blur(20px);
+  border-radius: 10px;
+}
+.DonateFormDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+.DonateFormDetails input {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  width: 20rem;
+}
+
+.DonorBook {
   width: 150px;
-  height: 280px;
-  margin: 10px;
+  height: 220px;
+  margin: 5px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 10px;
   padding-bottom: 10px;
   overflow: hidden;
 }
-.DonorBook div img{
-  max-width: 100%;
-  max-height: 100%;
+.DonorBook div img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.DonorBookButton{
+.DonorBookButton {
   float: right;
   margin: 10px;
+  width: 100px;
+  margin-top: auto;
 }
 
-.RequestSearch{
+.RequestSearch {
   margin: 10px;
   display: flex;
   justify-content: space-between;
-justify-items: baseline;
-align-items: baseline;
+  justify-items: baseline;
+  align-items: baseline;
 }
-.RequestSearchOne{
+.RequestSearchOne {
   display: flex;
 }
-.RequestSearchOne Button{
+.RequestSearchOne Button {
   margin-left: 10px;
 }
-.Selected{
-  color:white;
- 
+.Selected {
+  color: white;
+
   font-weight: bold;
 }
 
+.dropdown-container {
+  text-align: left;
+  border: 2px solid black;
+  position: relative;
+  border-radius: 10px;
+  margin: 5px 0px 5px 0px;
+}
+
+.dropdown-input {
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  user-select: none;
+}
+.dropdown-menu {
+  position: absolute;
+  transform: translateY(4px);
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: auto;
+  max-height: 150px;
+  background-color: #fff;
+}
+.dropdown-item {
+  padding: 5px;
+  cursor: pointer;
+}
+.dropdown-item.selected {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.dropdown-item:hover {
+  background-color: #9747ff;
+}
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }

@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 function SignUp() {
   return (
     <>
-      <main className="Login">
-        <div className="LoginForm">
+      <main className="SignUp">
+        <div className="SignUpForm">
           <form>
             <h3 style={{ textAlign: "center" }}>Create Account</h3>
             <br></br>
@@ -42,6 +42,7 @@ function SignUp() {
               placeholder="Enter your password"
             />
             <br></br>
+            <div>
             <label htmlFor=" ConfirmPassword"> LinkedIn profile</label>
             <br></br>
             <input
@@ -50,12 +51,12 @@ function SignUp() {
               id="ConfirmPassword"
               placeholder="Enter your password"
               required={true}
-            />
+            /></div>
             <br></br>
             <p style={{ textAlign: "right" }}>Forgot password?</p>
             <button type="submit">SignUp</button>
             <p style={{ textAlign: "center" }}>
-              Already have an account?<Link to="/login">Login</Link>
+              Already have an account?<Link to="/SignUp">SignUp</Link>
             </p>
           </form>
         </div>
