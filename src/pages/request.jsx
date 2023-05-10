@@ -1,9 +1,73 @@
-import React from "react";
+import React,{useEffect,useState} from "react";
 import DonorBook from "../components/donorBook";
 import { IoIosFunnel } from "react-icons/io";
 import Filter from "../components/filter";
+import axios from "axios";
+import Spinner from "../shared/spinner";
 
 function Request() {
+  const [singleSearchValue,setSingleSearchValue]= useState('');
+  const [isLoading, setIsloading] = useState(true);
+  const [donations, setDonations] = useState(null);
+
+  useEffect(() => {
+    console.log("fetching");
+    FetchData();
+  }, []);
+
+  const FetchData = async () => {
+    setIsloading(true);
+    try {
+      const BookData = await axios.get(
+        "http://localhost:5000/salvageme/donation/"
+      );
+      setDonations(BookData.data);
+      setIsloading(false);
+      console.log(donations);
+    } catch (error) {
+
+      setIsloading(false);
+    }
+  };
+
+  
+
+  const FetchDataByTitle=async(title)=>{
+    setIsloading(true);
+    try {
+      const BookData = await axios.get(
+        `http://localhost:5000/salvageme/donation/category/${title}`
+      );
+      setDonations(BookData.data);
+      setIsloading(false);
+      console.log(donations);
+    } catch (error) {
+
+
+      setIsloading(false);
+    }
+
+
+  }
+
+  const handleSingleSearch = (e)=>{
+    e.preventDefault();
+    if(singleSearchValue.length>0){
+      FetchDataByTitle(singleSearchValue)
+    }
+    FetchData();
+
+  } 
+  const handleChange=(e)=>{
+    e.preventDefault();
+    console.log(e.target.value)
+    setSingleSearchValue(e.target.value)
+  }      
+
+
+
+
+
   const options=[
     {value:'all Categories',label:"All Categories"},
     {value:'Language',label:"Language"},
@@ -30,28 +94,28 @@ function Request() {
           name="BooKName"
           id="bookName"
           placeholder="Search for book"
+          onChange={handleChange}
+          value={singleSearchValue}
          
         />
-        <button type="submit">Search</button>
+        <button type="submit" onClick={handleSingleSearch}>Search</button>
         </div>
         <div>
-        <Filter  placeHolder={"Filter by category..."} options={options}/>
+        <Filter  placeHolder={"Filter by category..."} options={options} setDonations={setDonations}/>
         </div>
       </div>
 
-      <div className="flexLayout">
-        <DonorBook />
-        <DonorBook />
-        <DonorBook />
-        <DonorBook />
-        <DonorBook />
-        <DonorBook />
-        <DonorBook />
-        <DonorBook />
-        <DonorBook />
-        <DonorBook />
-        <DonorBook />
-      </div>
+      {isLoading ? (
+        <Spinner></Spinner>
+      ) : (
+        <div className="flexLayout">
+          {donations.map((donation, index) => (
+            <DonorBook key={index} donation={donation} />
+          ))}
+        </div>
+      )}
+
+      
     </>
   );
 }

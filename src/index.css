@@ -48,6 +48,20 @@ button {
   margin: auto;
   color: white;
 }
+.formButtons {
+  display: flex;
+}
+.formButtonActive {
+  background-color: #9747ff;
+  color: #ffffff;
+}
+.formButton{
+  padding: 14px 20px 14px 20px;
+  margin: 2px;
+  color: #050505;
+  background-color: #ffffff;
+  border: #050505 solid 1px;
+}
 hr {
   margin: 5px 0px 0px 0px;
 }
@@ -72,7 +86,7 @@ p {
   background-color: #9747ff;
   display: flex;
   flex-direction: row;
-  margin: auto;
+  margin: 0;
   justify-content: space-between;
   padding: 0px 10px 0px 0px;
 }
@@ -193,8 +207,13 @@ ul {
   display: block;
   justify-content: center;
   text-align: center;
-  height: 20vh;
+  height: 40vh;
+  
 }
+
+
+
+
 .Dashboard div:nth-child(6) {
   display: flex;
   flex-direction: column;
@@ -291,7 +310,6 @@ ul {
   place-items: center;
 }
 .SignUpFormInput input{
-  
   width: 30vw;
 }
 
@@ -349,6 +367,13 @@ ul {
   margin: 10px;
   width: 100px;
   margin-top: auto;
+}
+.DonorBookButtonRequested {
+  float: right;
+  margin: 10px;
+  width: 100px;
+  margin-top: auto;
+  background-color: #38a405;
 }
 
 .RequestSearch {
@@ -455,6 +480,23 @@ ul {
   background-color: #9747ff;
 }
 
+.ProfileImageContainer{
+  border-radius: 15px;
+  width: 150px;
+  height:150px;
+  border: #050505 solid 1px;
+  margin-bottom: 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  overflow: hidden;
+
+
+}
+.ProfileImage{
+  width: 100%;
+  height: 100%;
+  object-fit: fit;
+}
+
 
 @media only screen and (max-width: 600px) {
   .SignUpFormInput input{
@@ -517,6 +559,12 @@ ul {
     margin-top: 5px;
     width: 15rem;
   }
+
+  .DashboardMini:nth-child(even){
+    display: none;
+    text-overflow: ellipsis;
+  }
+
 
 
 

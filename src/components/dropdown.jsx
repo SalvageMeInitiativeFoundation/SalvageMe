@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const Dropdown = ({ placeHolder,options }) => {
+const Dropdown = ({ placeHolder,options,setFilterCategory }) => {
     const [showMenu,setShowMenu]=useState(false);
     const [selectedValue, setSelectedValue] = useState(null);
     useEffect(()=>{
@@ -23,6 +23,7 @@ const Dropdown = ({ placeHolder,options }) => {
 
     const onItemClick = (option)=>{
         setSelectedValue(option)
+        setFilterCategory(option.label)
     }
 
     const isSelected = (option)=>{

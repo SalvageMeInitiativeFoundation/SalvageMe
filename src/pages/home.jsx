@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Heroes from "../components/heroes";
 import Partners from "../components/partners";
 import Volunteers from "../components/volunteers";
+import axios from "axios";
+import Spinner from "../shared/spinner";
 
 function Home() {
+  const [isLoading, setIsloading] = useState(true);
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    console.log("fetching");
+    FetchData();
+  }, []);
+
+  const FetchData = async () => {
+    try {
+      const BookData = await axios.get(
+        "http://localhost:5000/salvageme/auth/users"
+      );
+      setUsers(BookData.data);
+      console.log(users);
+    } catch (error) {}
+  };
+
   return (
     <>
       <div className="Dashboard">
@@ -32,7 +52,7 @@ function Home() {
           <h3>1000</h3>
           <p>Language</p>
         </div>
-        <div >
+        <div>
           <h1>1000</h1>
           <h5>Total</h5>
         </div>
@@ -63,24 +83,27 @@ function Home() {
         </div>
       </div>
       <h1 className="HeroesTitle">Heroes of Change</h1>
-      <div className="flexLayout">
-        <Heroes />
-        <Heroes />
-        <Heroes />
-        <Heroes />
-        <Heroes />
-        <Heroes />
-        <Heroes />
-        <Heroes />
-      </div>
-
+      {users == null ? (
+        <Spinner></Spinner>
+      ) : (
+        <div className="flexLayout">
+          {users.map((user, index) => (
+            <Heroes key={index} user={user} />
+          ))}
+        </div>
+      )}
       <div className="Developers">
         <h4>Developers</h4>
         <div className="DevelopersContainer">
           <img
             src={require("../assets/heropic.jpg")}
             alt="Developers Image"
-            style={{ width: "200px", height: "200px", borderRadius: "500px" ,margin:"10px"}}
+            style={{
+              width: "200px",
+              height: "200px",
+              borderRadius: "500px",
+              margin: "10px",
+            }}
           />
           <hr width="1" size="200" />
           <div className="DevelopersInfo">
@@ -107,21 +130,20 @@ function Home() {
           </div>
         </div>
       </div>
-
       <h3 style={{ textAlign: "center" }}>Volunteers</h3>
-      <div className="flexLayout">
-        <Volunteers />
-        <Volunteers />
-        <Volunteers />
-        <Volunteers />
-        <Volunteers />
-        <Volunteers />
-        <Volunteers />
-        <Volunteers />
-        <Volunteers />
-        <Volunteers />
-        <Volunteers />
-      </div>
+      {users == null ? (
+        <Spinner></Spinner>
+      ) : (
+        <div className="flexLayout">
+          {users.map((user, index) => {
+            if (user.accountType == "volunteer") {
+              return <Volunteers key={index} user={user} />;
+            } else if (user.length == 0) {
+              return <p>Call for Volunteers</p>;
+            }
+          })}
+        </div>
+      )}
 
       <h4 style={{ textAlign: "center" }}>Partners</h4>
       <div className="flexLayout">

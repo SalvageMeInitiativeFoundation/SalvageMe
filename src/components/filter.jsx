@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { IoIosFunnel } from "react-icons/io";
+import axios from "axios";
 
 
-const Filter = ({ placeHolder,options }) => {
+
+const Filter = ({ placeHolder,options,setDonations }) => {
     const [showMenu,setShowMenu]=useState(false);
     const [selectedValue, setSelectedValue] = useState(null);
+    
     useEffect(()=>{
         const handler = ()=>setShowMenu(false)
         window.addEventListener("click",handler)
         return ()=>{window.removeEventListener("click",handler)}
     })
+
     const handleInputClick = (e)=>{
         e.stopPropagation()
         setShowMenu(!showMenu)
@@ -24,7 +28,8 @@ const Filter = ({ placeHolder,options }) => {
     };
 
     const onItemClick = (option)=>{
-        setSelectedValue(option)
+        setSelectedValue(option);
+        FetchDataByCategory(option.label);
     }
 
     const isSelected = (option)=>{
@@ -33,6 +38,19 @@ const Filter = ({ placeHolder,options }) => {
         }
         return selectedValue.value===option.value;
     }
+
+    const FetchDataByCategory=async(category)=>{
+      try {
+        const BookData = await axios.get(
+          `http://localhost:5000/salvageme/donation/category/${category}`
+        );
+        setDonations(BookData.data);
+      } catch (error) {
+        console.log(error)
+      }
+  
+    }
+
   
     return (
       <div className="Filter-container">
