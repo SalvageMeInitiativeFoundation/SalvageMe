@@ -1,9 +1,10 @@
 import axios from "axios";
 import React from "react";
 function DonorBook({donation}) {
+  console.log(donation.image)
   const requestList=[]
   const requestBook=async(donation)=>{
-    
+    console.log()
     // TODO:change current reciever to user email
     const requestData={'status':'processing','currentReciever':"user.email",'listRecievers':"user.email"}
     try {

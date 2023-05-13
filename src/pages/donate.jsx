@@ -173,7 +173,7 @@ function Donate() {
 
                 <br></br>
               </div>
-              <div>
+              <div className="ProfileImageDivContainer">
                 <div className="ProfileImageContainer">
                   <label for="bookImage">
                     {selectedImage != null ? (
@@ -198,7 +198,7 @@ function Donate() {
                 />
               </div>
             </div>
-            <button type="submit">Donate</button>
+            <button type="submit" className="DonateButton">Donate</button>
           </form>
         </div>
       </main>
