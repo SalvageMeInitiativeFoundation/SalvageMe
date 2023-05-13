@@ -3,17 +3,25 @@ import React, { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 
 function Login(){
+    const [isLoading,setIsLoading]=useState(false);
     const [loginData,setLoginData]=useState({email:"",password:""})
     const navigate=useNavigate()
     const handleChange=(e)=>{
         e.preventDefault();
         setLoginData((prev)=>({...prev,[e.target.id]:e.target.value}))
+        console.log(loginData)
     }
 
-    const LoginUser=async()=>{
+    const LoginUser=async(e)=>{
+        e.preventDefault();
+        console.log('loggiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin')
         try {
-           const loginResponse= await axios.post("http://localhost:5000/salvageme/auth/loginUser",loginData) 
-           if(loginResponse.status()==200){
+           const loginResponse= await axios.post("http://localhost:5000/salvageme/auth/loginUser",loginData) ;
+           console.log(loginResponse.data)
+           if(loginResponse.status==200){
+
+        
+        
             // TODO:Write implementaion to store value in local storage
             navigate('/');
 

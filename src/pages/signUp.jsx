@@ -7,6 +7,7 @@ import {MdCloudUpload} from 'react-icons/md';
 function SignUp() {
   const [selectedImage,setSelectedImage]=useState(null);
   const [preview, setPreview] = useState(null)
+  const [picFile,setPicFile]=useState(null);
 
   useEffect(() => {
     
@@ -34,26 +35,31 @@ function SignUp() {
       linkedin: "",
       image: "",
       confirmPassword: "",
+      accountType:"user"
     }
     // aacount type can be user,volunteer or partner
   );
 
-  const mypic = new FormData();
   const acceptedExt = ["image/png", "image/jpg", "image/jpeg"];
 
-  const handleUpload = async (e) => {
+  async function handleUpload (e){
     e.preventDefault();
     console.log(e.target.files[0]);
+  
     if (acceptedExt.includes(e.target.files[0].type)) {
-      mypic.append("mypic", e.target.files[0]);
+      console.log('uploading')
+      setPicFile(e.target.files[0]);
+    //   for (var key of mypic.entries()) {
+    //     console.log(key[0]+'-'+ key[1]);
+    // }
     }
+    
   };
 
   const handleChange = (e) => {
     e.preventDefault();
     if (e.target.files) {
       console.log('file')
-      console.log(URL.createObjectURL(e.target.files[0]))
       setSelectedImage(e.target.files[0])
       handleUpload(e);
       // setSelectedImage(null)   
@@ -69,22 +75,32 @@ function SignUp() {
   const { email, username, password, linkedin, confirmPassword } =
     SignUpForm;
 
-  const signUpUser = async () => {
+    async function  signUpUser (File,e){
+    e.preventDefault();
+    const mypic = new FormData()
     if (password === confirmPassword) {
       delete SignUpForm.confirmPassword;
       try {
+        
+        mypic.append('mypic',File);
         const urlResponse = await axios.post(
           "http://localhost:5000/salvageme/picture/image-upload",
-          mypic
+          mypic,{
+            headers: {
+              // 'Accept-Language': 'en-US,en;q=0.8',
+              'Content-Type': 'multipart/form-data',
+            }
+          },
+         
         );
-        const imageUrl = urlResponse.data().imageUrl;
-        const signUpData = { ...SignUpForm, image: imageUrl };
+        console.log(urlResponse.data.imageUrl);
+        const signUpData = { ...SignUpForm, image: urlResponse.data.imageUrl };
         const signUpUserResponse = await axios.post(
           "http://localhost:5000/salvageme/auth/createUser",
           signUpData
         );
-        if (signUpUserResponse.status() === 200) {
-          console.log(signUpUserResponse.data());
+        if (signUpUserResponse.status== 200) {
+          console.log(signUpUserResponse.data);
           // TODO:write implementation to store data locally  for future reference
           
           navigate("/");
@@ -100,12 +116,12 @@ function SignUp() {
       <div className="SignUpForm">
         <h3 style={{ textAlign: "center" }}>Create Account</h3>
 
-        <form onSubmit={signUpUser}>
+        <form >
           <div className="SignUpFormInput">
             <div>
               <div className="ProfileImageContainer">
               <label for='image'>
-              {selectedImage!= null ?<img src={preview} alt="Profile image" className="ProfileImage"/>:<MdCloudUpload size={80} className="ProfileImage"/> } 
+              {selectedImage!= null ?<img src={preview} alt="Profile image" className="ProfileImage"/>:<MdCloudUpload size={80} className="CloudImage"/> } 
               </label>
               </div>
 
@@ -181,7 +197,7 @@ function SignUp() {
                 <input
                   type="Link"
                   name="LinkedIn"
-                  id="linkedIn"
+                  id="linkedin"
                   placeholder="Enter your LinkedIn Profile Link"
                   required={true}
                   onChange={handleChange}
@@ -191,7 +207,7 @@ function SignUp() {
             </div>
           </div>
 
-          <button className="SignUpButton" type="submit">
+          <button className="SignUpButton" type="button" onClick={(e)=>signUpUser(picFile,e)}>
             SignUp
           </button>
         </form>

@@ -8,6 +8,8 @@ function Donate() {
   const [filterCategory, setFilterCategory] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [picFile,setPicFile]=useState(null);
+
   useEffect(() => {
     if (!selectedImage) {
       setPreview(null);
@@ -48,7 +50,7 @@ function Donate() {
   const handleUpload = async (e) => {
     e.preventDefault();
     if (acceptedExt.includes(e.target.files[0].type)) {
-      mypic.append("mypic", e.target.files[0]);
+      setPicFile(e.target.files[0]);
     }
   };
 
@@ -85,23 +87,32 @@ function Donate() {
     }
   };
 
-  const addDonation = async () => {
+  const addDonation = async (File,e) => {
+    e.preventDefault()
+    const mypic = new FormData();
+
     try {
+      mypic.append('mypic',File);
       const urlResponse = await axios.post(
         "http://localhost:5000/salvageme/picture/image-upload",
-        mypic
+        mypic,{
+          headers: {
+            // 'Accept-Language': 'en-US,en;q=0.8',
+            'Content-Type': 'multipart/form-data',
+          }
+        },
       );
-      const image = urlResponse.data().imageUrl;
+      const image = urlResponse.data.imageUrl;
       const donationDetails = {
         ...donationFormData,
-        image: image,
+        image: urlResponse.data.imageUrl,
         category: filterCategory,
       };
       const donationResponse = await axios.post(
         "http://localhost:5000/salvageme/donation/createDonation",
         donationDetails
       );
-      if (donationResponse.status() == 200) {
+      if (donationResponse.status == 200) {
         setDonationFormData({
           title: "",
           category: "",
@@ -122,7 +133,7 @@ function Donate() {
       <main className="Donate">
         <div className="DonateForm">
           <h3 style={{ textAlign: "center" }}>Donate a book</h3>
-          <form onSubmit={addDonation}>
+          <form >
             <div className="DonateFormDetails">
               <div>
                 <label>Title</label>
@@ -183,7 +194,7 @@ function Donate() {
                         className="ProfileImage"
                       />
                     ) : (
-                      <MdCloudUpload size={80} className="ProfileImage" />
+                      <MdCloudUpload size={80} className="CloudImage" />
                     )}
                   </label>
                 </div>
@@ -198,7 +209,7 @@ function Donate() {
                 />
               </div>
             </div>
-            <button type="submit" className="DonateButton">Donate</button>
+            <button type="button" className="DonateButton" onClick={(e)=>addDonation(picFile,e)}>Donate</button>
           </form>
         </div>
       </main>
