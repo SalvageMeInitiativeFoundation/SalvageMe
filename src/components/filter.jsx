@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 
-const Filter = ({ placeHolder,options,setDonations }) => {
+const Filter = ({ placeHolder,options,setDonations,setIsLoading}) => {
     const [showMenu,setShowMenu]=useState(false);
     const [selectedValue, setSelectedValue] = useState(null);
     
@@ -40,13 +40,17 @@ const Filter = ({ placeHolder,options,setDonations }) => {
     }
 
     const FetchDataByCategory=async(category)=>{
+      // setIsLoading((prev)=>!prev)
       try {
         const BookData = await axios.get(
-          `http://localhost:5000/salvageme/donation/category/${category}`
+          `http://localhost:5000/salvageme/donation/category/${category}`       
         );
+        console.log(BookData.data)
         setDonations(BookData.data);
+        // setIsLoading((prev)=>!prev)
       } catch (error) {
-        console.log(error)
+        console.error(error)
+        // setIsLoading((prev)=>!prev)
       }
   
     }

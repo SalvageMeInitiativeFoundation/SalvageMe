@@ -134,7 +134,7 @@ function SignUp() {
                 hidden
               />
             </div>
-            <div>
+            <div className="SignUpFormInputFormColumn">
               <div>
                 <label htmlFor="username">Profile Name</label>
                 <br></br>
@@ -148,11 +148,9 @@ function SignUp() {
                   value={username}
                 />
               </div>
-              <br></br>
+              
               <div>
                 <label htmlFor="Email">Email</label>
-                <br></br>
-
                 <input
                   type="email"
                   name="Email"
@@ -163,7 +161,6 @@ function SignUp() {
                   value={email}
                 />
               </div>
-              <br></br>
               <div>
                 <label htmlFor="Password">Password</label>
                 <br></br>
@@ -177,10 +174,8 @@ function SignUp() {
                   value={password}
                 />
               </div>
-              <br></br>
               <div>
                 <label htmlFor=" ConfirmPassword"> Confirm password</label>
-                <br></br>
                 <input
                   type="password"
                   name="ConfirmPassword"
@@ -190,10 +185,8 @@ function SignUp() {
                   value={confirmPassword}
                 />
               </div>
-              <br></br>
               <div>
                 <label htmlFor=" LinkedIn"> LinkedIn profile</label>
-                <br></br>
                 <input
                   type="Link"
                   name="LinkedIn"

@@ -1,20 +1,28 @@
 import axios from "axios";
-import React from "react";
-function DonorBook({donation}) {
-  console.log(donation.image)
-  const requestList=[]
+import React,{useEffect, useState} from "react";
+function DonorBook({donation}) {    
+  // console.log(...donation.listRecievers)
+  const [requestList,setrequestlist]=useState([])
+  const [listRecievers,setListRecievers]=useState(null)
+  useEffect(()=>{
+    setListRecievers([...donation.listRecievers,{"recieversId":"user.id16"}])
+  },[])
+
   const requestBook=async(donation)=>{
-    console.log()
+    // console.log('=========================')
+    // console.log(listRecievers);
     // TODO:change current reciever to user email
-    const requestData={'status':'processing','currentReciever':"user.email",'listRecievers':"user.email"}
+    const requestData={'status':'processing','currentReciever':"user.email",'listRecievers':listRecievers}
     try {
       const requestBookResponse = await axios.put(`http://localhost:5000/salvageme/donation/updateDonation/${donation._id}`,requestData);
-      if(requestBookResponse.status()==200){
-        requestList.push(donation._id);
+      // console.log("================================")
+      console.log(requestBookResponse.data.listRecievers);
+      if(requestBookResponse.status==200){
+        setrequestlist((prev)=>[...prev,donation._id])
       }
 
     } catch (error) {
-      
+      console.error(error)
     }
   }
 
@@ -27,7 +35,7 @@ function DonorBook({donation}) {
         </div>
 
         <h5 style={{ marginLeft: "5px",padding:"5px" }}>{donation.title}</h5>
-        <button className={requestList.includes(donation._id)?"DonorBookButtonRequested" : "DonorBookButton"} type="submit" onClick={()=>requestBook(donation)}>{requestList.includes(donation._id)?"Requested":"Request"}</button>
+        <button className={requestList.includes(donation._id)?"DonorBookButtonRequested" : "DonorBookButton"} type="button" onClick={()=>requestBook(donation)}>{requestList.includes(donation._id)?"Requested":"Request"}</button>
       </div>
     </>
   );

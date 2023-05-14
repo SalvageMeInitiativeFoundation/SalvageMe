@@ -60,7 +60,7 @@ function Donate() {
     if (e.target.files) {
       setSelectedImage(e.target.files[0]);
       handleUpload(e);
-      // setSelectedImage(null)
+      
     }
 
     if (e.target.value === "true") {
@@ -113,6 +113,7 @@ function Donate() {
         donationDetails
       );
       if (donationResponse.status == 200) {
+        console.log(donationResponse);
         setDonationFormData({
           title: "",
           category: "",
@@ -120,6 +121,7 @@ function Donate() {
           withOwner: "false",
           image: "",
         });
+        setSelectedImage(null)
       }
     } catch (error) {
       console.log(error);
