@@ -683,6 +683,13 @@ ul {
   .SignUpFormInputFormColumn{
     width: 100%;
   }
+  .DonateFormDetails {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 25px;
+    margin-bottom: 10px;
+    align-items: center;
+  }
 
 
 }
