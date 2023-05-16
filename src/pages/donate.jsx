@@ -1,16 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import DonorBook from "../components/donorBook";
 import Dropdown from "../components/dropdown";
 import axios from "axios";
 import { MdCloudUpload } from "react-icons/md";
+import {UserContext} from "../context/userContext/userContext";
+
 
 function Donate() {
+  const {setLocalUser,getLocalUser,setUser,user}=useContext(UserContext)
+
   const [filterCategory, setFilterCategory] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [picFile,setPicFile]=useState(null);
 
   useEffect(() => {
+    console.log('=====================useremail======================');
+    console.log(user[0])
+    console.log(donationFormData)
     if (!selectedImage) {
       setPreview(null);
       return;
@@ -39,7 +46,7 @@ function Donate() {
   const [donationFormData, setDonationFormData] = useState({
     title: "",
     category: "",
-    donor: "User.email",
+    donor: user[0].email,
     withOwner: "false",
     image: "",
   });
@@ -117,16 +124,34 @@ function Donate() {
         setDonationFormData({
           title: "",
           category: "",
-          donor: "User.email",
+          donor: user[0].email,
           withOwner: "false",
           image: "",
         });
         setSelectedImage(null)
+        updateDonationCount();
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  const updateDonationCount=async()=>{
+    // TODO:create api for this which doesn't need token
+
+    const updateDonationCountData={email:user[0].email,donationCount:user[0].donationCount+1}
+    try {
+          const updateDonationResponse=await axios.put('http://localhost:5000/salvageme/auth/updateUserCount',updateDonationCountData);
+          if(updateDonationResponse.status==200){
+                setLocalUser({...user[0],donationCount:user[0].donationCount+1})
+
+          }
+    } catch (error) {
+      console.log(error)
+    }
+
+
+  }
 
   const { title, category, donor, withOwner } = donationFormData;
 

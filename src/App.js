@@ -8,13 +8,14 @@ import Request from "./pages/request";
 import Login from "./pages/login";
 import PrivateRoute from "./components/privateRoute";
 import PrivateRoute1 from "./components/privateRoute1";
+import UserContextProvider from "./context/userContext/userContext";
 
 
 
 function App() {
   return (
-    <>
-      
+    
+      <UserContextProvider>
       <BrowserRouter>
       <NavBar />
         <Routes>
@@ -29,7 +30,8 @@ function App() {
           <Route path="/signUp" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
-    </>
+      </UserContextProvider>
+   
   );
 }
 

@@ -1,10 +1,13 @@
 import axios from "axios";
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {MdCloudUpload} from 'react-icons/md';
+import {UserContext} from "../context/userContext/userContext";
+
 
 
 function SignUp() {
+  const {setLocalUser,getLocalUser,setUser,user}=useContext(UserContext)
   const [selectedImage,setSelectedImage]=useState(null);
   const [preview, setPreview] = useState(null)
   const [picFile,setPicFile]=useState(null);
@@ -101,6 +104,7 @@ function SignUp() {
         );
         if (signUpUserResponse.status== 200) {
           console.log(signUpUserResponse.data);
+          setLocalUser(signUpUserResponse.data)
           // TODO:write implementation to store data locally  for future reference
           
           navigate("/");

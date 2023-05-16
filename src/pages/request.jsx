@@ -36,11 +36,11 @@ function Request() {
         `http://localhost:5000/salvageme/donation/${title}`
       );
       setDonations(BookData.data);
-      setIsloading((prev)=>!prev);
+      setIsloading((prev) => !prev);
       console.log(donations);
     } catch (error) {
       console.error(error);
-      setIsloading((prev)=>!prev);
+      setIsloading((prev) => !prev);
     }
   };
 
@@ -100,11 +100,17 @@ function Request() {
 
       {isLoading ? (
         <Spinner></Spinner>
+      ) : donations.length < 1 ? (
+        <div className="flexLayout">
+          <p>No books available</p>
+        </div>
       ) : (
         <div className="flexLayout">
-          {donations.map((donation, index) => (
-            <DonorBook key={index} donation={donation} />
-          ))}
+          {donations.map((donation, index) => {
+            if (donation.status == "recieved") {
+              return <DonorBook key={index} donation={donation} />;
+            }
+          })}
         </div>
       )}
     </>

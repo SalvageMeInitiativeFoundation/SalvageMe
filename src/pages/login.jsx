@@ -1,8 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link,useNavigate } from "react-router-dom";
+import {UserContext} from "../context/userContext/userContext";
+
 
 function Login(){
+    const {setLocalUser,getLocalUser,setUser,user}=useContext(UserContext)
     const [isLoading,setIsLoading]=useState(false);
     const [loginData,setLoginData]=useState({email:"",password:""})
     const navigate=useNavigate()
@@ -20,7 +23,9 @@ function Login(){
            console.log(loginResponse.data)
            if(loginResponse.status==200){
 
-        
+            setLocalUser([loginResponse.data]);
+            console.log('==============================')
+            console.log(user)
         
             // TODO:Write implementaion to store value in local storage
             navigate('/');

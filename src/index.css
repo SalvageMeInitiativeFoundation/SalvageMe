@@ -133,6 +133,18 @@ p {
   justify-content: space-around;
   /* align-items: center; */
 }
+.NavLoginLogoutButton{
+  background-color: #9747ff;
+  padding: 5px 5px 5px 5px;
+  border-radius: 10px;
+  width: 70px;
+  border: none;
+  /* display: block; */
+  /* margin: auto; */
+  color: white;
+  cursor: pointer;
+
+}
 /* .navBarList li {
   margin: 0px 0px 0px 10px;
   font-weight: 450;
