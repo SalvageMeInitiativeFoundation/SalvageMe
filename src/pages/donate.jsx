@@ -51,7 +51,7 @@ function Donate() {
     image: "",
   });
 
-  const mypic = new FormData();
+  // const mypic = new FormData();
   const acceptedExt = ["image/png", "image/jpg", "image/jpeg"];
 
   const handleUpload = async (e) => {
@@ -101,7 +101,7 @@ function Donate() {
     try {
       mypic.append('mypic',File);
       const urlResponse = await axios.post(
-        "http://localhost:5000/salvageme/picture/image-upload",
+        `${process.env.REACT_APP_BASE_URL}/picture/image-upload`,
         mypic,{
           headers: {
             // 'Accept-Language': 'en-US,en;q=0.8',
@@ -116,11 +116,12 @@ function Donate() {
         category: filterCategory,
       };
       const donationResponse = await axios.post(
-        "http://localhost:5000/salvageme/donation/createDonation",
+        `${process.env.REACT_APP_BASE_URL}/donation/createDonation`,
         donationDetails
       );
       if (donationResponse.status == 200) {
-        console.log(donationResponse);
+        console.log('=====================bookCreated=======================')
+        console.log(donationResponse.data);
         setDonationFormData({
           title: "",
           category: "",
@@ -141,10 +142,11 @@ function Donate() {
 
     const updateDonationCountData={email:user[0].email,donationCount:user[0].donationCount+1}
     try {
-          const updateDonationResponse=await axios.put('http://localhost:5000/salvageme/auth/updateUserCount',updateDonationCountData);
+          const updateDonationResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount`,updateDonationCountData);
           if(updateDonationResponse.status==200){
                 setLocalUser({...user[0],donationCount:user[0].donationCount+1})
-
+                console.log("=====================updatingUserCount=====================")
+                console.log(updateDonationResponse.data)
           }
     } catch (error) {
       console.log(error)

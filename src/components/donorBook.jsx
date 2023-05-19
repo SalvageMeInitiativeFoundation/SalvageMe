@@ -19,7 +19,7 @@ function DonorBook({donation}) {
     // TODO:change current reciever to user email
     const requestData={'status':'processing','currentReciever':user[0].email,'listRecievers':listRecievers}
     try {
-      const requestBookResponse = await axios.put(`http://localhost:5000/salvageme/donation/updateDonation/${donation._id}`,requestData);
+      const requestBookResponse = await axios.put(`${process.env.REACT_APP_BASE_URL}/donation/updateDonation/${donation._id}`,requestData);
       // console.log("================================")
       console.log(requestBookResponse.data.listRecievers);
       if(requestBookResponse.status==200){
@@ -35,7 +35,7 @@ function DonorBook({donation}) {
     // TODO:create api for this which doesn't need token
     const updateRequestCountData={email:user[0].email,recievedCount:user[0].recievedCount+1}
     try {
-          const updateRequestResponse=await axios.put('http://localhost:5000/salvageme/auth/updateUserCount',updateRequestCountData);
+          const updateRequestResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount`,updateRequestCountData);
           if(updateRequestResponse.status==200){
                 setLocalUser({...user[0],recievedCount:user[0].recievedCount+1})
 

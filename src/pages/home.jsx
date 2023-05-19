@@ -17,7 +17,7 @@ function Home() {
   const FetchData = async () => {
     try {
       const BookData = await axios.get(
-        "http://localhost:5000/salvageme/auth/users"
+        `${process.env.REACT_APP_BASE_URL}/auth/users`
       );
       setUsers(BookData.data);
       console.log(users);
@@ -109,17 +109,16 @@ function Home() {
           <div className="DevelopersInfo">
             <h5>About Project</h5>
             <p>
-            As part of our quest to contributing to the sustainable development goals <em>Goal 4 - Quality Education</em>; the SALVAGE ME campaign seeks to mobilize, rehabilitate and donate requisite educational materials, most especially books to local libraries in the Mfantseman Municipality
+              As part of our quest to contributing to the sustainable
+              development goals <em>Goal 4 - Quality Education</em>; the SALVAGE
+              ME campaign seeks to mobilize, rehabilitate and donate requisite
+              educational materials, most especially books to local libraries in
+              the Mfantseman Municipality
             </p>
             <h5>About Me</h5>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
+              A social developer who aims at making Africa and the world a
+              better place to be,willing to partner with every individual.
             </p>
           </div>
         </div>
