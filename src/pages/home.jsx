@@ -29,56 +29,56 @@ function Home() {
       <div className="Dashboard">
         <div className="DashboardMini">
           <div className="C1"></div>
-          <h3>1000</h3>
+          <h3>100</h3>
           <p>Religion</p>
         </div>
         <div className="DashboardMini">
           <div className="C2"></div>
-          <h3>1000</h3>
+          <h3>200</h3>
           <p>Social Science</p>
         </div>
         <div className="DashboardMini">
           <div className="C3"></div>
-          <h3>1000</h3>
+          <h3>10</h3>
           <p>Ap. Science & Technology</p>
         </div>
         <div className="DashboardMini">
           <div className="C4"></div>
-          <h3>1000</h3>
+          <h3>400</h3>
           <p>Art Recreation</p>
         </div>
         <div className="DashboardMini">
           <div className="C5"></div>
-          <h3>1000</h3>
+          <h3>400</h3>
           <p>Language</p>
         </div>
         <div>
-          <h1>1000</h1>
+          <h1>1130</h1>
           <h5>Total</h5>
         </div>
         <div className="DashboardMini">
           <div className="C6"></div>
-          <h3>1000</h3>
+          <h3>0</h3>
           <p>Science & Math</p>
         </div>
         <div className="DashboardMini">
           <div className="C7"></div>
-          <h3>1000</h3>
+          <h3>0</h3>
           <p>Generalities</p>
         </div>
         <div className="DashboardMini">
           <div className="C8"></div>
-          <h3>1000</h3>
+          <h3>10</h3>
           <p>Literature</p>
         </div>
         <div className="DashboardMini">
           <div className="C9"></div>
-          <h3>1000</h3>
+          <h3>0</h3>
           <p>Geography & History</p>
         </div>
         <div className="DashboardMini">
           <div className="C10"></div>
-          <h3>1000</h3>
+          <h3>10</h3>
           <p>Philosophy & Psychology</p>
         </div>
       </div>

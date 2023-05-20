@@ -97,7 +97,11 @@ function Request() {
           />
         </div>
       </div>
-
+      <p style={{textAlign:'center',color:'red'}} >
+        
+        users can only request for a single book at a go when this application
+        goes live to ensure equity
+      </p>
       {isLoading ? (
         <Spinner></Spinner>
       ) : donations.length < 1 ? (
@@ -107,7 +111,7 @@ function Request() {
       ) : (
         <div className="flexLayout">
           {donations.map((donation, index) => {
-            console.log('==============================')
+            console.log("==============================");
 
             if (donation.status == "recieved") {
               console.log(donation);
