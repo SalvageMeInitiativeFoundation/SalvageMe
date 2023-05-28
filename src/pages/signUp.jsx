@@ -96,6 +96,7 @@ function SignUp() {
           },
          
         );
+        
         console.log(urlResponse.data.imageUrl);
         const signUpData = { ...SignUpForm, image: urlResponse.data.imageUrl };
         const signUpUserResponse = await axios.post(
