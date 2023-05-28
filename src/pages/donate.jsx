@@ -142,7 +142,7 @@ function Donate() {
 
     const updateDonationCountData={email:user[0].email,donationCount:user[0].donationCount+1}
     try {
-          const updateDonationResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount`,updateDonationCountData);
+          const updateDonationResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user[0]._id}`,updateDonationCountData);
           if(updateDonationResponse.status==200){
                 setLocalUser({...user[0],donationCount:user[0].donationCount+1})
                 console.log("=====================updatingUserCount=====================")

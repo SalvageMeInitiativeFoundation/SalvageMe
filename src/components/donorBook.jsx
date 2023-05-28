@@ -35,7 +35,7 @@ function DonorBook({donation}) {
     // TODO:create api for this which doesn't need token
     const updateRequestCountData={email:user[0].email,recievedCount:user[0].recievedCount+1}
     try {
-          const updateRequestResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount`,updateRequestCountData);
+          const updateRequestResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user[0]._id}`,updateRequestCountData);
           if(updateRequestResponse.status==200){
                 setLocalUser({...user[0],recievedCount:user[0].recievedCount+1})
 
