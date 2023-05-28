@@ -12,6 +12,7 @@ function SignUp() {
   const [preview, setPreview] = useState(null)
   const [picFile,setPicFile]=useState(null);
   const [isLoading,setIsLoading]=useState(false)
+  const [isError,setIsError]=useState(false);
 
   useEffect(() => {
     
@@ -83,7 +84,7 @@ function SignUp() {
     e.preventDefault();
     setIsLoading(true);
     const mypic = new FormData()
-    if (password === confirmPassword) {
+    if (password === confirmPassword && selectedImage!=null) {
       delete SignUpForm.confirmPassword;
       try {
         
@@ -111,20 +112,24 @@ function SignUp() {
           setLocalUser(signUpUserResponse.data._doc)
           // TODO:write implementation to store data locally  for future reference
           setIsLoading(false)
+          setIsError(false)
           navigate("/");
         }
       } catch (error) {
         setIsLoading(false);
+        setIsError(false)
         console.log(error);
       }
     }
+    setIsLoading(false);
+    setIsError(true)
   };
 
   return (
     <>
       <div className="SignUpForm">
         <h3 style={{ textAlign: "center" }}>Create Account</h3>
-
+        {isError&&<span style={{color:"red",textAlign: "center"}}>Complete all fields including image</span> }
         <form >
           <div className="SignUpFormInput">
             <div>

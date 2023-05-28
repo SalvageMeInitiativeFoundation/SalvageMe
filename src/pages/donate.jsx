@@ -1,24 +1,24 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import DonorBook from "../components/donorBook";
 import Dropdown from "../components/dropdown";
 import axios from "axios";
 import { MdCloudUpload } from "react-icons/md";
-import {UserContext} from "../context/userContext/userContext";
-
+import { UserContext } from "../context/userContext/userContext";
 
 function Donate() {
-  const {setLocalUser,getLocalUser,setUser,user}=useContext(UserContext)
+  const { setLocalUser, getLocalUser, setUser, user } = useContext(UserContext);
 
   const [filterCategory, setFilterCategory] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [picFile,setPicFile]=useState(null);
-  const [isLoading,setIsLoading]=useState(false)
+  const [picFile, setPicFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    console.log('=====================useremail======================');
-    console.log(user[0])
-    console.log(donationFormData)
+    console.log("=====================useremail======================");
+    console.log(user[0]);
+    console.log(donationFormData);
     if (!selectedImage) {
       setPreview(null);
       return;
@@ -68,7 +68,6 @@ function Donate() {
     if (e.target.files) {
       setSelectedImage(e.target.files[0]);
       handleUpload(e);
-      
     }
 
     if (e.target.value === "true") {
@@ -95,71 +94,85 @@ function Donate() {
     }
   };
 
-  const addDonation = async (File,e) => {
-    e.preventDefault()
+  const addDonation = async (File, e) => {
+    e.preventDefault();
     setIsLoading(true);
     const mypic = new FormData();
-
-    try {
-      mypic.append('mypic',File);
-      const urlResponse = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/picture/image-upload`,
-        mypic,{
-          headers: {
-            // 'Accept-Language': 'en-US,en;q=0.8',
-            'Content-Type': 'multipart/form-data',
+    if (selectedImage != null) {
+      try {
+        mypic.append("mypic", File);
+        const urlResponse = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/picture/image-upload`,
+          mypic,
+          {
+            headers: {
+              // 'Accept-Language': 'en-US,en;q=0.8',
+              "Content-Type": "multipart/form-data",
+            },
           }
-        },
+        );
+        const image = urlResponse.data.imageUrl;
+        const donationDetails = {
+          ...donationFormData,
+          image: urlResponse.data.imageUrl,
+          category: filterCategory,
+        };
+        console.log("===============donation details=====");
+        console.log(donationDetails);
+        const donationResponse = await axios.post(
+          `${process.env.REACT_APP_BASE_URL}/donation/createDonation`,
+          donationDetails
+        );
+        if (donationResponse.status == 200) {
+          console.log(
+            "=====================bookCreated======================="
+          );
+          console.log(donationResponse.data);
+          setDonationFormData({
+            title: "",
+            category: "",
+            donor: user[0].email,
+            withOwner: "false",
+            image: "",
+          });
+          setSelectedImage(null);
+          setIsLoading(false);
+          setIsError(false)
+          updateDonationCount();
+        }
+      } catch (error) {
+        setIsLoading(false);
+        setIsError(false)
+        console.log(error);
+      }
+    }
+    setIsLoading(false);
+    setIsError(true)
+  };
+
+  const updateDonationCount = async () => {
+    // TODO:create api for this which doesn't need token
+
+    const updateDonationCountData = {
+      email: user[0].email,
+      donationCount: user[0].donationCount + 1,
+    };
+    try {
+      const updateDonationResponse = await axios.put(
+        `${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user[0]._id}`,
+        updateDonationCountData
       );
-      const image = urlResponse.data.imageUrl;
-      const donationDetails = {
-        ...donationFormData,
-        image: urlResponse.data.imageUrl,
-        category: filterCategory,
-      };
-      console.log('===============donation details=====')
-      console.log(donationDetails);
-      const donationResponse = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/donation/createDonation`,
-        donationDetails
-      );
-      if (donationResponse.status == 200) {
-        console.log('=====================bookCreated=======================')
-        console.log(donationResponse.data);
-        setDonationFormData({
-          title: "",
-          category: "",
-          donor: user[0].email,
-          withOwner: "false",
-          image: "",
-        });
-        setSelectedImage(null)
-        setIsLoading(false)
-        updateDonationCount();
+      if (updateDonationResponse.status == 200) {
+        setLocalUser({ ...user[0], donationCount: user[0].donationCount + 1 });
+        console.log(
+          "=====================updatingUserCount====================="
+        );
+        console.log(updateDonationResponse.data);
       }
     } catch (error) {
-      setIsLoading(false)
       console.log(error);
     }
   };
-
-  const updateDonationCount=async()=>{
-    // TODO:create api for this which doesn't need token
-
-    const updateDonationCountData={email:user[0].email,donationCount:user[0].donationCount+1}
-    try {
-          const updateDonationResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user[0]._id}`,updateDonationCountData);
-          if(updateDonationResponse.status==200){
-                setLocalUser({...user[0],donationCount:user[0].donationCount+1})
-                console.log("=====================updatingUserCount=====================")
-                console.log(updateDonationResponse.data)
-          }
-    } catch (error) {
-      console.log(error)
-    }
-
-
-  }
 
   const { title, category, donor, withOwner } = donationFormData;
 
@@ -168,7 +181,8 @@ function Donate() {
       <main className="Donate">
         <div className="DonateForm">
           <h3 style={{ textAlign: "center" }}>Donate a book</h3>
-          <form >
+          {isError&&<span style={{color:"red",textAlign: "center"}}>Complete all fields including image</span> }
+          <form>
             <div className="DonateFormDetails">
               <div>
                 <label>Title</label>
@@ -244,7 +258,13 @@ function Donate() {
                 />
               </div>
             </div>
-            <button type="button" className="DonateButton" onClick={(e)=>addDonation(picFile,e)}>{isLoading?'Loading....':'Donate'}</button>
+            <button
+              type="button"
+              className="DonateButton"
+              onClick={(e) => addDonation(picFile, e)}
+            >
+              {isLoading ? "Loading...." : "Donate"}
+            </button>
           </form>
         </div>
       </main>
