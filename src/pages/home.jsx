@@ -25,6 +25,7 @@ function Home() {
         `${process.env.REACT_APP_BASE_URL}/donation/`
       );
       setDonations(BData.data);
+      
 
       console.log(users);
     } catch (error) {
