@@ -37,6 +37,8 @@ function DonorBook({donation}) {
     try {
           const updateRequestResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user[0]._id}`,updateRequestCountData);
           if(updateRequestResponse.status==200){
+            console.log('======================updating request count==========')
+            console.log(updateRequestResponse.data);
                 setLocalUser({...user[0],recievedCount:user[0].recievedCount+1})
 
           }
