@@ -4,20 +4,26 @@ import { createContext } from "react";
 export const UserContext=createContext('UserContext');
 
 const UserContextProvider=({children})=>{
+    const [ls,setLs]=useState(localStorage.getItem('userProfile'))
     const [user,setUser]=useState([])
     useEffect(()=>{
         getLocalUser();
+        setLs([]);
        },[])
 
-    function setLocalUser(userResponse){
-        localStorage.setItem('userProfile',JSON.stringify(userResponse))
+    async function setLocalUser(userResponse){
+        console.log('=========data to set local storage===')
+        console.log(userResponse)
+        localStorage.setItem("userProfile",JSON.stringify(userResponse))
         setUser([userResponse])
+        // TODO:find a way to make local storage setitem happen in real time
     }
     function getLocalUser(){
         const item=JSON.parse(localStorage.getItem('userProfile'))
         if(item){
-            setUser(item)
-            console.log(user)
+            setUser([item])
+            console.log('==========local user============')
+            console.log([item])
             return user
         }
     }

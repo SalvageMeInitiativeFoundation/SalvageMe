@@ -115,6 +115,8 @@ function Donate() {
         image: urlResponse.data.imageUrl,
         category: filterCategory,
       };
+      console.log('===============donation details=====')
+      console.log(donationDetails);
       const donationResponse = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/donation/createDonation`,
         donationDetails

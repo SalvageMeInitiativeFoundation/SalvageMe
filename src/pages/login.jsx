@@ -23,9 +23,9 @@ function Login(){
            console.log(loginResponse.data)
            if(loginResponse.status==200){
 
-            setLocalUser([loginResponse.data]);
-            console.log('==============================')
-            console.log(user)
+            setLocalUser(loginResponse.data);
+            console.log('===============Login===============')
+            console.log(loginResponse.data)
         
             // TODO:Write implementaion to store value in local storage
             navigate('/');

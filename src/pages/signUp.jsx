@@ -104,8 +104,9 @@ function SignUp() {
           signUpData
         );
         if (signUpUserResponse.status== 200) {
-          console.log(signUpUserResponse.data);
-          setLocalUser(signUpUserResponse.data)
+          console.log('===========signup response======')
+          console.log(signUpUserResponse.data._doc);
+          setLocalUser(signUpUserResponse.data._doc)
           // TODO:write implementation to store data locally  for future reference
           
           navigate("/");
