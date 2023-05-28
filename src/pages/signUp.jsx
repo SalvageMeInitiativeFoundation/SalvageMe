@@ -11,6 +11,7 @@ function SignUp() {
   const [selectedImage,setSelectedImage]=useState(null);
   const [preview, setPreview] = useState(null)
   const [picFile,setPicFile]=useState(null);
+  const [isLoading,setIsLoading]=useState(false)
 
   useEffect(() => {
     
@@ -80,6 +81,7 @@ function SignUp() {
 
     async function  signUpUser (File,e){
     e.preventDefault();
+    setIsLoading(true);
     const mypic = new FormData()
     if (password === confirmPassword) {
       delete SignUpForm.confirmPassword;
@@ -108,10 +110,11 @@ function SignUp() {
           console.log(signUpUserResponse.data._doc);
           setLocalUser(signUpUserResponse.data._doc)
           // TODO:write implementation to store data locally  for future reference
-          
+          setIsLoading(false)
           navigate("/");
         }
       } catch (error) {
+        setIsLoading(false);
         console.log(error);
       }
     }
@@ -207,7 +210,7 @@ function SignUp() {
           </div>
 
           <button className="SignUpButton" type="button" onClick={(e)=>signUpUser(picFile,e)}>
-            SignUp
+            {isLoading?'Loading....':'SignUp'}
           </button>
         </form>
         <p style={{ textAlign: "center" }}>

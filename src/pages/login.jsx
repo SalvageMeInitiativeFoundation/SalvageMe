@@ -17,6 +17,7 @@ function Login(){
 
     const LoginUser=async(e)=>{
         e.preventDefault();
+        setIsLoading(true)
         console.log('loggiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin')
         try {
            const loginResponse= await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/loginUser`,loginData) ;
@@ -26,12 +27,14 @@ function Login(){
             setLocalUser(loginResponse.data);
             console.log('===============Login===============')
             console.log(loginResponse.data)
+            setIsLoading(false);
         
             // TODO:Write implementaion to store value in local storage
             navigate('/');
 
            }
         } catch (error) {
+            setIsLoading(false);
             console.log(error);
         }
     }
@@ -51,7 +54,7 @@ function Login(){
         <input type="password" name="Password" id="password" placeholder="Enter your password" required={true} value={password} onChange={handleChange}/><br></br>
         </div>
         <p style={{textAlign:"right",color:"#9747ff",cursor:"pointer"}}>Forgot password?</p>
-        <button  className="LogInButton" type="submit">Login</button>
+        <button  className="LogInButton" type="submit">{isLoading?'Loading....':'Login'}</button>
         <p  style={{textAlign:"center"}}>Already have an account?<Link to='/signUp'>SignUp</Link></p>
         </form>
         </div>

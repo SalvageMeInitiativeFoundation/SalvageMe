@@ -13,6 +13,7 @@ function Donate() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [picFile,setPicFile]=useState(null);
+  const [isLoading,setIsLoading]=useState(false)
 
   useEffect(() => {
     console.log('=====================useremail======================');
@@ -96,6 +97,7 @@ function Donate() {
 
   const addDonation = async (File,e) => {
     e.preventDefault()
+    setIsLoading(true);
     const mypic = new FormData();
 
     try {
@@ -132,9 +134,11 @@ function Donate() {
           image: "",
         });
         setSelectedImage(null)
+        setIsLoading(false)
         updateDonationCount();
       }
     } catch (error) {
+      setIsLoading(false)
       console.log(error);
     }
   };
@@ -240,7 +244,7 @@ function Donate() {
                 />
               </div>
             </div>
-            <button type="button" className="DonateButton" onClick={(e)=>addDonation(picFile,e)}>Donate</button>
+            <button type="button" className="DonateButton" onClick={(e)=>addDonation(picFile,e)}>{isLoading?'Loading....':'Donate'}</button>
           </form>
         </div>
       </main>
