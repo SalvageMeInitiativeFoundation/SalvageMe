@@ -189,17 +189,8 @@ function Home() {
 
       <h4 style={{ textAlign: "center" }}>Partners</h4>
       <div className="flexLayout">
-        <Partners />
-        <Partners />
-        <Partners />
-        <Partners />
-        <Partners />
-        <Partners />
-        <Partners />
-        <Partners />
-        <Partners />
-        <Partners />
-        <Partners />
+        <Partners urlpath='heropic.jpg' />
+        
       </div>
     </>
   );

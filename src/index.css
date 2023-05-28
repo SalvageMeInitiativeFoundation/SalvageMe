@@ -624,6 +624,17 @@ ul {
     border-radius: 10px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
+  .Volunteers {
+    display: flex;
+    place-items: center;
+    flex-direction: column;
+    padding: 10px;
+    width: 130px;
+    height: 177px;
+    margin: 0px 5px 5px 5px;
+    border-radius: 10px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
 
 
 
