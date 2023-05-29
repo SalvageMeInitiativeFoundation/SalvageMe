@@ -7,6 +7,7 @@ import {UserContext} from "../context/userContext/userContext";
 function Login(){
     const {setLocalUser,getLocalUser,setUser,user}=useContext(UserContext)
     const [isLoading,setIsLoading]=useState(false);
+    const [isError,setIsError]=useState(false);
     const [loginData,setLoginData]=useState({email:"",password:""})
     const navigate=useNavigate()
     const handleChange=(e)=>{
@@ -35,6 +36,10 @@ function Login(){
            }
         } catch (error) {
             setIsLoading(false);
+            setIsError(true)
+    setTimeout(()=>{
+      setIsError(false);
+    },3000)
             console.log(error);
         }
     }
@@ -44,6 +49,7 @@ function Login(){
        
         <div className="LoginForm">  
         <h3 style={{textAlign:"center"}}>Welcome Back</h3>
+        {isError&&<span style={{color:"red",textAlign: "center"}}>Incorrect username and password</span> }
         <form onSubmit={LoginUser}>
         <div>
         <label htmlFor="Email">Email</label><br></br>

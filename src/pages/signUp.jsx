@@ -110,19 +110,19 @@ function SignUp() {
           console.log('===========signup response======')
           console.log(signUpUserResponse.data._doc);
           setLocalUser(signUpUserResponse.data._doc)
-          // TODO:write implementation to store data locally  for future reference
           setIsLoading(false)
-          setIsError(false)
           navigate("/");
         }
       } catch (error) {
         setIsLoading(false);
-        setIsError(false)
         console.log(error);
       }
     }
     setIsLoading(false);
     setIsError(true)
+    setTimeout(()=>{
+      setIsError(false);
+    },3000)
   };
 
   return (

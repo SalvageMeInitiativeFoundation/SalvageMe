@@ -14,6 +14,7 @@ function Donate() {
   const [picFile, setPicFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isSuccessful, setIsSucessful] = useState(false);
 
   useEffect(() => {
     console.log("=====================useremail======================");
@@ -96,7 +97,9 @@ function Donate() {
 
   const addDonation = async (File, e) => {
     e.preventDefault();
+    setIsError(false);
     setIsLoading(true);
+    setIsSucessful(false);
     const mypic = new FormData();
     if (selectedImage != null) {
       try {
@@ -137,17 +140,21 @@ function Donate() {
           });
           setSelectedImage(null);
           setIsLoading(false);
-          setIsError(false)
+          setIsSucessful(true);
           updateDonationCount();
         }
       } catch (error) {
         setIsLoading(false);
-        setIsError(false)
+
         console.log(error);
       }
+    } else {
+      setIsLoading(false);
+      setIsError(true);
+      setTimeout(() => {
+        setIsError(false);
+      }, 3000);
     }
-    setIsLoading(false);
-    setIsError(true)
   };
 
   const updateDonationCount = async () => {
@@ -181,7 +188,18 @@ function Donate() {
       <main className="Donate">
         <div className="DonateForm">
           <h3 style={{ textAlign: "center" }}>Donate a book</h3>
-          {isError&&<span style={{color:"red",textAlign: "center"}}>Complete all fields including image</span> }
+          {isError? (
+            <span style={{ color: "red", textAlign: "center" }}>
+              Complete all fields including image
+            </span>
+          ) : isSuccessful ? (
+            <span style={{ color: "green", textAlign: "center" }}>
+              Donation sent successfully,you can upload more
+            </span>
+          ) : (
+            ""
+          )}
+          {/* {isSuccessful&&<span style={{color:"green",textAlign: "center"}}>Donation sent successfully,you can upload more</span>  } */}
           <form>
             <div className="DonateFormDetails">
               <div>
