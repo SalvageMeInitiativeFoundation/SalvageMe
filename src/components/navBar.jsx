@@ -28,7 +28,8 @@ function NavBar(){
         <Link to='/'><h2>Salvage<span>Me</span></h2></Link>
 
         <ul className='navBarList'>
-        <Link to='/donate'>
+        <Link to='/donate'
+      >
         {pathName('/donate')? <div className='Selected'>
         <li >Donate</li>
         <hr color='white'></hr></div>:

@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState, useContext } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link,useNavigate,useLocation } from "react-router-dom";
 import {UserContext} from "../context/userContext/userContext";
 
 
 function Login(){
+    const history = useLocation();
+    console.log('==============history=====')
+    console.log(history);
     const {setLocalUser,getLocalUser,setUser,user}=useContext(UserContext)
     const [isLoading,setIsLoading]=useState(false);
     const [isError,setIsError]=useState(false);
@@ -49,6 +52,7 @@ function Login(){
        
         <div className="LoginForm">  
         <h3 style={{textAlign:"center"}}>Welcome Back</h3>
+        {history.state!=null && <span style={{color:"red",textAlign: "center"}}>Login to {history.state.replace('/','')}</span>}
         {isError&&<span style={{color:"red",textAlign: "center"}}>Incorrect username and password</span> }
         <form onSubmit={LoginUser}>
         <div>
