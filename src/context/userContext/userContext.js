@@ -6,6 +6,7 @@ export const UserContext=createContext('UserContext');
 const UserContextProvider=({children})=>{
     const [ls,setLs]=useState(localStorage.getItem('userProfile'))
     const [user,setUser]=useState([])
+    const [requestQty,setRequestQty]=useState([])
     useEffect(()=>{
         getLocalUser();
         setLs([]);
@@ -32,7 +33,7 @@ const UserContextProvider=({children})=>{
         setUser([])
     }
 
-    return (<UserContext.Provider value={{setLocalUser,removeLocalUser,getLocalUser,setUser,user}}>
+    return (<UserContext.Provider value={{setLocalUser,removeLocalUser,getLocalUser,setUser,user,setRequestQty,requestQty}}>
         {children}
     </UserContext.Provider>)
 }

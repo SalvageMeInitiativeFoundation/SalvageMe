@@ -53,6 +53,7 @@ function Login(){
         <div className="LoginForm">  
         <h3 style={{textAlign:"center"}}>Welcome Back</h3>
         {history.state!=null && <span style={{color:"red",textAlign: "center"}}>Login to {history.state.replace('/','')}</span>}
+        {isError&&<br></br>}
         {isError&&<span style={{color:"red",textAlign: "center"}}>Incorrect username and password</span> }
         <form onSubmit={LoginUser}>
         <div>

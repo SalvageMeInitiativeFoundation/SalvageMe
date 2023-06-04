@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import DonorBook from "../components/donorBook";
 import { IoIosFunnel } from "react-icons/io";
 import Filter from "../components/filter";
 import axios from "axios";
 import Spinner from "../shared/spinner";
+import { UserContext } from "../context/userContext/userContext";
 
 function Request() {
+  const {requestQty}=useContext(UserContext);
   const [singleSearchValue, setSingleSearchValue] = useState("");
   const [isLoading, setIsloading] = useState(true);
   const [donations, setDonations] = useState(null);
@@ -97,11 +99,11 @@ function Request() {
           />
         </div>
       </div>
-      <p style={{textAlign:'center',color:'red'}} >
+      {requestQty.length>=1&&<p style={{textAlign:'center',color:'red'}} >
         
-        users can only request for a single book at a go when this application
-        goes live to ensure equity
-      </p>
+       NB: Users can only request a book at a time
+      </p>}
+      
       {isLoading ? (
         <Spinner></Spinner>
       ) : donations.length < 1 ? (

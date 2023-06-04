@@ -5,7 +5,7 @@ import {UserContext} from "../context/userContext/userContext";
 
 function DonorBook({donation}) {    
   // console.log(...donation.listRecievers)
-  const {setLocalUser,getLocalUser,setUser,user}=useContext(UserContext)
+  const {setLocalUser,getLocalUser,setUser,user,setRequestQty,requestQty}=useContext(UserContext)
 
   const [requestList,setrequestlist]=useState([])
   const [listRecievers,setListRecievers]=useState(null)
@@ -18,6 +18,8 @@ function DonorBook({donation}) {
     // console.log(listRecievers);
     // TODO:change current reciever to user email
     const requestData={'status':'processing','currentReciever':user[0].email,'listRecievers':listRecievers}
+    if(requestQty.length<1||user[0].accountType=='org'){
+      console.log(user[0].accountType=='org')
     try {
       const requestBookResponse = await axios.put(`${process.env.REACT_APP_BASE_URL}/donation/updateDonation/${donation._id}`,requestData);
       // console.log("================================")
@@ -25,11 +27,13 @@ function DonorBook({donation}) {
       if(requestBookResponse.status==200){
         setrequestlist((prev)=>[...prev,donation._id])
         updateRequestCount()
+        setRequestQty((prev)=>[...prev,donation._id])
       }
 
     } catch (error) {
       console.error(error)
     }
+  }
   }
   const updateRequestCount=async()=>{
     // TODO:create api for this which doesn't need token

@@ -152,8 +152,7 @@ function Home() {
         <Spinner></Spinner>
       ) : (
         <div className="flexLayout">
-          {users.map((user, index) => (
-            <Heroes key={index} user={user} />
+          {users.map((user, index) => (user.donationCount>50 && <Heroes key={index} user={user} />
           ))}
         </div>
       )}

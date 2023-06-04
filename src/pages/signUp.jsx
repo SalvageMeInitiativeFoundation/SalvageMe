@@ -81,6 +81,8 @@ function SignUp() {
     SignUpForm;
 
     async function  signUpUser (File,e){
+      console.log("===Signup data======");
+      console.log( email, username, password, linkedin, confirmPassword );
     e.preventDefault();
     setIsLoading(true);
     const mypic = new FormData()
