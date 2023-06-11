@@ -13,24 +13,8 @@ function SignUp() {
   const [picFile,setPicFile]=useState(null);
   const [isLoading,setIsLoading]=useState(false)
   const [isError,setIsError]=useState(false);
-
-  useEffect(() => {
-    
-    if (!selectedImage) {
-      setPreview(null)
-      console.log('se'+ selectedImage)
-      return
-  }
-    // create the preview
-    const objectUrl = URL.createObjectURL(selectedImage)
-    setPreview(objectUrl)
- 
-    // free memory when ever this component is unmounted
-    return () => URL.revokeObjectURL(objectUrl)
- }, [selectedImage])
-
-
- 
+  const [validationError,setValidationError]=useState({})
+  const [submittedBefore,setSubmittedBefore]=useState(false);
   const navigate = useNavigate();
   const [SignUpForm, setSignUpForm] = useState(
     {
@@ -44,6 +28,65 @@ function SignUp() {
     }
     // aacount type can be user,volunteer or partner
   );
+
+  const { email, username, password, linkedin, confirmPassword } =
+  SignUpForm;
+
+
+  useEffect(() => {
+    if(submittedBefore==true){
+      console.log('sumitred before');
+      setValidationError(formValidator(SignUpForm))
+    }
+    
+    if (!selectedImage) {
+      setPreview(null)
+      console.log('se'+ selectedImage)
+      return
+  }
+    // create the preview
+    const objectUrl = URL.createObjectURL(selectedImage)
+    setPreview(objectUrl)
+
+ 
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl)
+ }, [selectedImage, email, username, password, linkedin, confirmPassword])
+
+
+ 
+
+ 
+  const formValidator=(input)=>{  
+    const regex=/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    // TODO:test regex
+    let inputError={}
+    input.image=selectedImage
+    if(input.image==null){
+      inputError.image='Add a profile picture'
+    }
+    if (regex.test(input.email.trim())==false){
+      inputError.email='Enter a valid email'
+
+    }
+    if (input.linkedin==''){
+       inputError.linkedin='Enter a linkedin profile link'
+      }
+    if (input.username==''){
+      inputError.username='Enter a username'
+
+    }
+    if (input.password==''){
+      inputError.password='Enter a password'
+
+    }
+    if (input.confirmPassword!==input.password){
+          inputError.confirmPassword='Password must match'
+    }
+    return inputError
+
+  }
+
 
   const acceptedExt = ["image/png", "image/jpg", "image/jpeg"];
 
@@ -77,17 +120,19 @@ function SignUp() {
 
   };
 
-  const { email, username, password, linkedin, confirmPassword } =
-    SignUpForm;
-
+ 
     async function  signUpUser (File,e){
       console.log("===Signup data======");
       console.log( email, username, password, linkedin, confirmPassword );
     e.preventDefault();
+    setSubmittedBefore(true);
+    setValidationError(formValidator(SignUpForm))
     setIsLoading(true);
     const mypic = new FormData()
-    if (password === confirmPassword && selectedImage!=null) {
-      delete SignUpForm.confirmPassword;
+    if (Object.keys(validationError).length==0 && selectedImage!=null) {
+      let signUpFormRaw={...SignUpForm};
+      delete signUpFormRaw.confirmPassword;
+      // console.log('saving');
       try {
         
         mypic.append('mypic',File);
@@ -103,7 +148,7 @@ function SignUp() {
         );
         
         console.log(urlResponse.data.imageUrl);
-        const signUpData = { ...SignUpForm, image: urlResponse.data.imageUrl };
+        const signUpData = { ...signUpFormRaw, image: urlResponse.data.imageUrl };
         const signUpUserResponse = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/auth/createUser`,
           signUpData
@@ -119,19 +164,20 @@ function SignUp() {
         setIsLoading(false);
         console.log(error);
       }
-    }
-    setIsLoading(false);
+    }else{
+      setIsLoading(false);
     setIsError(true)
     setTimeout(()=>{
       setIsError(false);
     },3000)
+  } 
   };
 
   return (
     <>
       <div className="SignUpForm">
         <h3 style={{ textAlign: "center" }}>Create Account</h3>
-        {isError&&<span style={{color:"red",textAlign: "center"}}>Complete all fields including image</span> }
+        {isError&&<span style={{color:"red",textAlign: "center"}}>Complete all fields</span> }
         <form >
           <div className="SignUpFormInput">
             <div>
@@ -149,6 +195,7 @@ function SignUp() {
                 accept="image/*"
                 hidden
               />
+              {validationError.image&&<span style={{color:"red",textAlign: "center"}} >{validationError.image}</span>}
             </div>
             <div className="SignUpFormInputFormColumn">
               <div>
@@ -163,6 +210,7 @@ function SignUp() {
                   onChange={handleChange}
                   value={username}
                 />
+                {validationError.username&&<span style={{color:"red",textAlign: "center"}} >{validationError.username}</span>}
               </div>
               
               <div>
@@ -176,6 +224,7 @@ function SignUp() {
                   onChange={handleChange}
                   value={email}
                 />
+                {validationError.email&&<span style={{color:"red",textAlign: "center"}}>{validationError.email}</span>}
               </div>
               <div>
                 <label htmlFor="Password">Password</label>
@@ -189,6 +238,7 @@ function SignUp() {
                   onChange={handleChange}
                   value={password}
                 />
+                {validationError.password&&<span style={{color:"red",textAlign: "center"}}>{validationError.password}</span>}
               </div>
               <div>
                 <label htmlFor=" ConfirmPassword"> Confirm password</label>
@@ -200,6 +250,7 @@ function SignUp() {
                   onChange={handleChange}
                   value={confirmPassword}
                 />
+                {validationError.confirmPassword&&<span style={{color:"red",textAlign: "center"}}>{validationError.confirmPassword}</span>}
               </div>
               <div>
                 <label htmlFor=" LinkedIn"> LinkedIn profile</label>
@@ -212,6 +263,8 @@ function SignUp() {
                   onChange={handleChange}
                   value={linkedin}
                 />
+                 {validationError.linkedin&&<span style={{color:"red",textAlign: "center"}}>{validationError.linkedin}</span>}
+
               </div>
             </div>
           </div>
