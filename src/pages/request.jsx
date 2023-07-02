@@ -103,12 +103,12 @@ function Request() {
         
        NB: Users can only request a book at a time
       </p>}
-      
       {isLoading ? (
         <Spinner></Spinner>
-      ) : donations.length < 1 ? (
+      ) : donations.filter((donation)=>donation.status=="recieved").length < 1 ? (
         <div className="flexLayout">
-          <p>No books available</p>
+          <p>Thank you for joining our wait list,<span style={{fontWeight:'bold'}}> Launching Soon</span> </p>
+          
         </div>
       ) : (
         <div className="flexLayout">
