@@ -1,6 +1,7 @@
 import axios from "axios";
 import React,{useEffect, useState,useContext } from "react";
 import {UserContext} from "../context/userContext/userContext";
+import { toast } from "react-toastify";
 
 
 function DonorBook({donation}) {    
@@ -19,18 +20,24 @@ function DonorBook({donation}) {
     // TODO:change current reciever to user email
     const requestData={'status':'processing','currentReciever':user[0].email,'listRecievers':listRecievers}
     if(requestQty.length<1||user[0].accountType=='org'){
-      console.log(user[0].accountType=='org')
+      // console.log(user[0].accountType=='org')
     try {
       const requestBookResponse = await axios.put(`${process.env.REACT_APP_BASE_URL}/donation/updateDonation/${donation._id}`,requestData);
       // console.log("================================")
-      console.log(requestBookResponse.data.listRecievers);
+      // console.log(requestBookResponse.data.listRecievers);
       if(requestBookResponse.status==200){
         setrequestlist((prev)=>[...prev,donation._id])
+        toast.success("Book Request Successful",{
+          position: toast.POSITION.TOP_RIGHT
+      })
         updateRequestCount()
         setRequestQty((prev)=>[...prev,donation._id])
       }
 
     } catch (error) {
+      toast.error('Could\'t Request Book,Try again',{
+        position: toast.POSITION.TOP_RIGHT
+    })
       console.error(error)
     }
   }
@@ -41,8 +48,8 @@ function DonorBook({donation}) {
     try {
           const updateRequestResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user[0]._id}`,updateRequestCountData);
           if(updateRequestResponse.status==200){
-            console.log('======================updating request count==========')
-            console.log(updateRequestResponse.data);
+            // console.log('======================updating request count==========')
+            // console.log(updateRequestResponse.data);
                 setLocalUser({...user[0],recievedCount:user[0].recievedCount+1})
 
           }

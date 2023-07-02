@@ -4,8 +4,8 @@ import {UserContext} from "../context/userContext/userContext";
 
 function PrivateRoute(){
     const location=useLocation();
-    console.log('=====Location in private route===')
-    console.log(location);
+    // console.log('=====Location in private route===')
+    // console.log(location);
     const {getLocalUser,setUser,user}=useContext(UserContext)
     // useEffect(()=>{
     //     getLocalUser();

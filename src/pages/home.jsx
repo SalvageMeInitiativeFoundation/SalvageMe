@@ -11,7 +11,7 @@ function Home() {
   const [donations, setDonations] = useState([]);
 
   useEffect(() => {
-    console.log("fetching");
+    // console.log("fetching");
     FetchData();
   }, []);
 
@@ -26,7 +26,7 @@ function Home() {
       );
       setDonations(BData.data);
 
-      console.log(users);
+      // console.log(users);
     } catch (error) {
       console.log(error);
     }
@@ -157,10 +157,10 @@ function Home() {
         </div>
       )}
       <div className="Developers">
-        <h4>Developers</h4>
+        <h4>SalvageMe Foundation</h4>
         <div className="DevelopersContainer">
           <img
-            src={require("../assets/heropic.jpg")}
+            src={require("../assets/learning.jpg")}
             alt="Developers Image"
             style={{
               width: "200px",
@@ -179,10 +179,9 @@ function Home() {
               educational materials, most especially books to local libraries
               and students giving priority to students in rural areas.
             </p>
-            <h5>About Me</h5>
+            <h5>Our Objectives</h5>
             <p>
-              A social developer who aims at making Africa and the world a
-              better place to be,willing to partner with every individual.
+              we hope to Maximize Access to Educational Resources, Minimize Waste, Foster a Sustainable and Inclusive Learning environment, promote Quality Education, Create Sustainable City and Community.
             </p>
           </div>
         </div>

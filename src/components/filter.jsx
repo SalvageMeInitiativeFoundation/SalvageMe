@@ -45,7 +45,7 @@ const Filter = ({ placeHolder,options,setDonations,setIsLoading}) => {
         const BookData = await axios.get(
           `${process.env.REACT_APP_BASE_URL}/donation/category/${category}`       
         );
-        console.log(BookData.data)
+        // console.log(BookData.data)
         setDonations(BookData.data);
         // setIsLoading((prev)=>!prev)
       } catch (error) {

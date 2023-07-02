@@ -3,6 +3,7 @@ import React, { useState,useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {MdCloudUpload} from 'react-icons/md';
 import {UserContext} from "../context/userContext/userContext";
+import { toast } from "react-toastify";
 
 
 
@@ -35,13 +36,13 @@ function SignUp() {
 
   useEffect(() => {
     if(submittedBefore==true){
-      console.log('sumitred before');
+      // console.log('sumitred before');
       setValidationError(formValidator(SignUpForm))
     }
     
     if (!selectedImage) {
       setPreview(null)
-      console.log('se'+ selectedImage)
+      // console.log('se'+ selectedImage)
       return
   }
     // create the preview
@@ -92,10 +93,10 @@ function SignUp() {
 
   async function handleUpload (e){
     e.preventDefault();
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
   
     if (acceptedExt.includes(e.target.files[0].type)) {
-      console.log('uploading')
+      // console.log('uploading')
       setPicFile(e.target.files[0]);
     //   for (var key of mypic.entries()) {
     //     console.log(key[0]+'-'+ key[1]);
@@ -107,7 +108,7 @@ function SignUp() {
   const handleChange = (e) => {
     e.preventDefault();
     if (e.target.files) {
-      console.log('file')
+      // console.log('file')
       setSelectedImage(e.target.files[0])
       handleUpload(e);
       // setSelectedImage(null)   
@@ -122,8 +123,8 @@ function SignUp() {
 
  
     async function  signUpUser (File,e){
-      console.log("===Signup data======");
-      console.log( email, username, password, linkedin, confirmPassword );
+      // console.log("===Signup data======");
+      // console.log( email, username, password, linkedin, confirmPassword );
     e.preventDefault();
     setSubmittedBefore(true);
     setValidationError(formValidator(SignUpForm))
@@ -147,21 +148,27 @@ function SignUp() {
          
         );
         
-        console.log(urlResponse.data.imageUrl);
+        // console.log(urlResponse.data.imageUrl);
         const signUpData = { ...signUpFormRaw, image: urlResponse.data.imageUrl };
         const signUpUserResponse = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/auth/createUser`,
           signUpData
         );
         if (signUpUserResponse.status== 200) {
-          console.log('===========signup response======')
-          console.log(signUpUserResponse.data._doc);
+          // console.log('===========signup response======')
+          // console.log(signUpUserResponse.data._doc);
           setLocalUser(signUpUserResponse.data._doc)
           setIsLoading(false)
+          toast.success('Account Succesfully Created',{
+            position: toast.POSITION.TOP_RIGHT
+        })
           navigate("/");
         }
       } catch (error) {
         setIsLoading(false);
+        toast.error('Couldn\'t create account',{
+          position: toast.POSITION.TOP_RIGHT
+      });
         console.log(error);
       }
     }else{

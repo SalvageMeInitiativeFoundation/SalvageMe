@@ -4,6 +4,7 @@ import Dropdown from "../components/dropdown";
 import axios from "axios";
 import { MdCloudUpload } from "react-icons/md";
 import { UserContext } from "../context/userContext/userContext";
+import { toast } from "react-toastify";
 
 function Donate() {
   const { setLocalUser, getLocalUser, setUser, user } = useContext(UserContext);
@@ -17,9 +18,9 @@ function Donate() {
   const [isSuccessful, setIsSucessful] = useState(false);
 
   useEffect(() => {
-    console.log("=====================useremail======================");
-    console.log(user[0]);
-    console.log(donationFormData);
+    // console.log("=====================useremail======================");
+    // console.log(user[0]);
+    // console.log(donationFormData);
     if (!selectedImage) {
       setPreview(null);
       return;
@@ -120,17 +121,17 @@ function Donate() {
           image: urlResponse.data.imageUrl,
           category: filterCategory,
         };
-        console.log("===============donation details=====");
-        console.log(donationDetails);
+        // console.log("===============donation details=====");
+        // console.log(donationDetails);
         const donationResponse = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/donation/createDonation`,
           donationDetails
         );
         if (donationResponse.status == 200) {
-          console.log(
-            "=====================bookCreated======================="
-          );
-          console.log(donationResponse.data);
+          // console.log(
+          //   "=====================bookCreated======================="
+          // );
+          // console.log(donationResponse.data);
           setDonationFormData({
             title: "",
             category: "",
@@ -141,11 +142,16 @@ function Donate() {
           setSelectedImage(null);
           setIsLoading(false);
           setIsSucessful(true);
+          toast.success('Book Successfully Donated',{
+            position: toast.POSITION.TOP_RIGHT
+        })
           updateDonationCount();
         }
       } catch (error) {
         setIsLoading(false);
-
+        toast.error('Error Donating Book',{
+          position: toast.POSITION.TOP_RIGHT
+      })
         console.log(error);
       }
     } else {
@@ -171,10 +177,10 @@ function Donate() {
       );
       if (updateDonationResponse.status == 200) {
         setLocalUser({ ...user[0], donationCount: user[0].donationCount + 1 });
-        console.log(
-          "=====================updatingUserCount====================="
-        );
-        console.log(updateDonationResponse.data);
+        // console.log(
+        //   "=====================updatingUserCount====================="
+        // );
+        // console.log(updateDonationResponse.data);
       }
     } catch (error) {
       console.log(error);

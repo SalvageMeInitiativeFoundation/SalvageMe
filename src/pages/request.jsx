@@ -13,7 +13,7 @@ function Request() {
   const [donations, setDonations] = useState(null);
 
   useEffect(() => {
-    console.log("fetching");
+    // console.log("fetching");
     FetchData();
   }, []);
 
@@ -25,7 +25,7 @@ function Request() {
       );
       setDonations(BookData.data);
       setIsloading(false);
-      console.log(donations);
+      // console.log(donations);
     } catch (error) {
       setIsloading(false);
     }
@@ -39,7 +39,7 @@ function Request() {
       );
       setDonations(BookData.data);
       setIsloading((prev) => !prev);
-      console.log(donations);
+      // console.log(donations);
     } catch (error) {
       console.error(error);
       setIsloading((prev) => !prev);
@@ -56,7 +56,7 @@ function Request() {
 
   const handleChange = (e) => {
     e.preventDefault();
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setSingleSearchValue(e.target.value);
   };
 
@@ -113,10 +113,10 @@ function Request() {
       ) : (
         <div className="flexLayout">
           {donations.map((donation, index) => {
-            console.log("==============================");
+            {/* console.log("=============================="); */}
 
             if (donation.status == "recieved") {
-              console.log(donation);
+              {/* console.log(donation); */}
               return <DonorBook key={index} donation={donation} />;
             }
           })}

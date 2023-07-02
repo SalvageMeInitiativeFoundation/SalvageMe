@@ -3,7 +3,7 @@ import {MdOutlineFavoriteBorder,MdCloudUpload} from 'react-icons/md';
 import {BsArrowDownLeft} from 'react-icons/bs';
 
 function Heroes({user}){
-    console.log(user)
+    // console.log(user)
 
     return <div className="Heroes">
         <img src={user.image} alt="Heroe's image" />

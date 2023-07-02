@@ -13,8 +13,8 @@ const UserContextProvider=({children})=>{
        },[])
 
     async function setLocalUser(userResponse){
-        console.log('=========data to set local storage===')
-        console.log(userResponse)
+        // console.log('=========data to set local storage===')
+        // console.log(userResponse)
         localStorage.setItem("userProfile",JSON.stringify(userResponse))
         setUser([userResponse])
         // TODO:find a way to make local storage setitem happen in real time
@@ -23,8 +23,8 @@ const UserContextProvider=({children})=>{
         const item=JSON.parse(localStorage.getItem('userProfile'))
         if(item){
             setUser([item])
-            console.log('==========local user============')
-            console.log([item])
+            // console.log('==========local user============')
+            // console.log([item])
             return user
         }
     }
