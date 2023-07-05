@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/Nav/Navbar";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
+import Books from "./pages/Books/Books";
 import SignUp from "./pages/signUp";
 import Donate from "./pages/donate";
 import Request from "./pages/request";
@@ -23,10 +24,11 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/request" element={<PrivateRoute />}>
+            <Route path="/about" element={<About />} /> 
+            <Route path="/request" element={<Books />} /> 
+            {/* <Route path="/request" element={<PrivateRoute />}>
               <Route path="/request" element={<Request />} />
-            </Route>
+            </Route> */}
             <Route path="/donate" element={<PrivateRoute />}>
               <Route path="/donate" element={<Donate />} />
             </Route>

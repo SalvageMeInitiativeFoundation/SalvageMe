@@ -32,9 +32,9 @@ const Navbar = () => {
         </NavbarToggle>
 
         <NavbarLinks className={`navbar-links ${isNavOpen ? "active" : ""}`}>
-          <li className="navbar-link">Donate</li>
-          <li className="navbar-link">Request</li>
-          <li className="navbar-link">Login</li>
+          <li className="navbar-link"><Link to="/donate">Donate</Link></li>
+          <li className="navbar-link"><Link to="/request">Request</Link></li>
+          <li className="navbar-link"><Link to="/login">Login</Link></li>
         </NavbarLinks>
       </Nav>
     </NavWrap>
@@ -102,10 +102,14 @@ const NavbarToggle = styled.button`
 const NavbarLinks = styled.ul`
   display: flex;
   list-style: none;
-  color: #ff8c00;
+  
   .navbar-link {
     margin-right: 10px;
-    cursor: pointer;
+    cursor: default;
+    a{
+      text-decoration: none;
+      color: #ff8c00;
+    }
     @media (max-width: 768px) {
       margin-bottom: 10px;
     }
