@@ -2,9 +2,10 @@ import "./index.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NavBar from "./components/navBar";
-import SignUp from "./pages/signUp";
+import NavBar from "./components/Nav/Navbar";
 import Home from "./pages/Home/Home";
+import About from "./pages/About/About";
+import SignUp from "./pages/signUp";
 import Donate from "./pages/donate";
 import Request from "./pages/request";
 import Login from "./pages/login";
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/about" element={<About />} />
             <Route path="/request" element={<PrivateRoute />}>
               <Route path="/request" element={<Request />} />
             </Route>

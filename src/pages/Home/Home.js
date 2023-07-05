@@ -2,11 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { useParams } from "react-router";
 import { connect } from "react-redux";
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import BackgroundSlider from "./BackgroundSlider";
 import { Link } from "react-router-dom";
 import { isEmailValid, isContactValid } from "../../utils/middleware";
-
 
 const Home = (props) => {
   let { secId } = useParams();
@@ -18,17 +17,17 @@ const Home = (props) => {
   const [emailError, setEmailError] = useState("");
   const [contactError, setContactError] = useState("");
 
-  const validateEmail = (value) => { 
-      setEmail(value);
-      let emailRes = isEmailValid(value);
-      setEmailError(emailRes[1] ? emailRes[1] : "");
-  }; 
+  const validateEmail = (value) => {
+    setEmail(value);
+    let emailRes = isEmailValid(value);
+    setEmailError(emailRes[1] ? emailRes[1] : "");
+  };
 
-  const validateContact = (value) => { 
-      setContact(value);
-      let contactRes = isContactValid(value);
-      setContactError(contactRes[1] ? contactRes[1] : "");
-  }; 
+  const validateContact = (value) => {
+    setContact(value);
+    let contactRes = isContactValid(value);
+    setContactError(contactRes[1] ? contactRes[1] : "");
+  };
 
   const handlePartnership = (e) => {
     e.preventDefault();
@@ -38,32 +37,32 @@ const Home = (props) => {
     }
 
     const payload = {
-        name: username,
-        email: email,
-        contact: contact,
-        message: message
+      name: username,
+      email: email,
+      contact: contact,
+      message: message,
     };
 
     props.signUp(payload);
-  }
+  };
 
   const handleClickScroll = (id) => {
     const element = document.getElementById(id);
     if (element) {
       // 👇 Will scroll smoothly to the top of the next section
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   useEffect(() => {
-    const scrollToSection = async () => { 
-        if (secId) {
-          handleClickScroll(secId);
-        }
-      }; 
-      scrollToSection();
+    const scrollToSection = async () => {
+      if (secId) {
+        handleClickScroll(secId);
+      }
+    };
+    scrollToSection();
   }, [secId]);
-   
+
   return (
     <Container>
       <div>
@@ -72,30 +71,22 @@ const Home = (props) => {
       <Section id="about">
         <Title>About Us</Title>
         <Description>
-          <p>
-          <b style={{color: "#3F704D", fontSize: "20px"}}>Cleanforce Limited</b> is a Ghanaian owned manufacturing and service company.
-          We have expertise in petrochemical, cosmetics, and detergent manufacturing,
-          Industrial Engineering, Product Development as well as Sales and Services of industrial equipment.
+          <p><b>
+          <span style={{ color: "black" }}>Salvage</span>
+          <span style={{ color: "#ff8c00" }}>Me</span></b> &nbsp; is a
+            Ghanaian-led non-governmental organization (NGO) founded by Dadson
+            Papa Kow and co-founded by Elijah Ocupualor in 2022. Our mission is
+            to promote knowledge sharing, reduce waste, and maximize educational
+            opportunities to achieve academic equity through book donations. We
+            believe that every child deserves access to quality education, and
+            through our efforts, we strive to bridge the educational gap by
+            providing resources to those in need.
           </p>
           <p>
-          We provide innovative industrial solutions and services with a focus on engineering, 
-          solution development and sustainability.
-          Working in various industries such as Hospitality, Oil and Gas, Agric and Information Technology.
+            <ReadMore>
+              <Link to="/about">read more</Link>
+            </ReadMore>
           </p>
-          <p>
-          We have various business segment and consulting units
-          Energy Service Group – Green focused engineering solutions and services 
-          Innovation Technology Group- Tech product & Service development 
-          Chemical Service Group – Petrochemical and additives supply
-          Digital Media Group – Innovative marketing media 
-          Agri Value Group – Value added services in Agric for export 
-          and sustainability , with a focus on shea products and technology to improve the business.
-          </p>
-          <p>
-          Business started with our Chemicals Service Group, and industrial installations which was 
-          Introduced in the late 1990’s.
-          </p>
-          <p><ReadMore><Link to="/about">read more</Link></ReadMore></p>
         </Description>
       </Section>
 
@@ -103,101 +94,116 @@ const Home = (props) => {
         <Title>Our Services</Title>
         <Services>
           <Service>
-            <Link to='/services/chemicals'>
-              <BackgroundImage  style={{'backgroundImage':`url('/images/1.jpg')`}} />
-            </Link>
+            <BackgroundImage
+              style={{ backgroundImage: `url('/images/donate2.jpg')` }}
+            />
             <ServiceInfo>
-                <ServiceTitle> Chemicals & Additives </ServiceTitle>
-                
-                <Content>
-                  We Manufacture eco-friendly degreases / Rig wash, 
-                  & anti rust agents as well as represent global brands across Africa 
-                </Content>
+              <ServiceTitle> Book Collection & Donation</ServiceTitle>
+
+              <Content>
+                We gather donated books from individuals, schools, libraries, and other organizations and 
+                distribute then to other schools, libraries, community centers, and other educational institutions 
+                serving underserved communities. 
+              </Content>
             </ServiceInfo>
           </Service>
 
           <Service>
-            <Link to='/services/engineering'>
-              <BackgroundImage  style={{'backgroundImage':`url('/images/2.jpg')`}} />
-            </Link>
+            <BackgroundImage
+              style={{ backgroundImage: `url('/images/reading1.jpg')` }}
+            />
             <ServiceInfo>
-                <ServiceTitle> Engineering Services </ServiceTitle>
-                
-                <Content>
-                  Providing complete customer satisfaction by using engineered innovation to solve 
-                  various customer challenges. 
-                </Content>
+              <ServiceTitle> Reading Programs and Events </ServiceTitle>
+
+              <Content>
+                We organize reading programs, storytelling sessions, and literacy events to 
+                engage children and promote a love for reading. These initiatives include 
+                workshops, book clubs, and author visits.
+              </Content>
             </ServiceInfo>
           </Service>
 
           <Service>
-            <Link to='/services/technology'>
-              <BackgroundImage  style={{'backgroundImage':`url('/images/3.jpg')`}} />
+            <Link to="/services/technology">
+              <BackgroundImage
+                style={{ backgroundImage: `url('/images/outreach1.png')`, backgroundColor: "#fff" }}
+              />
             </Link>
             <ServiceInfo>
-                <ServiceTitle> Innovation Technology </ServiceTitle>
-                
-                <Content>
-                We provide innovative industrial solutions and services with a focus on engineering, 
-                solution development and sustainability. Utilzing Green Tech 
-                </Content>
+              <ServiceTitle> Community Outreach </ServiceTitle>
+
+              <Content>
+                We actively engage with local communities, schools, and stakeholders to 
+                raise awareness about the importance of literacy, encourage book donations, 
+                and collaborate on educational initiatives.
+              </Content>
             </ServiceInfo>
           </Service>
         </Services>
       </Section>
 
       <Section id="reviews">
-        <Title>What our customers say</Title>
+        <Title>What our beneficiaries say</Title>
         <Reviews>
           <Review>
             <Customer>
-              <img src="/images/person2.png" />
+              <img src="/images/student.png" />
               <div>
-                <span>Harriet Dadson</span><br/>
-                <span>CE0 Harriet Cosmetics</span>
+                <span>Amuzu Gifty</span>
+                <br />
+                <span>Student</span>
               </div>
             </Customer>
             <ReviewMessage>
               <p>
-                I sell a wide range of products as a retailer.
-                I have had wonderful responses about your products such as;
-                Multipurpose Liquid soap, Industrial bleaches, 
-                Scented floor cleaner and Dog shampoo among others. Great products!
+                As a student from a low-income family, owning books was a luxury
+                I couldn't afford. But thanks to SalvageMe, I am now more confident 
+                in my studies and believe that education
+                can truly change my life. SalvageMe's book donations are
+                transforming the lives of students like me, and I am so grateful
+                for their support.
               </p>
             </ReviewMessage>
           </Review>
 
           <Review>
             <Customer>
-              <img src="/images/person1.jpeg" />
+              <img src="/images/parent1.jpg" />
               <div>
-                <span>Bernard Hendricks</span><br/>
-                <span>Manager, Steel Oil Drills</span>
+                <span>Janet Awukuga</span>
+                <br />
+                <span>Parent</span>
               </div>
             </Customer>
             <ReviewMessage>
               <p>
-                Wonderful anti-rust product. 
-                Now, my company spends less on repairs, our machinery have longer lifespan
-                and again, the product is eco-friendly.
-                I recommend it to anyone.
+                SalvageMe's has madeit possible forr children from different backgrounds to
+                come together and discover the joy of reading. Thanks to their book donation
+                drives and reading events my children now have a shared interest with their peers 
+                and are excited to explore new worlds through books. 
+                SalvageMe has brought hope and a brighter future to our children.
               </p>
             </ReviewMessage>
           </Review>
 
           <Review>
             <Customer>
-              <img src="/images/person3.jpeg" />
+              <img src="/images/nana.jpg" />
               <div>
-                <span>Clinton Yawson</span><br/>
-                <span>Founder, QuickBuy</span>
+                <span>Nana Yaw Adu</span>
+                <br />
+                <span>Librarian</span>
               </div>
             </Customer>
             <ReviewMessage>
               <p>
-              The tool X has really automated some of our company’s processes. 
-              We now spend less time doing manual work. It’s making [problem] very easy for us. 
-              Thanks to its scheduling feature, we don’t need staff to work outside of business hours
+                Being a librarian in a resource-constrained community was
+                challenging until SalvageMe stepped in. Their book donations
+                have revitalized our library and turned it into a vibrant hub of
+                knowledge. The children are excited to visit the library, borrow
+                books, and engage in reading activities. SalvageMe's support has
+                transformed our library into a place of inspiration and
+                empowerment
               </p>
             </ReviewMessage>
           </Review>
@@ -210,11 +216,11 @@ const Home = (props) => {
           <PartnerLeft>
             <h2>Apply Now</h2>
             <p>
-              If you're interested in being a distributor, 
-              start by applying here and attaching your business profile.
+            If you are interested in working together with us to transform lives through education, 
+            we look forward to hearing from you .
             </p>
             <div>
-              <img src="/images/partnership.jpg" alt="Partnership" />
+              {/* <img src="/images/partnership.png" alt="Partnership" /> */}
             </div>
           </PartnerLeft>
 
@@ -224,11 +230,11 @@ const Home = (props) => {
               <form>
                 <div className="inputbox-wrap">
                   <div className="inputbox">
-                    <input 
+                    <input
                       type="text"
                       value={username}
-                      onChange={(e) => setUsername(e.target.value)} 
-                      required="required" 
+                      onChange={(e) => setUsername(e.target.value)}
+                      required="required"
                     />
                     <span>Name</span>
                   </div>
@@ -236,11 +242,11 @@ const Home = (props) => {
 
                 <div className="inputbox-wrap">
                   <div className="inputbox">
-                    <input 
+                    <input
                       type="email"
                       value={email}
-                      onChange={(e) => validateEmail(e.target.value)} 
-                      required="required" 
+                      onChange={(e) => validateEmail(e.target.value)}
+                      required="required"
                     />
                     <span>Email</span>
                   </div>
@@ -249,11 +255,11 @@ const Home = (props) => {
 
                 <div className="inputbox-wrap">
                   <div className="inputbox">
-                    <input 
+                    <input
                       type="tel"
                       value={contact}
-                      onChange={(e) => validateContact(e.target.value)} 
-                      required="required" 
+                      onChange={(e) => validateContact(e.target.value)}
+                      required="required"
                     />
                     <span>Contact</span>
                   </div>
@@ -262,31 +268,22 @@ const Home = (props) => {
 
                 <div className="inputbox-wrap">
                   <div className="inputbox">
-                    <input 
+                    <input
                       type="text"
                       value={message}
-                      onChange={(e) => setMessage(e.target.value)} 
-                      required="required" 
+                      onChange={(e) => setMessage(e.target.value)}
+                      required="required"
                     />
                     <span>Message</span>
                   </div>
                 </div>
 
-                <div>
-                  <p><label>Attach business profile</label></p>
-                  <input 
-                    type="file"
-                    onChange={(e) => setMessage(e.target.value)} 
-                    required="required" 
-                  />
-                </div>
-
                 <div className="inputbox">
-                  <input 
+                  <input
                     type="button"
-                    disabled={!(message && email && contact)? true : false}
+                    disabled={!(message && email && contact) ? true : false}
                     onClick={(event) => handlePartnership(event)}
-                    value="Submit Application" 
+                    value="Submit"
                   />
                 </div>
               </form>
@@ -294,9 +291,8 @@ const Home = (props) => {
           </PartnerRight>
         </FlexWrap>
       </Section>
-
     </Container>
-    );
+  );
 };
 
 const Container = styled.div`
@@ -309,14 +305,14 @@ const Section = styled.div`
   width: 90%;
   overflow-x: hidden;
   margin: 10px auto;
-  p{
+  p {
     text-align: left;
     line-height: 1.5;
   }
 `;
 
 const Title = styled.h1`
-  color: green;
+  color: #ff8c00;
   margin: 40px 0;
 `;
 
@@ -328,15 +324,15 @@ const ReadMore = styled.span`
   display: block;
   width: fit-content;
   margin: 0 auto;
-  a{
-    color: green;
+  a {
+    color: #000;
     cursor: default;
     text-decoration: none;
-    border: 1px solid green;
+    border: 1px solid #ff8c00;
     padding: 10px 20px;
     border-radius: 30px;
-    &:hover{
-      background-color: green;
+    &:hover {
+      background-color: #ff8c00;
       color: #fff;
     }
   }
@@ -366,10 +362,10 @@ const BackgroundImage = styled.div`
 `;
 
 const ServiceInfo = styled.div`
-    color: #36454F;
-    position: relative;
-    flex-grow: 1;
-    padding: 20px;    
+  color: #36454f;
+  position: relative;
+  flex-grow: 1;
+  padding: 20px;
 `;
 
 const Content = styled.p``;
@@ -378,7 +374,7 @@ const ServiceTitle = styled.h3`
   margin-top: 1px;
   margin-bottom: 5px;
   font-weight: 600;
-  color: #3F704D;
+  color: #000;
 `;
 
 const Reviews = styled.div`
@@ -395,9 +391,9 @@ const Review = styled.div`
   flex-direction: column;
   border-radius: 50px;
   margin: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 10px;
-  background-color: #FFF;
+  background-color: #fff;
   margin-bottom: 20px;
   @media (max-width: 767px) {
     width: 100%;
@@ -415,8 +411,8 @@ const Customer = styled.div`
     margin-right: 10px;
     display: block;
   }
-  div{
-    span{
+  div {
+    span {
       line-height: 1.5;
     }
   }
@@ -436,27 +432,34 @@ const FlexWrap = styled.div`
 
 const PartnerLeft = styled.div`
   width: 45%;
-  & h2{
+  & h2 {
     /* font-size: 2em; */
-    border-left: 5px solid #3F704D;
+    border-left: 5px solid #3f704d;
     padding: 10px;
-    color: #3F704D;
+    color: #3f704d;
     letter-spacing: 5px;
     margin-bottom: 45px;
     font-weight: bold;
     padding-left: 10px;
-    }
-  p{line-height: 1.5;}
+  }
+  p {
+    line-height: 1.5;
+  }
   div {
-    height: fit-content;
-    border-radius: 50%; 
+    height: 300px;
     margin: 20px auto;
     background: #fff;
     border: 1px solid white;
-    &>img{
+    background-image: url('/images/partnership.png');
+    width: 100%;
+  
+    background-position: center;
+    background-size: cover;
+
+    /* & > img {
       width: inherit;
       border-radius: 0 100px 100px 0;
-    }
+    } */
   }
   @media (max-width: 767px) {
     width: 100%;
@@ -471,90 +474,92 @@ const PartnerRight = styled.div`
 `;
 
 const Form = styled.div`
-    background: #fff;
+  background: #fff;
+  border-radius: 10px;
+  margin: 20px;
+
+  & h2 {
+    /* font-size: 2em; */
+    border-right: 5px solid #3f704d;
+    padding: 10px;
+    color: #3f704d;
+    letter-spacing: 5px;
+    margin-bottom: 45px;
+    font-weight: bold;
+    padding-left: 10px;
+  }
+  & .inputbox-wrap {
+    & p {
+      text-align: left;
+      padding-left: 10px;
+      color: red;
+    }
+    margin-bottom: 30px;
+  }
+  & .inputbox {
+    height: 50px;
+    padding: 0;
+    /* border: 1px solid green; */
+    position: relative;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  & input {
+    position: relative;
+    padding: 11px 5px;
     border-radius: 10px;
-    margin: 20px;
-    
-    & h2{
-        /* font-size: 2em; */
-        border-right: 5px solid #3F704D;
-        padding: 10px;
-        color: #3F704D;
-        letter-spacing: 5px;
-        margin-bottom: 45px;
-        font-weight: bold;
-        padding-left: 10px;
+    font-size: 1.2em;
+    border: 2px solid #000;
+    outline: none;
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+    height: fit-content;
+    &:focus ~ span,
+    &:valid ~ span {
+      transform: translateX(-13px) translateY(-35px);
+      font-size: 1em;
     }
-    & .inputbox-wrap {
-        & p {
-            text-align: left;
-            padding-left: 10px;
-            color: red;
-        }
-        margin-bottom: 30px;
-    }
-    & .inputbox {
-        height: 50px;
-        padding: 0;
-        /* border: 1px solid green; */
-        position: relative;
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-    & input{
-        position: relative;
-        padding: 11px 5px;
-        border-radius: 10px;
-        font-size: 1.2em;
-        border: 2px solid #000;
-        outline: none;
-        display: block;
-        width: 100%;
-        &:focus ~ span,
-        &:valid ~ span {
-            transform: translateX(-13px) translateY(-35px);
-            font-size: 1em;
-        }
-    }
-    & input[type=file]{
-      border: none;
-      padding-top: 0;
-    }
+  }
+  & input[type="file"] {
+    border: none;
+    padding-top: 0;
+  }
 
-    & textarea{
-      width: 100%;
-    }
+  & textarea {
+    width: 100%;
+  }
 
+  & span {
+    position: absolute;
+    top: 14px;
+    left: 20px;
+    font-size: 1em;
+    transition: 0.6s;
+    font-family: sans-serif;
+  }
+
+  & [type="button"] {
+    width: 100%;
+    background: green;
+    /* #3F704D; */
+    color: #fff;
+    border: #fff;
+    &:hover {
+      background: linear-gradient(45deg, greenyellow, #3f704d);
+    }
+  }
+  @media (max-width: 768px) {
+    padding: 20px;
+    & h1 {
+      font-size: 1.5em;
+    }
     & span {
-        position: absolute;
-        top: 14px;
-        left: 20px;
-        font-size: 1em;
-        transition: 0.6s;
-        font-family: sans-serif;
+      top: 16px;
+      font-size: 13px;
     }
-
-    & [type="button"] {
-        width: 100%;
-        background: green;
-        /* #3F704D; */
-        color: #fff;
-        border: #fff;
-        &:hover {
-            background: linear-gradient(45deg, greenyellow, #3F704D);
-        }
-    }
-    @media (max-width: 768px) {
-        padding: 20px;
-        & h1{
-        font-size: 1.5em;
-        }
-        & span {
-            top: 16px;
-            font-size: 13px;
-        }
-    }
+  }
 `;
 
 const ContactLeft = styled.div`
@@ -566,10 +571,10 @@ const ContactLeft = styled.div`
 
 const ContactRight = styled.div`
   width: 45%;
-  & h2{
-    border-left: 5px solid #3F704D;
+  & h2 {
+    border-left: 5px solid #3f704d;
     padding: 10px;
-    color: #3F704D;
+    color: #3f704d;
     letter-spacing: 5px;
     margin-bottom: 45px;
     font-weight: bold;
@@ -583,16 +588,13 @@ const ContactRight = styled.div`
   }
 `;
 
-
 const mapStateToProps = (state) => {
   return {
-      user: state.userState.user,
-      token: state.userState.token,
-  }
+    user: state.userState.user,
+    token: state.userState.token,
+  };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  
-});
+const mapDispatchToProps = (dispatch) => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

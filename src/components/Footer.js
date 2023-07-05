@@ -135,6 +135,11 @@ const Footer = (props) => {
           </a>
         </p>
       </Copyright>
+      <div>
+      For more information about SalvageMe and how you can get involved, 
+      please contact us at info@salvageme.org or call us at +233-XXX-XXXX. 
+      We look forward to hearing from you and working together to transform lives through education.
+      </div>
     </FooterSection>
   );
 };

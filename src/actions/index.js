@@ -190,7 +190,6 @@ export function createEventAPI({ payload, files }) {
       .then((data) => {
         if (data.success) {
           dispatch(setCreateEventStatus(true));
-          dispatch(setLoadingMessage(messages.CREATE_EVENT_SUCCESS_MESSAGE));
         } else if (data.failed) {
           console.log(data.errors);
           dispatch(setCreateEventStatus(false));

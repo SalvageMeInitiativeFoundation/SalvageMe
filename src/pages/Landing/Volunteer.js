@@ -20,7 +20,8 @@ const Volunteer = (props) => {
     <Modal close={props.close}>
       <Wrapper>
         <Form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
-            <h2 style={{textAlign: "center"}}>Join The Community</h2>
+            <h2 style={{textAlign: "center"}}>Get Involved</h2>
+            <span>Join our volunteer network</span>
           <div>
             <label htmlFor="name">Name</label>
             <input

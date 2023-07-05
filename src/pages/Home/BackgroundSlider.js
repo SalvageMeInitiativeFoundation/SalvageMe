@@ -7,6 +7,7 @@ import { imageSliders } from "../../assets/data";
 
 const BackgroundSlider = (props) => {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [volunteer, setVolunteer] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(()=>{
@@ -45,6 +46,11 @@ const BackgroundSlider = (props) => {
                         }
                     </Carousel>
                 </ImageInfo>
+                <Actions>
+                    <ActionsWrap>
+                        <Action onClick={()=>setVolunteer(!volunteer)}>Volunteer</Action>
+                    </ActionsWrap>
+                </Actions>
             </Wrapper>
         </Container>
     );
@@ -152,6 +158,53 @@ const Carousel = styled.div`
         span {
             width: 30px;
         }
+    }
+`;
+
+const Actions = styled.div`
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: fit-content;
+    padding: 0 10px;
+    z-index: 2;
+    color: white;
+    bottom: 20%;
+    border: 1px solid transparent;
+    @media (max-width: 768px) {
+        width: 75%;
+    }
+    @media (max-width: 540px) {
+        width: 75%;
+        bottom: 10%;
+    }
+`;
+
+const ActionsWrap = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    @media (max-width: 540px) {
+        flex-wrap: wrap;
+    }
+`;
+
+const Action = styled.div`
+    border: 1px solid white;
+    padding: 5px 20px;
+    border-radius: 30px;
+    min-width: 100px;
+    transition: background-color 0.3s ease;
+    &:hover {
+        background-color: #ff8c00;
+        cursor: default;
+    }
+    @media (max-width: 540px) {
+        font-size: 15px;
+        margin: 10px;
     }
 `;
 
