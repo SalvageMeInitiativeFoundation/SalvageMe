@@ -4,12 +4,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/navBar";
 import SignUp from "./pages/signUp";
-import Home from "./pages/home";
+import Home from "./pages/Home/Home";
 import Donate from "./pages/donate";
 import Request from "./pages/request";
 import Login from "./pages/login";
 import PrivateRoute from "./components/privateRoute";
-import PrivateRoute1 from "./components/privateRoute1";
+import LandingPage from "./pages/Landing/LandingPage";
 import UserContextProvider from "./context/userContext/userContext";
 
 function App() {
@@ -20,7 +20,8 @@ function App() {
          <ToastContainer/>
           <NavBar />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/request" element={<PrivateRoute />}>
               <Route path="/request" element={<Request />} />
             </Route>
