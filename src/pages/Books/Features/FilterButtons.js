@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { books, locations, dateFilters } from "../../../assets/data";
 
-const FilterButtons = ({ 
-    filterEvents, 
-    setfilteredEvents, 
-    categories, 
-    checkedInputs
-  }) => {
+const FilterButtons = ({
+  filterEvents,
+  setfilteredEvents,
+  categories,
+  checkedInputs,
+}) => {
   const [curentCategory, setCurentCategory] = useState("All");
 
   let newCheckedInputs = checkedInputs;
@@ -18,12 +18,16 @@ const FilterButtons = ({
 
     if (elem.checked) {
       let filterTypeId = getFilterType(id);
-      newCheckedInputs[filterTypeId] = [...newCheckedInputs[filterTypeId], elem.value];
+      newCheckedInputs[filterTypeId] = [
+        ...newCheckedInputs[filterTypeId],
+        elem.value,
+      ];
       console.log(newCheckedInputs);
-    }
-    else {
+    } else {
       if (newCheckedInputs[filterTypeId].includes(elem.value)) {
-        let updatedCheckedInputs = newCheckedInputs[filterTypeId].filter((item) => item !== elem.value);
+        let updatedCheckedInputs = newCheckedInputs[filterTypeId].filter(
+          (item) => item !== elem.value
+        );
         newCheckedInputs[filterTypeId] = updatedCheckedInputs;
         console.log(newCheckedInputs);
       }
@@ -51,34 +55,42 @@ const FilterButtons = ({
     <>
       <Wrapper>
         <button
-            className="all-btn"
-            style={{
-              backgroundColor: curentCategory==="All" ? "#0000FF" : "#E5E4E2",
-              color: curentCategory==="All" ? "white" : "black"
-            }}
-            onClick={() => setfilteredEvents(books)}
-          >
+          className="all-btn"
+          style={{
+            backgroundColor: curentCategory === "All" ? "#0000FF" : "#E5E4E2",
+            color: curentCategory === "All" ? "white" : "black",
+          }}
+          onClick={() => setfilteredEvents(books)}
+        >
           All
         </button>
 
         <Dropdown>
-          <button onClick={() => toggleDropdown("category")} className="dropbtn">
+          <button
+            className="dropbtn"
+            onClick={() => toggleDropdown("category")}
+            onMouseEnter={() => toggleDropdown("category")}
+          >
             <select>
               <option>Category</option>
             </select>
             <div className="overSelect"></div>
           </button>
 
-          <div id="category" className="dropdown-content">
+          <div
+            id="category"
+            className="dropdown-content"
+            onMouseLeave={() => toggleDropdown("category")}
+          >
             {categories.map((category, id) => {
               return (
                 <label for={id} key={id}>
-                  <input 
-                    type="checkbox" 
-                    id={`cat-${id}`} 
+                  <input
+                    type="checkbox"
+                    id={`cat-${id}`}
                     value={category}
-                    onChange={()=> checkInputChangeHandler(`cat-${id}`)}
-                    />
+                    onChange={() => checkInputChangeHandler(`cat-${id}`)}
+                  />
                   {category}
                 </label>
               );
@@ -87,8 +99,8 @@ const FilterButtons = ({
         </Dropdown>
 
         <button className="filter-btn" onClick={handleFilter}>
-          <img src="/images/icons/filter-b.svg" alt="Filter" height="19"/>
-          &nbsp;Filter 
+          <img src="/images/icons/filter-b.svg" alt="Filter" height="19" />
+          &nbsp;Filter
         </button>
       </Wrapper>
     </>
@@ -102,7 +114,7 @@ const Wrapper = styled.div`
   button {
     margin: 5px 10px;
     padding: 8px 20px;
-    background-color: #E5E4E2;
+    background-color: #e5e4e2;
     border-radius: 20px;
     font-size: 14px;
     flex-shrink: 0;
@@ -127,15 +139,15 @@ const Wrapper = styled.div`
 
     & div.overSelect {
       position: absolute;
-			left: 0;
-			right: 0;
-			top: 0;
-			bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
     }
 
     &:hover,
-    &.active{
-      background-color: #0000FF;
+    &.active {
+      background-color: #0000ff;
       color: white;
       &.filter-btn {
         background-color: #fa8128;
@@ -155,42 +167,42 @@ const Dropdown = styled.div`
     min-width: 100px;
   }
 
-  /* button > select {
-    border: none;
-    outline: none;
-    background-color: transparent;
-  } */
-
   & .dropdown-content {
     display: none;
     position: absolute;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     max-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     overflow: auto;
-    border: 1px solid #ddd;
+    border: 1px solid #000;
+    border-radius: 10px;
     z-index: 1;
-    float: right;
+    align-items: left;
 
-    & label, a {
-      display: flex; 
-      color: #FFF;
-      padding: 5px 16px;
+    & label,
+    a {
+      display: flex;
+      color: #fff;
+      padding: 5px 10px;
       text-decoration: none;
       margin-left: 0;
-      align-items: center;
+      align-items: left;
+      justify-content: left;
 
-      & input{
-        margin-right: 3px;
+      & input {
+        margin: 0;
+        width: 15px;
       }
-      &:hover, &.active {
+      &:hover,
+      &.active {
         color: #fa8128;
         cursor: default;
       }
     }
   }
-  .show {display:block;}
+  .show {
+    display: block;
+  }
 `;
-
 
 export default FilterButtons;
