@@ -50,7 +50,7 @@ const Books = (props) => {
                 />
               </FlexWrap>
           </Section>  
-          <FilteredEvents>
+          <FilteredBooks>
               {
                 filteredEvents.map((book, key) => (
                   <FilteredItem>
@@ -58,7 +58,7 @@ const Books = (props) => {
                   </FilteredItem>
                 ))
               }
-          </FilteredEvents>
+          </FilteredBooks>
       </Container>
       ) : (
         <Loading />
@@ -83,30 +83,6 @@ const Container = styled.div`
   }
 `;
 
-const Title = styled.h3`
-  text-align: left;
-  margin-top: 80px;
-  margin-bottom: 0;
-  /* border: 1px solid black; */
-  &::after {
-    display:block;
-    clear:both;
-    content : "";
-    position: relative;
-    left    : 0;
-    bottom  : 0;
-    height  : 2px;
-    width   : 70px; 
-    border-bottom:3px solid #fa8128;
-    padding:4px 0px;
-  }
-  @media (max-width: 480px) {
-    font-size: medium;
-    margin-top: 20px;
-    padding-left: 20px;
-  }
-`;
-
 const Section = styled.div`
   margin-top: 80px;
   margin-bottom: 20px;
@@ -123,7 +99,7 @@ const FlexWrap = styled.div`
   }
 `;
 
-const FilteredEvents = styled.div`
+const FilteredBooks = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-template-rows: repeat(auto-fill, minmax(280px, 1fr));

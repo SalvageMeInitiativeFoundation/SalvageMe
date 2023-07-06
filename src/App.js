@@ -6,6 +6,7 @@ import NavBar from "./components/Nav/Navbar";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Books from "./pages/Books/Books";
+import BookDetailPage from "./pages/Books/BookDetailPage";
 import CreateDonation from "./pages/Books/CreateDonation";
 
 import SignUp from "./pages/signUp";
@@ -29,6 +30,7 @@ function App() {
             <Route path="/about" element={<About />} /> 
             <Route path="/request" element={<Books />} /> 
             <Route path="/donate" element={<CreateDonation />} />
+            <Route path="/books/:bookId" element={<BookDetailPage />} />
             {/* <Route path="/request" element={<PrivateRoute />}>
               <Route path="/request" element={<Request />} />
             </Route> */}

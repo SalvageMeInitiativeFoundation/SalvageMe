@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createId } from '@paralleldrive/cuid2';
 import { createDonationAPI } from "../../actions";
-import Editor from "./Features/Editor";
 import Dropzone from "./Features/Dropzone";
 import ImageGrid from "./Features/ImageGrid";
 import { isContactValid, isEmailValid, handleImageErrors } from "../../utils/middleware";
@@ -135,10 +134,6 @@ const DonationForm = (props) => {
   };
 
 
-  const editorTextChangeHandler = (value) => {
-    setBookDescription(value !== "<p><br></p>" ? value : "");
-  };
-
   const handlePostDonation = (e) => {
     e.preventDefault();
 
@@ -196,16 +191,6 @@ const DonationForm = (props) => {
 
   return (
     <>
-    {/* {(props.createDonationStatus || props.createDonationStatus===false) ? (
-      <>
-      { props.createDonationStatus ? (
-        <CreateEventSuccess />
-        ) : (
-          <CreateEventFailed />
-        )
-      }
-      </>
-    ) : ( */}
     <Container>
       <Content>
         <Header>
@@ -232,7 +217,6 @@ const DonationForm = (props) => {
                   required>
                 </textarea>
               </FormInputs>
-              {/* <Editor handleTextEditorChange={editorTextChangeHandler}/> */}
             </FormContent>
           </Slide> 
 
@@ -376,25 +360,7 @@ const DonationForm = (props) => {
 };
 
 const Container = styled.div`
-  /* border: 1px solid black; */
-`;
-
-const FlexWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* border: 1px solid black; */
-  & div {
-    width: 48%;
-    /* border: 1px solid blue; */
-    @media (max-width: 480px) {
-      width: 100%;
-    }
-  }
-  @media (max-width: 480px) {
-    flex-direction: column;
-    width: 100%;
-  }
+  border-radius: 30px;
 `;
 
 const Content = styled.div`
@@ -402,7 +368,7 @@ const Content = styled.div`
   max-width: 552px;
   background-color: white;
   margin: 0 auto;
-  /* border: 1px solid blue; */
+  border-radius: 30px;
 `;
 
 const Header = styled.div`
@@ -437,14 +403,6 @@ const SubmitSection = styled.div`
   border-top: 1px solid rgba(0, 0, 0, 0.15);
 `;
 
-const AssetButton = styled.button`
-  display: flex;
-  align-items: center;
-  height: 40px;
-  min-width: auto;
-  color: rgba(0, 0, 0, 0.5);
-`;
-
 const SubmitButton = styled.button`
   min-width: 100px;
   padding: 8px 20px;
@@ -456,21 +414,6 @@ const SubmitButton = styled.button`
   &:hover {
     background: #ff8c00;
     }
-`;
-
-const UploadImage = styled.div`
-  text-align: center;
-  p {
-    margin-top: 5px;
-    label {
-      border: 1px solid blue;
-      padding: 3px;
-      font-size: 13px;
-    }
-  }
-  img {
-    width: 100%;
-  }
 `;
 
 const FormInputs = styled.div`
@@ -507,48 +450,6 @@ const FormInputs = styled.div`
   }
 `;
 
-const RadioInputs = styled.div`
-  margin-bottom: 20px;
-  /* padding: 5px; */
-  /* border: 1px solid black; */
-  & span.radio-title {
-    font-size: 15px;
-    font-weight: 600;
-    color: rgba(0, 0, 0, 0.6);
-    text-align: left;
-    display: block;
-    width: 100%;
-    margin-bottom: 5px;
-    /* border: 1px solid blue; */
-  }
-  & label.radio-label {
-    float: none;
-    color: rgba(0, 0, 0, 0.6);
-    font-size: 15px;
-    /* border: 1px solid red; */
-  }
-`;
-
-const RadioWrap = styled.div`
-  display: flex;
-  padding: 0 5px;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  & div {
-    width: 50%;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    /* border: 1px solid black; */
-
-    & input[type=radio] {
-      width: 20px;
-      height: 20px;
-      margin-top: -3px;
-      margin-right: 5px;
-    }
-  }
-`;
-
 const Slides = styled.div`
   background: white;
 `;
@@ -569,31 +470,6 @@ const AssetsArea = styled.div`
   }
 `;
 
-const Agreement = styled.div`
-  padding: 8px 12px;
-  margin-bottom: 20px;
-  /* border: 1px solid green; */
-  & span {
-    display: block;
-    text-align: left;
-    padding: 5px 0;
-    font-size: 15px;
-    font-weight: 600;
-    color: #fa8128;
-    /* border: 1px solid brown; */
-  }
-  & div {
-    display: flex;
-    align-items: flex-start;
-    /* border: 1px solid red; */
-    & input {
-      margin-right: 10px;
-    }
-    & label {
-      text-align: left;
-    }
-  }
-`;
 
 const mapStateToProps = (state) => {
   return {

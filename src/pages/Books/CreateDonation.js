@@ -29,7 +29,7 @@ const Content = styled.div`
         width: 60%;
     }
     @media (max-width: 530px) {
-        width: 100%;
+        width: 95%;
         margin-bottom: 10px;
         padding-top: 1px;
     }

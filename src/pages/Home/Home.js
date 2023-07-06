@@ -562,31 +562,6 @@ const Form = styled.div`
   }
 `;
 
-const ContactLeft = styled.div`
-  width: 45%;
-  @media (max-width: 767px) {
-    width: 100%;
-  }
-`;
-
-const ContactRight = styled.div`
-  width: 45%;
-  & h2 {
-    border-left: 5px solid #3f704d;
-    padding: 10px;
-    color: #3f704d;
-    letter-spacing: 5px;
-    margin-bottom: 45px;
-    font-weight: bold;
-    padding-left: 10px;
-  }
-  & p {
-    line-height: 2;
-  }
-  @media (max-width: 767px) {
-    width: 100%;
-  }
-`;
 
 const mapStateToProps = (state) => {
   return {

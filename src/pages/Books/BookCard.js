@@ -1,19 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 
 const BookCard = (props) => {
-  const [slice, setSlice] = useState(false);
-
-  const handleSlice = (data) => {
-    if (data.length > 56) {
-      setSlice(true);
-      return data.slice(0, 50);
-    } else {
-      return data;
-    }
-  };
 
   return (
     <Card>

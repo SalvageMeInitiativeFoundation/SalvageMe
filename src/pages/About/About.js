@@ -1,21 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const About = (props) => {
-  const [readMore, setReadMore] = useState(false);
-
-  const linkName = readMore ? "Read Less <<" : "Read More >>";
-
-  const readMoreHandler = (id) => {
-    setReadMore(!readMore);
-    let content = document.getElementById(id);
-    if (content.style.maxHeight) {
-      content.style.maxHeight = null;
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-    }
-  };
-
+ 
   return (
     <>
       <Container>
@@ -182,11 +169,6 @@ const AboutSection = styled.div`
   }
 `;
 
-const ExtraDescription = styled.p`
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-`;
 
 const Title = styled.h1`
   margin-top: 1px;
@@ -209,85 +191,6 @@ const Title = styled.h1`
     small {
       display: block;
     }
-  }
-`;
-
-const ReserveSection = styled.div`
-  width: 30%;
-  /* border: 1px solid yellow; */
-  display: flex;
-  flex-direction: row-reverse;
-  @media (max-width: 620px) {
-    width: 100%;
-    flex-direction: row;
-  }
-`;
-
-const ReserveSectionContent = styled.div`
-  width: 170px;
-  margin-top: 30px;
-  /* border: 1px solid green; */
-  @media (max-width: 620px) {
-    width: 100%;
-    margin-top: 0;
-  }
-`;
-
-const ReserveSectionButtons = styled.div`
-  @media (max-width: 620px) {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-`;
-
-const ReserveButton = styled.button`
-  display: block;
-  width: 150px;
-  height: 30px;
-  margin: 10px;
-  border: none;
-  outline: none;
-  border-radius: 30px;
-`;
-
-const ReserveSpot = styled(ReserveButton)`
-  color: white;
-  background-color: blue;
-`;
-
-const GuestReserve = styled(ReserveButton)`
-  border: 1px solid blue;
-  color: blue;
-  background-color: #fff;
-`;
-
-const Owner = styled.div`
-  padding: 20px;
-  text-align: center;
-  background-color: #e5e4e2;
-  border-radius: 10px;
-  margin: 10px;
-  font-size: 12.5px;
-  p {
-    a {
-      color: black;
-    }
-  }
-  span {
-    display: block;
-    margin-top: 10px;
-  }
-  button {
-    width: 80px;
-    height: 30px;
-    border: none;
-    outline: none;
-    border-radius: 30px;
-    margin-top: 10px;
-  }
-  @media (max-width: 530px) {
   }
 `;
 
@@ -314,93 +217,5 @@ const Description = styled.div`
   }
 `;
 
-const ReadMoreOrLess = styled.button`
-  margin: 10px auto;
-  font-size: 12px;
-  padding: 3px 5px;
-  width: fit-content;
-  display: flex;
-  justify-content: space-around;
-  border: 1px solid #a9a9a9;
-  outline: none;
-  border-radius: 10px;
-  text-align: center;
-  color: #818589;
-  background-color: white;
-`;
-
-const TeamSection = styled.div`
-  margin: 20px auto;
-  h1,
-  h3 {
-    color: #3f704d;
-    text-align: center;
-    padding-top: 20px;
-  }
-  @media (min-width: 481px) {
-    width: 95%;
-  }
-  @media (min-width: 769px) {
-    width: 80%;
-  }
-`;
-
-const TeamMemberProfile = styled.div`
-  display: flex;
-  align-items: center;
-  text-align: left;
-  img {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    margin-right: 10px;
-    display: block;
-  }
-  div {
-    span {
-      line-height: 1.5;
-    }
-  }
-`;
-
-const TeamMembers = styled.div`
-  display: flex;
-  justify-content: space-between;
-  @media (max-width: 767px) {
-    flex-wrap: wrap;
-  }
-`;
-
-const TeamMember = styled.div`
-  width: 30%;
-  min-height: 320px;
-  height: fit-content;
-  background: #fff;
-  border-radius: 10px;
-  margin: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 10px;
-  text-align: center;
-
-  @media (max-width: 620px) {
-    width: 100%;
-  }
-`;
-
-const TeamMemberInfo = styled.div`
-  margin: 10px 15px;
-  text-align: left;
-  line-height: 1.2;
-  border-top: 1px solid rgba(0, 0, 0, 0.2);
-  @media (max-width: 530px) {
-    font-size: 13px;
-  }
-`;
-
-const ExtraInfo = styled.p`
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-`;
 
 export default About;
