@@ -17,7 +17,7 @@ const BookCard = (props) => {
 
   return (
     <Card>
-      <Link to={`/events/${props.book.id}`}>
+      <Link to={`/books/${props.book.id}`}>
         <BackgroundImage
           style={{ backgroundImage: `url(${props.book.imageUrl})` }}
         />

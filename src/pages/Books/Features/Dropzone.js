@@ -1,7 +1,7 @@
 import React from "react";
-// import { useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
+
 
 const Dropzone = (props) => {
   let onDrop = props.onDrop;
@@ -68,7 +68,7 @@ const Dropzone = (props) => {
 const Container = styled.div`
     width: 100%;
     text-align: center;
-    padding: 20px;
+    padding: 20px 0;
     border: 2px rgba(0, 0, 0, 0.15) dashed;
     margin: auto;
     margin-bottom: 20px;

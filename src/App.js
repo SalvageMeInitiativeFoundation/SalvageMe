@@ -6,6 +6,8 @@ import NavBar from "./components/Nav/Navbar";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Books from "./pages/Books/Books";
+import CreateDonation from "./pages/Books/CreateDonation";
+
 import SignUp from "./pages/signUp";
 import Donate from "./pages/donate";
 import Request from "./pages/request";
@@ -26,12 +28,13 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} /> 
             <Route path="/request" element={<Books />} /> 
+            <Route path="/donate" element={<CreateDonation />} />
             {/* <Route path="/request" element={<PrivateRoute />}>
               <Route path="/request" element={<Request />} />
             </Route> */}
-            <Route path="/donate" element={<PrivateRoute />}>
+            {/* <Route path="/donate" element={<PrivateRoute />}>
               <Route path="/donate" element={<Donate />} />
-            </Route>
+            </Route> */}
             <Route path="/login" element={<Login />} />
             <Route path="/signUp" element={<SignUp />} />
           </Routes>

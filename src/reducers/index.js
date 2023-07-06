@@ -1,11 +1,13 @@
 import { combineReducers } from "redux";
 import userReducer from "./userReducer";
-import eventReducer from "./eventReducer";
+import donationReducer from "./donationReducer";
+import appReducer from "./appReducer";
 
 
 const rootReducer = combineReducers({
+    appState: appReducer,
     userState: userReducer,
-    eventState: eventReducer,
+    donationState: donationReducer,
 });
 
 export default rootReducer;

@@ -9,6 +9,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+/* 
 input[type=text] {
   border-radius: 10px;
   width: 100%;
@@ -44,21 +45,22 @@ input[type=checkbox] {
   width: 100%;
   height: 20px;
   
-}
+} */
 
 
 
-button {
+/* button {
   background-color: #9747ff;
   padding: 15px 20px 15px 20px;
   border-radius: 10px;
   width: 20vw;
   border: none;
-  /* display: block; */
-  /* margin: auto; */
+  /* display: block; *
+  /* margin: auto; *
   color: white;
   cursor: pointer;
-}
+} */
+/* 
 .formButtons {
   flex-direction: row;
   display: flex;
@@ -81,7 +83,7 @@ button {
 .DonateButton{
   display: block;
   margin: auto;
-}
+} */
 
 hr {
   margin: 5px 0px 0px 0px;

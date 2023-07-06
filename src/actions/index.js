@@ -4,9 +4,9 @@ import {
   SET_USER_TOKEN,
   SET_USER_ORDER,
   SET_LOADING_STATUS,
-  GET_EVENTS,
+  GET_BOOKS,
   SET_CATEGORIES,
-  SET_CREATE_EVENT_STATUS,
+  SET_CREATE_DONATION_STATUS,
   SET_LOADING_MESSAGE,
   SET_ERRORS,
 } from "./actionType";
@@ -38,9 +38,9 @@ export const setCategories = (payload) => ({
   apiCategories: payload,
 });
 
-export const setCreateEventStatus = (payload) => ({
-  type: SET_CREATE_EVENT_STATUS,
-  createEventStatus: payload,
+export const setCreateDonationStatus = (payload) => ({
+  type: SET_CREATE_DONATION_STATUS,
+  createDonationStatus: payload,
 });
 
 export const setLoading = (status) => ({
@@ -53,8 +53,8 @@ export const setLoadingMessage = (message) => ({
   loading_message: message,
 });
 
-export const getEvents = (payload) => ({
-  type: GET_EVENTS,
+export const getBooks = (payload) => ({
+  type: GET_BOOKS,
   payload: payload,
 });
 
@@ -163,11 +163,11 @@ export function logOutAPI() {
 }
 
 
-export function createEventAPI({ payload, files }) {
+export function createDonationAPI({ payload, files }) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));
     dispatch(setErrors(null));
-    const url = `${BASE_URL}/events/`;
+    const url = `${BASE_URL}/books/`;
     const state = getState();
     const authToken = state.userState.token.access;
 
@@ -189,10 +189,10 @@ export function createEventAPI({ payload, files }) {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          dispatch(setCreateEventStatus(true));
+          dispatch(setCreateDonationStatus(true));
         } else if (data.failed) {
           console.log(data.errors);
-          dispatch(setCreateEventStatus(false));
+          dispatch(setCreateDonationStatus(false));
           let msg = (
             <>
               <img src="/images/icons/error.svg" />
@@ -236,10 +236,10 @@ export function getCategoriesAPI() {
 }
 
 
-// ---------------------
-// ------ ORDER --------
+// ----------------------------
+// ------ BOOK REQUEST --------
 
-export function orderAPI(data) {
+export function requestAPI(data) {
   return (dispatch, getState) => {
     dispatch(setLoading(true));
     const url = `${BASE_URL}/order/`;

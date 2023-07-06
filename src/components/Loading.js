@@ -79,8 +79,8 @@ const Content = styled.div`
 
 const mapStateToProps = (state) => {
   return {
-    loading: state.eventState.loading,
-    loading_message: state.eventState.loading_message,
+    loading: state.appState.loading,
+    loading_message: state.appState.loading_message,
   }
 };
 

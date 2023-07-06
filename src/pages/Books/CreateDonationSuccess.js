@@ -2,15 +2,16 @@ import React from "react";
 import styled from "styled-components";
 
 
-const CreateEventFailed = () => {
+const CreateDonationSuccess = () => {
     return (
         <Container>
              <Section>
-                <img src="/images/icons/error.svg" />
+                <button className="close-popup">&times;</button>
+                <img src="/images/icons/tick-circle.svg" />
                 <p>
-                    Unable to submit event.
-                    Please make sure all enteries are filled and with the right data
-                    and re-submit.
+                    Your donation details have been successfully submited. 
+                    SalvageMe review team would reach out to you via the email you provided
+                    in less than 24hrs.
                 </p>
             </Section>
         </Container>
@@ -31,13 +32,17 @@ const Section = styled.section`
     margin: 0 auto;
     padding: 10px;
     position: relative;
-    color: red;
-    border: 1px solid red;
+    color: green;
+    border: 1px solid dodgerblue;
     border-radius: 5px;
     &>img {
         width: 50px;
     }
+    &>button.close-popup {
+        position: absolute;
+        right: 0;
+    }
 `;
 
 
-export default CreateEventFailed;
+export default CreateDonationSuccess;
