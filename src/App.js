@@ -9,7 +9,7 @@ import Books from "./pages/Books/Books";
 import BookDetailPage from "./pages/Books/BookDetailPage";
 import CreateDonation from "./pages/Books/CreateDonation";
 import Login from "./pages/Auth/Login";
-import SignUp from "./pages/Auth/Signup";
+import Signup from "./pages/Auth/Signup";
 
 import Donate from "./pages/donate";
 import Request from "./pages/request";
@@ -38,7 +38,7 @@ function App() {
               <Route path="/donate" element={<Donate />} />
             </Route> */}
             <Route path="/login" element={<Login />} />
-            <Route path="/signUp" element={<SignUp />} />
+            <Route path="/signUp" element={<Signup />} />
           </Routes>
         </BrowserRouter>
       </UserContextProvider>

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginAPI } from "../../actions";
 import { useNavigate } from "react-router-dom";
@@ -162,6 +163,8 @@ const Login = (props) => {
                             <img src="/images/icons/google.svg" alt="Google"></img>
                             Sign in with Google
                         </Google>
+                        <hr/>
+                        <Link to="/signup">New here? Sign up</Link>
                     </Form>
 
                 </FormSection>
@@ -287,6 +290,7 @@ const Form = styled.div`
             background: #ff8c00;
         }
     }
+
     @media (max-width: 768px) {
         padding: 0 20px;
         & h1{
@@ -339,7 +343,6 @@ const Google = styled.button`
     font-size: 14px;
     color: rgba(0, 0, 0, 0.6);
     margin: 10px auto;
-    margin-bottom: 0;
     &:hover{
         background-color: rgba(207, 207, 207, 0.25);
         color: rgba(0, 0, 0, 0.75);
