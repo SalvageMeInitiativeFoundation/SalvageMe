@@ -401,11 +401,12 @@ const FormContent = styled.div`
 const SubmitSection = styled.div`
   padding: 12px 24px 12px 16px;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
+  text-align: center;
 `;
 
 const SubmitButton = styled.button`
   min-width: 100px;
-  padding: 8px 20px;
+  padding: 10px 50px;
   background-color: #ffcd90;
   border: none;
   outline: none;

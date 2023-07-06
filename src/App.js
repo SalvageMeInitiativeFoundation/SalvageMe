@@ -8,11 +8,11 @@ import About from "./pages/About/About";
 import Books from "./pages/Books/Books";
 import BookDetailPage from "./pages/Books/BookDetailPage";
 import CreateDonation from "./pages/Books/CreateDonation";
+import Login from "./pages/Auth/Login";
+import SignUp from "./pages/Auth/Signup";
 
-import SignUp from "./pages/signUp";
 import Donate from "./pages/donate";
 import Request from "./pages/request";
-import Login from "./pages/login";
 import PrivateRoute from "./components/privateRoute";
 import LandingPage from "./pages/Landing/LandingPage";
 import UserContextProvider from "./context/userContext/userContext";
