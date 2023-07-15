@@ -54,7 +54,8 @@ const BookDetailPage = (props) => {
 const BookDetailWrap = styled.div`
     max-width: 100%;
     padding: 20px 0;
-    background: linear-gradient(#000, #fa8128, #fff);
+    height:94vh;
+    background: linear-gradient(#000, #fa8128, #eec141);
 `;
 
 const Content = styled.div`
