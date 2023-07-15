@@ -1,10 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import "../index.css";
 import { UserContext } from "../context/userContext/userContext";
 import { toast } from "react-toastify";
+import styled from "styled-components";
+
 
 function NavBar() {
+   const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const handleToggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
   const { removeLocalUser, getLocalUser, setUser, user } =
     useContext(UserContext);
 
@@ -30,13 +37,17 @@ function NavBar() {
     <>
       <div className="NavBarContainer">
         <header className="navBarHeader">
-          <Link to="/">
+          <Link to="/home">
             <h2>
               Salvage<span>Me</span>
             </h2>
           </Link>
 
-          <ul className="navBarList">
+           <NavbarToggle className="navbar-toggle" onClick={handleToggleNav}>
+          <span className="navbar-toggle-icon">&#9776;</span>
+        </NavbarToggle>
+
+          <ul className={`navBarList ${isNavOpen ?"active":""}`}>
             <Link to="/donate">
               {pathName("/donate") ? (
                 <div className="Selected">
@@ -97,5 +108,25 @@ function NavBar() {
     </>
   );
 }
+
+const NavbarToggle = styled.button`
+  display: none;
+  background-color: transparent;
+  border: 1px solid #fff;
+  outline: none;
+  cursor: pointer;
+  border-radius:5px;
+  width:40px;
+  margin:3px;
+  .navbar-toggle-icon {
+    width: 35px;
+    height: 25px;
+    color: #fff;
+    margin-bottom: 5px;
+  }
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
 
 export default NavBar;

@@ -8,7 +8,7 @@ import Spinner from "../shared/spinner";
 function Home() {
   const [isLoading, setIsloading] = useState(true);
   const [users, setUsers] = useState(null);
-  const [donations, setDonations] = useState([]);
+  // const [donations, setDonations] = useState([]);
 
   useEffect(() => {
     // console.log("fetching");
@@ -17,16 +17,16 @@ function Home() {
 
   const FetchData = async () => {
     try {
-      const BookData = await axios.get(
+      const Users = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/auth/users`
       );
-      setUsers(BookData.data);
-      const BData = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/donation/`
-      );
-      setDonations(BData.data);
+      setUsers(Users.data);
+      // const Books = await axios.get(
+      //   `${process.env.REACT_APP_BASE_URL}/donation/`
+      // );
+      // setDonations(Books.data);
 
-      // console.log(users);
+      // console.log(Books.data);
     } catch (error) {
       console.log(error);
     }
@@ -34,12 +34,12 @@ function Home() {
 
   return (
     <>
-      <div className="Dashboard">
+      {/* <div className="Dashboard">
         <div className="DashboardMini">
           <div className="C1"></div>
           <h3>
             {
-              donations.filter((donation) => donation.category == "Religion")
+              donations.filter((donation) => (donation.category == "Religion"&donation.status=='recieved'))
                 .length
             }
           </h3>
@@ -50,7 +50,7 @@ function Home() {
           <h3>
             {
               donations.filter(
-                (donation) => donation.category == "Social Science"
+                (donation) => (donation.category == "Social Science" & donation.status=='recieved')
               ).length
             }
           </h3>
@@ -61,7 +61,7 @@ function Home() {
           <h3>
             {
               donations.filter(
-                (donation) => donation.category == "Ap. Science & Technology"
+                (donation) => (donation.category == "Ap. Science & Technology"&donation.status=='recieved')
               ).length
             }
           </h3>
@@ -72,7 +72,7 @@ function Home() {
           <h3>
             {
               donations.filter(
-                (donation) => donation.category == "Art Recreation"
+                (donation) => (donation.category == "Art Recreation"&donation.status=='recieved')
               ).length
             }
           </h3>
@@ -82,7 +82,7 @@ function Home() {
           <div className="C5"></div>
           <h3>
             {
-              donations.filter((donation) => donation.category == "Language")
+              donations.filter((donation) => (donation.category == "Language"&donation.status=='recieved'))
                 .length
             }
           </h3>
@@ -97,7 +97,7 @@ function Home() {
           <h3>
             {
               donations.filter(
-                (donation) => donation.category == "Science & Math"
+                (donation) => (donation.category == "Science & Math"&donation.status=='recieved')
               ).length
             }
           </h3>
@@ -108,7 +108,7 @@ function Home() {
           <h3>
             {
               donations.filter(
-                (donation) => donation.category == "Generalities"
+                (donation) => (donation.category == "Generalities"&donation.status=='recieved')
               ).length
             }
           </h3>
@@ -118,7 +118,7 @@ function Home() {
           <div className="C8"></div>
           <h3>
             {
-              donations.filter((donation) => donation.category == "Literature")
+              donations.filter((donation) => (donation.category == "Literature"&donation.status=='recieved'))
                 .length
             }
           </h3>
@@ -129,7 +129,7 @@ function Home() {
           <h3>
             {
               donations.filter(
-                (donation) => donation.category == "Geography & History"
+                (donation) => (donation.category == "Geography & History"&donation.status=='recieved')
               ).length
             }
           </h3>
@@ -140,13 +140,13 @@ function Home() {
           <h3>
             {
               donations.filter(
-                (donation) => donation.category == "Philosophy & Psychology"
+                (donation) => (donation.category == "Philosophy & Psychology"&donation.status=='recieved')
               ).length
             }
           </h3>
           <p>Philosophy & Psychology</p>
         </div>
-      </div>
+      </div> */}
       <h1 className="HeroesTitle">Heroes of Change</h1>
       {users == null ? (
         <Spinner></Spinner>
@@ -156,7 +156,7 @@ function Home() {
           ))}
         </div>
       )}
-      <div className="Developers">
+      {/* <div className="Developers">
         <h4>SalvageMe Foundation</h4>
         <div className="DevelopersContainer">
           <img
@@ -185,8 +185,8 @@ function Home() {
             </p>
           </div>
         </div>
-      </div>
-      <h3 style={{ textAlign: "center" }}>Volunteers</h3>
+      </div> */}
+      <h3 style={{ textAlign: "center",color:'#ff8c00' }}>Volunteers</h3>
       {users == null ? (
         <Spinner></Spinner>
       ) : (
@@ -201,7 +201,7 @@ function Home() {
         </div>
       )}
 
-      <h4 style={{ textAlign: "center" }}>Partners</h4>
+      <h4 style={{ textAlign: "center",color:'#ff8c00' }}>Partners</h4>
       <div className="flexLayout">
         <Partners urlpath="transtack.jpeg" />
       </div>

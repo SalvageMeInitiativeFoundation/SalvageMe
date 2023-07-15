@@ -2,7 +2,7 @@ import "./index.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NavBar from "./components/Nav/Navbar";
+import NavBar from "./components/navBar";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
 import Books from "./pages/Books/Books";
@@ -28,15 +28,15 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} /> 
-            <Route path="/request" element={<Books />} /> 
-            <Route path="/donate" element={<CreateDonation />} />
+            {/* <Route path="/request" element={<Books />} />  */}
+            {/* <Route path="/donate" element={<CreateDonation />} /> */}
             <Route path="/books/:bookId" element={<BookDetailPage />} />
-            {/* <Route path="/request" element={<PrivateRoute />}>
-              <Route path="/request" element={<Request />} />
-            </Route> */}
-            {/* <Route path="/donate" element={<PrivateRoute />}>
+            <Route path="/request" element={<PrivateRoute />}>
+              <Route path="/request" element={<Books />} />
+            </Route>
+            <Route path="/donate" element={<PrivateRoute />}>
               <Route path="/donate" element={<Donate />} />
-            </Route> */}
+            </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/signUp" element={<Signup />} />
           </Routes>
