@@ -193,7 +193,7 @@ function Donate() {
     <>
       <main className="Donate">
         <div className="DonateForm">
-          <h3 style={{ textAlign: "center" }}>Donate a book</h3>
+          <h3 style={{ textAlign: "center",color:'#ff8c00' }}>Donate a book</h3>
           {isError? (
             <span style={{ color: "red", textAlign: "center" }}>
               Complete all fields including image
@@ -215,6 +215,7 @@ function Donate() {
                   type="text"
                   name="Title"
                   id="title"
+                  className="donation-Text"
                   placeholder="Enter name of donation"
                   required={true}
                   value={title}
@@ -234,7 +235,7 @@ function Donate() {
                   <button
                     type="button"
                     className={
-                      withOwner == "true" ? "formButtonActive" : "formButton"
+                      withOwner == "true" ? "formButtonActive button" : "formButton button"
                     }
                     onClick={handleChange}
                     id="withOwner"
@@ -245,7 +246,7 @@ function Donate() {
                   <button
                     type="button"
                     className={
-                      withOwner == "false" ? "formButtonActive" : "formButton"
+                      withOwner == "false" ? "formButtonActive button" : "formButton button"
                     }
                     onClick={handleChange}
                     id="withOwner"
@@ -284,7 +285,7 @@ function Donate() {
             </div>
             <button
               type="button"
-              className="DonateButton"
+              className="button DonateButton"
               onClick={(e) => addDonation(picFile, e)}
             >
               {isLoading ? "Loading...." : "Donate"}

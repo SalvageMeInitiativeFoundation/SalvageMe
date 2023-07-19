@@ -82,11 +82,12 @@ function Request() {
             type="text"
             name="BooKName"
             id="bookName"
+            className="request-Text"
             placeholder="Search for book"
             onChange={handleChange}
             value={singleSearchValue}
           />
-          <button type="button" onClick={handleSingleSearch}>
+          <button type="button" className="button" onClick={handleSingleSearch}>
             Search
           </button>
         </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Home from "../home";
 
 const About = (props) => {
  
@@ -72,6 +73,7 @@ const About = (props) => {
         </AboutWrapper>
 
       </Container>
+      <Home/>
     </>
   );
 };
