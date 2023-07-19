@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { signUpAPI } from "../../actions";
 import { Navigate } from "react-router-dom";
@@ -139,11 +140,12 @@ const Signup = (props) => {
                                 />
                             </div>
                         </form>
-                        <hr/>
+                        {/* <hr/>
                         <Google onClick={() => props.signupWithGoogle()}>
                             <img src="/images/icons/google.svg" alt="Google"></img>
                             Sign up with Google
-                        </Google>
+                        </Google> */}
+                        <Link to="/login">Already a member? Log in</Link>
                     </Form>
 
                 </FormSection>

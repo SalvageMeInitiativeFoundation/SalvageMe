@@ -1,4 +1,4 @@
-import "./index.css";
+import React, {useState, useEffect} from 'react';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -16,17 +16,27 @@ import Request from "./pages/request";
 import PrivateRoute from "./components/privateRoute";
 import LandingPage from "./pages/Landing/LandingPage";
 import UserContextProvider from "./context/userContext/userContext";
+import "./index.css";
 
 function App() {
+  const [activePage, setActivePage] = useState("/");
+
+  const path = window.location.pathname;
+
+  useEffect(() => {
+    // console.log("PATH ", path);
+    setActivePage(path);
+  }, [path]);
+
   return (
     
       <UserContextProvider>
         <BrowserRouter>
          <ToastContainer/>
-          <NavBar />
+          {activePage === '/' ? <></> : <NavBar />} 
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/home" element={<Home setPath={setActivePage}/>} />
             <Route path="/about" element={<About />} /> 
             <Route path="/request" element={<Books />} /> 
             <Route path="/donate" element={<CreateDonation />} />

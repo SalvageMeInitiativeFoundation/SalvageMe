@@ -61,6 +61,8 @@ const Home = (props) => {
       }
     };
     scrollToSection();
+    const path = window.location.pathname;
+    props.setPath(path);
   }, [secId]);
 
   return (

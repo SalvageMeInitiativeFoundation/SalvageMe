@@ -40,7 +40,7 @@ const LandingPage = (props) => {
             <Wrapper>
                 <BackgroundImage style={bgImageStyle}/>
                 <ImageOverlay />
-                {/* <Logo>
+                <Logo>
                     <Link to="/home">
                         <div className="logo-wrap">
                             <img src="/images/logo.png" alt="Logo" />
@@ -50,7 +50,7 @@ const LandingPage = (props) => {
                             </h1>
                         </div>
                     </Link>
-                </Logo> */}
+                </Logo>
                 <ImageInfo>
                     <Title><q> {imageSliders[currentSlide].title} </q></Title>
                     <Description> {imageSliders[currentSlide].description} </Description>
@@ -100,34 +100,30 @@ const BackgroundImage = styled.div`
     transition:all 1.0s ease-in-out;
 `;
 
-// const Logo = styled.div`
-//     position: absolute;
-//     top: 10px;
-//     left: 0;
-//     height: fit-content;
-//     z-index: 2;
-//     .logo-wrap{
-//         display: flex;
-//         align-items: center;
-//         img {
-//             width: 100px;
-//             height: 100px;
-//             @media (max-width: 540px) {
-//                 width: 50px;
-//                 height: 50px;
-//             }
-//         }
-//         .logo-text-wrap{
-//             border: 1px solid white;
-//             padding: 5px 20px;
-//             border-radius: 30px;
-//             background-color: white;
-//             @media (max-width: 540px) {
-//                 font-size: 15px;
-//             }
-//         }
-//     }
-// `;
+const Logo = styled.div`
+    position: absolute;
+    top: 10px;
+    left: 0;
+    height: fit-content;
+    z-index: 2;
+    .logo-wrap{
+        display: flex;
+        align-items: center;
+        img {
+            width: 50px;
+            height: 50px;
+        }
+        .logo-text-wrap{
+            border: 1px solid white;
+            padding: 5px 20px;
+            border-radius: 30px;
+            background-color: white;
+            @media (max-width: 540px) {
+                font-size: 15px;
+            }
+        }
+    }
+`;
 
 const ImageInfo = styled.div`
     position: absolute;

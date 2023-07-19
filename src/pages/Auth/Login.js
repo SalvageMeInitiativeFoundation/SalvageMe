@@ -13,11 +13,11 @@ const Login = (props) => {
     const [email, setEmail] = useState("");
     const [contact, setContact] = useState("");
     const [password, setPassword] = useState("");
-    const [loginChoice, setLoginChoice] = useState("");
+    // const [loginChoice, setLoginChoice] = useState("");
     // ERRORS
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
-    const [contactError, setContactError] = useState("");
+    // const [contactError, setContactError] = useState("");
     const [loginError, setLoginError] = useState("");
 
     const navigate = useNavigate();
@@ -43,11 +43,11 @@ const Login = (props) => {
         setPasswordError(paswdRes[1] ? paswdRes[1] : "");
     }; 
 
-    const validateContact = (value) => { 
-        setContact(value);
-        let contactRes = isContactValid(value);
-        setContactError(contactRes[1] ? contactRes[1] : "");
-    }; 
+    // const validateContact = (value) => { 
+    //     setContact(value);
+    //     let contactRes = isContactValid(value);
+    //     setContactError(contactRes[1] ? contactRes[1] : "");
+    // }; 
 
 
     const handleLogin = (e) => {
@@ -59,8 +59,8 @@ const Login = (props) => {
     
         const payload = {
           email: email,
-          contact: contact,
           password: password,
+          //   contact: contact,
         };
     
         props.signIn(payload);
@@ -68,8 +68,8 @@ const Login = (props) => {
 
     const reset = () => {
         setEmail("");
-        setContact("");
         setPassword("");
+        // setContact("");
     };
 
     useEffect(() => {
@@ -92,7 +92,7 @@ const Login = (props) => {
                     <Form>
                         <h1>Welcome back!</h1>
                         <form>
-                            <LoginType>
+                            {/* <LoginType>
                                 <label for="login-choice">Select login method</label>
                                 <Options>
                                     <Option onClick={()=>{setLoginChoice("email")}}>
@@ -102,11 +102,11 @@ const Login = (props) => {
                                         Contact
                                     </Option>
                                 </Options>
-                            </LoginType>
+                            </LoginType> */}
                             
                             {loginError && <p style={{color:"red", margin:"-10px 0 30px 0"}}>{loginError}</p>}
 
-                            { loginChoice === "email" &&
+                            {/* { loginChoice === "email" && */}
                             <div className="inputbox-wrap">
                                 <div className="inputbox">
                                     <input 
@@ -119,9 +119,8 @@ const Login = (props) => {
                                 </div>
                                 {emailError && <p>{emailError}</p>}
                             </div>
-                            }
 
-                            { loginChoice === "contact" &&
+                            {/* { loginChoice === "contact" &&
                             <div className="inputbox-wrap">
                                 <div className="inputbox">
                                     <input 
@@ -134,7 +133,7 @@ const Login = (props) => {
                                 </div>
                                 {contactError && <p>{contactError}</p>}
                             </div>
-                            }
+                            } */}
 
                             <div className="inputbox-wrap">
                                 <div className="inputbox">
@@ -158,12 +157,12 @@ const Login = (props) => {
                                 />
                             </div>
                         </form>
-                        <hr/>
+                        {/* <hr/>
                         <Google onClick={() => props.signIn()}>
                             <img src="/images/icons/google.svg" alt="Google"></img>
                             Sign in with Google
                         </Google>
-                        <hr/>
+                        <hr/> */}
                         <Link to="/signup">New here? Sign up</Link>
                     </Form>
 
