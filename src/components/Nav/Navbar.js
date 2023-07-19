@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 import { logOutAPI } from "../../actions";
 
-const Navbar = () => {
+const Navbar = (props) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const handleToggleNav = () => {
@@ -32,9 +32,46 @@ const Navbar = () => {
         </NavbarToggle>
 
         <NavbarLinks className={`navbar-links ${isNavOpen ? "active" : ""}`}>
-          <li className="navbar-link"><Link to="/donate">Donate</Link></li>
-          <li className="navbar-link"><Link to="/request">Request</Link></li>
-          <li className="navbar-link"><Link to="/login">Login</Link></li>
+          <li className="navbar-link">
+            <Link to="/donate">Donate</Link>
+          </li>
+          <li className="navbar-link">
+            <Link to="/request">Request</Link>
+          </li>
+
+          {props.user ? (
+            <NavList className="dropdown">
+              <NavLink>
+                <User className="user-sm">
+                  <span>
+                    {props.user && props.user.photoURL ? (
+                      <img src={props.user.photoURL} alt="" />
+                    ) : (
+                      <img src="/images/icons/user.svg" alt="" />
+                    )}
+                    <span>
+                      &nbsp; Me
+                      <img
+                        src="/images/icons/down-arrow-w.svg"
+                        alt=""
+                        className="down"
+                      />
+                    </span>
+                  </span>
+                </User>
+              </NavLink>
+              <div className="dropdown-content right">
+                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/logout">Logout</Link>
+              </div>
+            </NavList>
+          ) : (
+            <>
+              <li className="navbar-link">
+                <Link to="/login">Login</Link>
+              </li>
+            </>
+          )}
         </NavbarLinks>
       </Nav>
     </NavWrap>
@@ -102,11 +139,11 @@ const NavbarToggle = styled.button`
 const NavbarLinks = styled.ul`
   display: flex;
   list-style: none;
-  
+
   .navbar-link {
     margin-right: 10px;
     cursor: default;
-    a{
+    a {
       text-decoration: none;
       color: #ff8c00;
     }
@@ -114,16 +151,16 @@ const NavbarLinks = styled.ul`
       margin-bottom: 10px;
     }
     @media (min-width: 769px) {
-        border: 1px solid white;
-        padding: 5px 20px;
-        border-radius: 30px;
-        text-align: center;
-        min-width: 60px;
-        transition: background-color 0.3s ease;
-        &:hover {
-            background-color: #000;
-            cursor: default;
-        }
+      border: 1px solid white;
+      padding: 5px 20px;
+      border-radius: 30px;
+      text-align: center;
+      min-width: 60px;
+      transition: background-color 0.3s ease;
+      &:hover {
+        background-color: #000;
+        cursor: default;
+      }
     }
   }
   @media (max-width: 768px) {
@@ -141,6 +178,71 @@ const NavbarLinks = styled.ul`
     &.active {
       display: flex;
     }
+  }
+`;
+
+const NavList = styled.li`
+  &.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  /* Dropdown Content (Hidden by Default) */
+  & div.dropdown-content {
+    display: none;
+    position: fixed;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    &.right {
+      right: 0;
+    }
+    /* Links inside the dropdown */
+    & > a {
+      background-color: #000;
+      opacity: 0.8;
+      color: #fff;
+      padding: 5px 16px;
+      text-decoration: none;
+      margin-left: 0;
+      display: block;
+    }
+    & > a:hover,
+    &a.active {
+      color: #fa8128;
+    }
+  }
+  @media (min-width: 1024px) {
+    &.dropdown:hover .dropdown-content {
+      display: block;
+    }
+  }
+  .show {
+    display: block;
+  }
+`;
+
+const User = styled.span`
+  &.user-sm {
+    padding: 0;
+    span {
+      padding: 0;
+      color: #ff8c00;
+      & > img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+      }
+      & > img.down {
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: center;
   }
 `;
 

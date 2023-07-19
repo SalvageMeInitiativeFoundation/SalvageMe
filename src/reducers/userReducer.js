@@ -2,7 +2,7 @@ import { ACTIVATE_USER, SET_USER, SET_USER_TOKEN, SET_USER_ORDER } from "../acti
 
 
 const INITIAL_STATE = {
-    user: JSON.parse(localStorage.getItem('user')),
+    user: true, //JSON.parse(localStorage.getItem('user')),
     activate_user: false,
     token: JSON.parse(localStorage.getItem('user-token')),
     order: JSON.parse(localStorage.getItem('user-order')),

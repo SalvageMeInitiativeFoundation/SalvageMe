@@ -46,8 +46,8 @@ const Home = (props) => {
     props.signUp(payload);
   };
 
-  const handleClickScroll = (id) => {
-    const element = document.getElementById(id);
+  const handleClickScroll = () => {
+    const element = document.getElementById("partner");
     if (element) {
       // 👇 Will scroll smoothly to the top of the next section
       element.scrollIntoView({ behavior: "smooth" });
@@ -55,20 +55,14 @@ const Home = (props) => {
   };
 
   useEffect(() => {
-    const scrollToSection = async () => {
-      if (secId) {
-        handleClickScroll(secId);
-      }
-    };
-    scrollToSection();
     const path = window.location.pathname;
     props.setPath(path);
-  }, [secId]);
+  }, []);
 
   return (
     <Container>
       <div>
-        <BackgroundSlider />
+        <BackgroundSlider scroll={handleClickScroll}/>
       </div>
       <Section id="about">
         <Title>About Us</Title>
@@ -216,7 +210,7 @@ const Home = (props) => {
         <Title>Partner with us</Title>
         <FlexWrap>
           <PartnerLeft>
-            <h2>Apply Now</h2>
+            <h2>Volunteer</h2>
             <p>
             If you are interested in working together with us to transform lives through education, 
             we look forward to hearing from you .
@@ -436,9 +430,9 @@ const PartnerLeft = styled.div`
   width: 45%;
   & h2 {
     /* font-size: 2em; */
-    border-left: 5px solid #3f704d;
+    border-left: 5px solid #ff8c00;
     padding: 10px;
-    color: #3f704d;
+    color: #000;
     letter-spacing: 5px;
     margin-bottom: 45px;
     font-weight: bold;
@@ -482,9 +476,9 @@ const Form = styled.div`
 
   & h2 {
     /* font-size: 2em; */
-    border-right: 5px solid #3f704d;
+    border-right: 5px solid #ff8c00;
     padding: 10px;
-    color: #3f704d;
+    color: #000;
     letter-spacing: 5px;
     margin-bottom: 45px;
     font-weight: bold;
@@ -544,12 +538,12 @@ const Form = styled.div`
 
   & [type="button"] {
     width: 100%;
-    background: green;
+    background: #ffcd90;
     /* #3F704D; */
     color: #fff;
     border: #fff;
     &:hover {
-      background: linear-gradient(45deg, greenyellow, #3f704d);
+      background: #ff8c00;
     }
   }
   @media (max-width: 768px) {

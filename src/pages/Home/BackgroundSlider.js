@@ -7,7 +7,6 @@ import { imageSliders } from "../../assets/data";
 
 const BackgroundSlider = (props) => {
     const [currentSlide, setCurrentSlide] = useState(0);
-    const [volunteer, setVolunteer] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(()=>{
@@ -48,7 +47,7 @@ const BackgroundSlider = (props) => {
                 </ImageInfo>
                 <Actions>
                     <ActionsWrap>
-                        <Action onClick={()=>setVolunteer(!volunteer)}>Volunteer</Action>
+                        <Action onClick={()=>props.scroll()}>Volunteer</Action>
                     </ActionsWrap>
                 </Actions>
             </Wrapper>
