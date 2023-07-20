@@ -1,30 +1,60 @@
 import React, { useState } from "react";
 import Modal from "../../components/Modal";
 import styled from "styled-components";
+import emailjs from 'emailjs-com';
+import { MdReportGmailerrorred } from "react-icons/md";
 
 const GetInTouch = (props) => {
+  const subject = 'Get Information';
+  const salvageMeMail='salvagemeinitiative@gmail.com';
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    sendEmail()
     setName("");
     setEmail("");
     setMessage("");
-    props.close()
+    props.close();
+    alert('Mail sent successfully we would revert soon');
+  };
+
+  const sendEmail = () => {
+    // Use the email service API to send the email
+    // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs
+    emailjs.send(
+      `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
+      `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
+      {
+        from_name:email,
+        to_email: salvageMeMail,
+        subject: subject,
+        message: message,
+      },
+      `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
+    ).then((response) => {
+      console.log('SUCCESS!', response.status, response.text);
+   }, (err) => {
+      console.log('FAILED...', err);
+   });
+
+    
   };
 
   return (
     <Modal close={props.close}>
       <Wrapper>
-        <Form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
+        <Form 
+        // action="https://formsubmit.co/54a6c8c4d6fea625aa1e1a32e5cc9bdf" method="POST" 
+        onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
         <h2 style={{textAlign: "center"}}>Reach Out</h2>
           <div>
             <label htmlFor="name">Name</label>
             <input
               type="text"
+              name='name'
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -35,6 +65,7 @@ const GetInTouch = (props) => {
             <label htmlFor="email">Email</label>
             <input
               type="email"
+              name='email'
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -45,6 +76,7 @@ const GetInTouch = (props) => {
             <label htmlFor="message">Message</label>
             <textarea
               id="message"
+              name="message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               required
