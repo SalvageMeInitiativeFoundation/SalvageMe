@@ -19,6 +19,7 @@ const Donate = (props) => {
     setName("");
     setEmail("");
     setLocation("");
+    setBookQuantity(0);
     props.close()
   };
 
