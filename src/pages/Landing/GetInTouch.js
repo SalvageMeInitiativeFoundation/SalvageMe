@@ -3,9 +3,10 @@ import Modal from "../../components/Modal";
 import styled from "styled-components";
 import emailjs from 'emailjs-com';
 import { MdReportGmailerrorred } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const GetInTouch = (props) => {
-  const subject = 'Get Information';
+  const subject = 'Get In Touch';
   const salvageMeMail='salvagemeinitiative@gmail.com';
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,7 +19,6 @@ const GetInTouch = (props) => {
     setEmail("");
     setMessage("");
     props.close();
-    alert('Mail sent successfully we would revert soon');
   };
 
   const sendEmail = () => {
@@ -32,9 +32,11 @@ const GetInTouch = (props) => {
         to_email: salvageMeMail,
         subject: subject,
         message: message,
+        name:name,
       },
       `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
     ).then((response) => {
+      toast.success('Email sent');
       console.log('SUCCESS!', response.status, response.text);
    }, (err) => {
       console.log('FAILED...', err);

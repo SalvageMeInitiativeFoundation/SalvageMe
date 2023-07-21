@@ -1,19 +1,49 @@
 import React, { useState } from "react";
 import Modal from "../../components/Modal";
 import styled from "styled-components";
+import emailjs from 'emailjs-com';
+import {toast} from 'react-toastify';
+
 
 const Volunteer = (props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
+  const subject = 'Volunteer';
+  const salvageMeMail='salvagemeinitiative@gmail.com';
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    sendEmail();
     setName("");
     setEmail("");
     setLocation("");
     props.close()
+  };
+
+
+  const sendEmail = () => {
+    // Use the email service API to send the email
+    // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs
+    emailjs.send(
+      `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
+      `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
+      {
+        from_name:email,
+        to_email: salvageMeMail,
+        subject: subject,
+        message: location,
+        name:name,
+      },
+      `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
+    ).then((response) => {
+      toast.success('Thanks for Volunteering');
+      console.log('SUCCESS!', response.status, response.text);
+   }, (err) => {
+      console.log('FAILED...', err);
+   });
+
+    
   };
 
   return (
