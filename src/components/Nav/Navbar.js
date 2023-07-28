@@ -1,15 +1,33 @@
 import React from "react";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { connect } from "react-redux";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link,useNavigate } from "react-router-dom";
 import { logOutAPI } from "../../actions";
+import { toast } from "react-toastify";
+import { UserContext } from "../../context/userContext/userContext";
 
 const Navbar = (props) => {
+  const navigate=useNavigate();
+  const { removeLocalUser, getLocalUser, setUser, user } =
+    useContext(UserContext);
+    console.log(user[0]);
+
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);
+  };
+
+  const LogoutUser = (e) => {
+    e.preventDefault();
+    removeLocalUser();
+    toast.success("Logout Successful", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+    navigate('/home')
+    // console.log('===============LoggingOut==============')
+    //  console.log(user);
   };
 
   return (
@@ -39,13 +57,13 @@ const Navbar = (props) => {
             <Link to="/request">Request</Link>
           </li>
 
-          {props.user ? (
+          {user.length > 0 ? (
             <NavList className="dropdown">
               <NavLink>
                 <User className="user-sm">
                   <span>
-                    {props.user && props.user.photoURL ? (
-                      <img src={props.user.photoURL} alt="" />
+                    {user.length > 0 && user[0].image ? (
+                      <img src={user[0].image} alt="" />
                     ) : (
                       <img src="/images/icons/user.svg" alt="" />
                     )}
@@ -62,7 +80,15 @@ const Navbar = (props) => {
               </NavLink>
               <div className="dropdown-content right">
                 <Link to="/dashboard">Dashboard</Link>
-                <Link to="/logout">Logout</Link>
+                <Link to="">
+                  <button
+                    className="NavLoginLogoutButton"
+                    type="button"
+                    onClick={(e) => LogoutUser(e)}
+                  >
+                    logout
+                  </button>
+                </Link>
               </div>
             </NavList>
           ) : (
@@ -82,6 +108,7 @@ const NavWrap = styled.nav`
   position: absolute;
   left: 0;
   right: 0;
+  top: 0;
   z-index: 1000;
 `;
 

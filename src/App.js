@@ -17,6 +17,8 @@ import PrivateRoute from "./components/privateRoute";
 import LandingPage from "./pages/Landing/LandingPage";
 import UserContextProvider from "./context/userContext/userContext";
 import "./index.css";
+import Technology from './pages/Home/Technology';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
   const [activePage, setActivePage] = useState("/");
@@ -38,17 +40,19 @@ function App() {
             <Route path="/" element={<LandingPage />} />
             <Route path="/home" element={<Home setPath={setActivePage}/>} />
             <Route path="/about" element={<About />} /> 
+            <Route path='/services/technology' element={<Technology/>}/>
+            <Route path='/dashboard' element={<Dashboard/>}/>
             {/* <Route path="/request" element={<Books />} />  */}
             {/* <Route path="/donate" element={<CreateDonation />} /> */}
             <Route path="/books/:bookId" element={<BookDetailPage />} />
             <Route path="/request" element={<PrivateRoute />}>
-              <Route path="/request" element={<Books />} />
+              <Route path="/request" element={<Request/>} />
             </Route>
             <Route path="/donate" element={<PrivateRoute />}>
               <Route path="/donate" element={<Donate />} />
             </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/signUp" element={<Signup />} />
+            <Route path="/login" element={<Login/>} />
+            <Route path="/signUp" element={<Signup/>} />
           </Routes>
         </BrowserRouter>
       </UserContextProvider>

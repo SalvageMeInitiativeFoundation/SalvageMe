@@ -120,6 +120,7 @@ const Home = (props) => {
           </Service>
 
           <Service>
+          
             <Link to="/services/technology">
               <BackgroundImage
                 style={{ backgroundImage: `url('/images/outreach1.png')`, backgroundColor: "#fff" }}

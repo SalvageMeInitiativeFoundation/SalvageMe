@@ -26,7 +26,7 @@ function Home() {
       // );
       // setDonations(Books.data);
 
-      // console.log(Books.data);
+      // console.log(Users.data);
     } catch (error) {
       console.log(error);
     }
