@@ -59,12 +59,12 @@ const Filter = ({ placeHolder,options,setDonations,setIsLoading}) => {
     return (
       <div className="Filter-container">
         <div onClick={handleInputClick} className="Filter-input">
-          <div className="Filter-selected-value">{getDisplay()}</div>
-          <div className="Filter-tools">
+        <div className="Filter-tools">
             <div className="Filter-tool">
             <IoIosFunnel/>
             </div>
           </div>
+          <div className="Filter-selected-value">{getDisplay()}</div>    
         </div>
         {showMenu&&(<div className="Filter-menu" >
             {options.map((option)=>(<div onClick={()=>onItemClick(option)} key={option.value} className={`dropdown-item ${isSelected(option) && "selected"}`}>
