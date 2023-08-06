@@ -52,7 +52,7 @@ function App() {
               <Route path="/donate" element={<Donate />} />
             </Route>
             <Route path="/login" element={<Login/>} />
-            <Route path="/signUp" element={<Signup/>} />
+            <Route path="/signup" element={<Signup/>} />
           </Routes>
         </BrowserRouter>
       </UserContextProvider>

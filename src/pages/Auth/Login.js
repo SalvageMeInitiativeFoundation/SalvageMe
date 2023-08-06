@@ -13,11 +13,10 @@ const Login = (props) => {
     const [email, setEmail] = useState("");
     const [contact, setContact] = useState("");
     const [password, setPassword] = useState("");
-    // const [loginChoice, setLoginChoice] = useState("");
+
     // ERRORS
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
-    // const [contactError, setContactError] = useState("");
     const [loginError, setLoginError] = useState("");
 
     const navigate = useNavigate();
@@ -43,13 +42,6 @@ const Login = (props) => {
         setPasswordError(paswdRes[1] ? paswdRes[1] : "");
     }; 
 
-    // const validateContact = (value) => { 
-    //     setContact(value);
-    //     let contactRes = isContactValid(value);
-    //     setContactError(contactRes[1] ? contactRes[1] : "");
-    // }; 
-
-
     const handleLogin = (e) => {
         e.preventDefault();
     
@@ -60,7 +52,6 @@ const Login = (props) => {
         const payload = {
           email: email,
           password: password,
-          //   contact: contact,
         };
     
         props.signIn(payload);
@@ -69,7 +60,6 @@ const Login = (props) => {
     const reset = () => {
         setEmail("");
         setPassword("");
-        // setContact("");
     };
 
     useEffect(() => {
@@ -78,35 +68,21 @@ const Login = (props) => {
                 setLoginError(props.errors.login);
             }
         }
-        if (props.user){
-            props.closeLoader();
-            handleRedirect(props.previous_url);
-        }
-    }, [props.errors, props.user, props.previous_url]);
+        // if (props.user){
+        //     props.closeLoader();
+        //     handleRedirect(props.previous_url);
+        // }
+    }, []);
 
     return (
         <Container>
-            {/* {props.user && <Navigate to='/' />}  */}
              <Section>
                 <FormSection>
                     <Form>
                         <h1>Welcome back!</h1>
-                        <form>
-                            {/* <LoginType>
-                                <label for="login-choice">Select login method</label>
-                                <Options>
-                                    <Option onClick={()=>{setLoginChoice("email")}}>
-                                        Email
-                                    </Option>
-                                    <Option className="contact" onClick={()=>{setLoginChoice("contact")}}>
-                                        Contact
-                                    </Option>
-                                </Options>
-                            </LoginType> */}
-                            
+                        <form>                            
                             {loginError && <p style={{color:"red", margin:"-10px 0 30px 0"}}>{loginError}</p>}
 
-                            {/* { loginChoice === "email" && */}
                             <div className="inputbox-wrap">
                                 <div className="inputbox">
                                     <input 
@@ -119,21 +95,6 @@ const Login = (props) => {
                                 </div>
                                 {emailError && <p>{emailError}</p>}
                             </div>
-
-                            {/* { loginChoice === "contact" &&
-                            <div className="inputbox-wrap">
-                                <div className="inputbox">
-                                    <input 
-                                        type="tel" 
-                                        value={contact}
-                                        onChange={(e) => validateContact(e.target.value)}
-                                        required="required" 
-                                    />
-                                    <span>Contact</span>
-                                </div>
-                                {contactError && <p>{contactError}</p>}
-                            </div>
-                            } */}
 
                             <div className="inputbox-wrap">
                                 <div className="inputbox">
@@ -157,12 +118,6 @@ const Login = (props) => {
                                 />
                             </div>
                         </form>
-                        {/* <hr/>
-                        <Google onClick={() => props.signIn()}>
-                            <img src="/images/icons/google.svg" alt="Google"></img>
-                            Sign in with Google
-                        </Google>
-                        <hr/> */}
                         <Link to="/signup">New here? Sign up</Link>
                     </Form>
 

@@ -9,9 +9,8 @@ import { UserContext } from "../../context/userContext/userContext";
 
 const Navbar = (props) => {
   const navigate=useNavigate();
-  const { removeLocalUser, getLocalUser, setUser, user } =
-    useContext(UserContext);
-    console.log(user[0]);
+  const { removeLocalUser, getLocalUser, setUser, user } = useContext(UserContext);
+  console.log(user[0]);
 
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -51,10 +50,10 @@ const Navbar = (props) => {
 
         <NavbarLinks className={`navbar-links ${isNavOpen ? "active" : ""}`}>
           <li className="navbar-link">
-            <Link to="/donate">Donate</Link>
+            <Link to="/donate" onClick={handleToggleNav}>Donate</Link>
           </li>
           <li className="navbar-link">
-            <Link to="/request">Request</Link>
+            <Link to="/request" onClick={handleToggleNav}>Request</Link>
           </li>
 
           {user.length > 0 ? (
@@ -94,7 +93,7 @@ const Navbar = (props) => {
           ) : (
             <>
               <li className="navbar-link">
-                <Link to="/login">Login</Link>
+                <Link to="/login" onClick={handleToggleNav}>Login</Link>
               </li>
             </>
           )}

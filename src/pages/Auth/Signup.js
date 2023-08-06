@@ -70,11 +70,11 @@ const Signup = (props) => {
                 setContactError(props.errors.contact[0]);
             }
         }
-        }, [props.errors]);
+    }, []);
 
     return (
         <Container>
-            {(props.user || props.activate_user) && <Navigate to='/' />}
+            {/* {(props.user || props.activate_user) && <Navigate to='/home' />} */}
             <Section>
                 <FormSection>
                     <Form>
@@ -140,11 +140,6 @@ const Signup = (props) => {
                                 />
                             </div>
                         </form>
-                        {/* <hr/>
-                        <Google onClick={() => props.signupWithGoogle()}>
-                            <img src="/images/icons/google.svg" alt="Google"></img>
-                            Sign up with Google
-                        </Google> */}
                         <Link to="/login">Already a member? Log in</Link>
                     </Form>
 
