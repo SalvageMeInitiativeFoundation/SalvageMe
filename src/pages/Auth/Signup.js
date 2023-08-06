@@ -47,15 +47,22 @@ const Signup = (props) => {
         setPasswordError(paswdRes[1] ? paswdRes[1] : "");
     }; 
 
-    const validateConfirmPassword = (value) => { 
-        setConfirmPassword(value);
-        console.log(confirmPassword);
+    const handleConfirmPasswordChange=(value)=>{
+       setConfirmPassword(value);
+       validateConfirmPassword();
+    }
+
+    const validateConfirmPassword = () => { 
+      
         let passwordInput={
             'password':password,
             'confirmPassword':confirmPassword
         }
+        if(confirmPassword.length>0){
         let conPaswdRes = isConfirmPassword(passwordInput,setConfirmPasswordError)
+        // conPaswdRes?setConfirmPasswordError(""):setConfirmPasswordError("Confirm password is not matched");
         console.log(conPaswdRes);
+        }
         
         // setConfirmPasswordError(conPaswdRes ? "Password mismatch" : "");
     }; 
@@ -126,7 +133,7 @@ const Signup = (props) => {
                 setContactError(props.errors.contact[0]);
             }
         }
-    }, []);
+    }, [ ]);
 
     return (
         <Container>
@@ -193,7 +200,7 @@ const Signup = (props) => {
                                     <input 
                                         type="password"
                                         value={confirmPassword}
-                                        onChange={(e) => validateConfirmPassword(e.target.value)} 
+                                        onChange={(e) => handleConfirmPasswordChange(e.target.value)} 
                                         required="required" 
                                     />
                                     <span>Confirm Password</span>
