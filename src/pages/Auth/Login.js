@@ -245,64 +245,18 @@ const Form = styled.div`
         }
     }
 
+    & a {
+        text-decoration: none!important;
+        color: #080808;
+        margin-top: 10px;
+        font-size: 13px;
+    }
+
     @media (max-width: 768px) {
         padding: 0 20px;
         & h1{
         font-size: 1.5em;
         }
-    }
-`;
-
-const LoginType = styled.div`
-    font-size: 1em;
-    font-family: sans-serif;
-    text-align: left;
-    color: rgba(0, 0, 0, 0.7);
-    margin-bottom: 30px;
-`;
-
-const Options = styled.div`
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-`;
-
-const Option = styled.button`
-    width: 49%;
-    height: 30px;
-    color: rgba(0, 0, 0, 0.6);
-    background-color: #E5E4E2; /* #B2BEB5;  #7393B3 #A9A9A9 #D3D3D3*/
-    border: none;
-    outline: none;
-    &.active, &:hover {
-        color: #fff;
-        background-color: #ff8c00;
-        border-bottom: 3px solid #000;
-    }
-`;
-
-const Google = styled.button`
-    display: flex;
-    justify-content: center;
-    background-color: #fff;
-    align-items: center;
-    height: 50px;
-    width: 100%;
-    border: 1px solid dodgerblue;
-    border-radius: 10px;
-    vertical-align: middle;
-    z-index: 0;
-    transition-duration: 167ms;
-    font-size: 14px;
-    color: rgba(0, 0, 0, 0.6);
-    margin: 10px auto;
-    &:hover{
-        background-color: rgba(207, 207, 207, 0.25);
-        color: rgba(0, 0, 0, 0.75);
-    }
-    @media (max-width: 768px) {
-        width: 100%;
     }
 `;
 

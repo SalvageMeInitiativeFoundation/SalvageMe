@@ -268,6 +268,13 @@ const Form = styled.div`
         }
     }
 
+    & a {
+        text-decoration: none!important;
+        color: #080808;
+        margin-top: 10px;
+        font-size: 13px;
+    }
+    
     @media (max-width: 768px) {
         padding: 0 20px;
         & h1{
