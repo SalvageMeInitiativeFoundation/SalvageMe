@@ -52,6 +52,7 @@ function Login() {
     });
       console.log(error);
     }
+    
   };
   const { email, password } = loginData;
   return (

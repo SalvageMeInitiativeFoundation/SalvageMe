@@ -93,7 +93,7 @@ function Request() {
         </div>
         <div>
           <Filter
-            placeHolder={"Filter by category..."}
+            placeHolder={"By category......."}
             options={options}
             setDonations={setDonations}
             setIsloading={setIsloading}

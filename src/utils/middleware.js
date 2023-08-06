@@ -83,15 +83,20 @@ export const isPasswordValid = (passwordInputValue) => {
 }
 
 
-export const confirmPassword= ({passwordInput, setError})=>{
-    if(passwordInput.confirmPassword!==passwordInput.password)
+export const isConfirmPassword= (passwordInput, setError)=>{
+    if(passwordInput.confirmPassword.length>0){
+       if(passwordInput.confirmPassword!==passwordInput.password)
     {
         setError("Confirm password is not matched");
+        
         return false;
     }
     else{
+        setError("");
         return true;
+    } 
     }
+    
 }
 
 export const handleImageErrors= (errorCode)=>{

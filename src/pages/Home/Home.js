@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import BackgroundSlider from "./BackgroundSlider";
 import { Link } from "react-router-dom";
 import { isEmailValid, isContactValid } from "../../utils/middleware";
+import emailjs from 'emailjs-com';
+import {toast} from "react-toastify";
+
 
 const Home = (props) => {
   let { secId } = useParams();
@@ -13,6 +16,8 @@ const Home = (props) => {
   const [username, setUsername] = useState("");
   const [contact, setContact] = useState("");
   const [message, setMessage] = useState("");
+  const subject= 'Important: Join Our Team';
+  const salvageMeMail='salvagemeinitiative@gmail.com'
   // ERRORS
   const [emailError, setEmailError] = useState("");
   const [contactError, setContactError] = useState("");
@@ -36,14 +41,9 @@ const Home = (props) => {
       return;
     }
 
-    const payload = {
-      name: username,
-      email: email,
-      contact: contact,
-      message: message,
-    };
-
-    props.signUp(payload);
+  //  TODO:implement emailjs for volunteer and partnership
+    sendEmail();
+    
   };
 
   const handleClickScroll = () => {
@@ -58,6 +58,40 @@ const Home = (props) => {
     const path = window.location.pathname;
     props.setPath(path);
   }, []);
+
+
+
+  const sendEmail = () => {
+    // Use the email service API to send the email
+    // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs
+    emailjs.send(
+      `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
+      `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
+      {
+        from_name:email,
+        to_email: salvageMeMail,
+        subject: subject,
+        message: message,
+        name:`${username}\n,${contact}`,
+      },
+      `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
+    ).then((response) => {
+      toast.success('Email sent');
+      setContact('');
+      setEmail('');
+      setUsername('');
+      setMessage('');
+      console.log('SUCCESS!', response.status, response.text);
+   }, (err) => {
+      toast.error('Mail Error');
+      console.log('FAILED...', err);
+   });
+
+    
+  };
+
+
+
 
   return (
     <Container>

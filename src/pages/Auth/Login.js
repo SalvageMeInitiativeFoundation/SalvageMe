@@ -1,299 +1,340 @@
 import React from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { UserContext } from "../../context/userContext/userContext";
+import { toast } from "react-toastify";
+import { useState, useEffect,useContext } from "react";
 import { connect } from "react-redux";
 import { loginAPI } from "../../actions";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { setLoading, setLoadingMessage } from "../../actions";
-import { isEmailValid, isPasswordValid, isContactValid } from "../../utils/middleware";
-
+import {
+  isEmailValid,
+  isPasswordValid,
+  isContactValid,
+} from "../../utils/middleware";
 
 const Login = (props) => {
-    const [email, setEmail] = useState("");
-    const [contact, setContact] = useState("");
-    const [password, setPassword] = useState("");
+  const { setLocalUser, getLocalUser, setUser, user } = useContext(UserContext);
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [password, setPassword] = useState("");
 
-    // ERRORS
-    const [emailError, setEmailError] = useState("");
-    const [passwordError, setPasswordError] = useState("");
-    const [loginError, setLoginError] = useState("");
+  // ERRORS
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState("");
 
-    const navigate = useNavigate();
+  //Loading
+  const [isLoading, setIsLoading] = useState(false);
 
-    const handleRedirect = (url) => {
-        if (url){
-            navigate(url);
-        }
-        else{
-            navigate('/');
-        }
-      };
+  const navigate = useNavigate();
+  const history = useLocation();
 
-    const validateEmail = (value) => { 
-        setEmail(value);
-        let emailRes = isEmailValid(value);
-        setEmailError(emailRes[1] ? emailRes[1] : "");
-    }; 
+  const handleRedirect = (url) => {
+    if (url) {
+      navigate(url);
+    } else {
+      navigate("/");
+    }
+  };
 
-    const validatePassword = (value) => { 
-        setPassword(value);
-        let paswdRes = isPasswordValid(value);
-        setPasswordError(paswdRes[1] ? paswdRes[1] : "");
-    }; 
+  const validateEmail = (value) => {
+    setEmail(value);
+    let emailRes = isEmailValid(value);
+    setEmailError(emailRes[1] ? emailRes[1] : "");
+  };
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-    
-        if (e.target !== e.currentTarget) {
-          return;
-        }
-    
-        const payload = {
-          email: email,
-          password: password,
-        };
-    
-        props.signIn(payload);
-      }
+  const validatePassword = (value) => {
+    setPassword(value);
+    let paswdRes = isPasswordValid(value);
+    setPasswordError(paswdRes[1] ? paswdRes[1] : "");
+  };
 
-    const reset = () => {
-        setEmail("");
-        setPassword("");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const payload = {
+      email: email,
+      password: password,
     };
 
-    useEffect(() => {
-        if (props.errors){
-            if (props.errors.login){
-                setLoginError(props.errors.login);
-            }
-        }
-        // if (props.user){
-        //     props.closeLoader();
-        //     handleRedirect(props.previous_url);
-        // }
-    }, []);
+    try {
+      const loginResponse = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/auth/loginUser`,
+        payload
+      );
+      //    console.log(loginResponse.data)
+      if (loginResponse.status == 200) {
+        setLocalUser(loginResponse.data);
+        // console.log('===============Login===============')
+        // console.log(loginResponse.data)
+        setIsLoading(false);
+        reset();
+        toast.success("Sign In Successful", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
 
-    return (
-        <Container>
-             <Section>
-                <FormSection>
-                    <Form>
-                        <h1>Welcome back!</h1>
-                        <form>                            
-                            {loginError && <p style={{color:"red", margin:"-10px 0 30px 0"}}>{loginError}</p>}
+        handleRedirect(history.state);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setLoginError('Failed to Login')
+      setTimeout(() => {
+        setLoginError('')
+      }, 3000);
+      toast.error("Error Signing In", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      console.log(error);
+    }
+    // props.signIn(payload);
+  };
 
-                            <div className="inputbox-wrap">
-                                <div className="inputbox">
-                                    <input 
-                                        type="email" 
-                                        value={email}
-                                        onChange={(e) => validateEmail(e.target.value)}
-                                        required="required" 
-                                    />
-                                    <span>Email</span>
-                                </div>
-                                {emailError && <p>{emailError}</p>}
-                            </div>
+  const reset = () => {
+    setEmail("");
+    setPassword("");
+    setContact("");
+  };
 
-                            <div className="inputbox-wrap">
-                                <div className="inputbox">
-                                    <input 
-                                        type="password" 
-                                        value={password}
-                                        onChange={(e) => validatePassword(e.target.value)}
-                                        required="required" 
-                                    />
-                                    <span>Password</span>
-                                </div>
-                                {passwordError && <p>{passwordError}</p>}
-                            </div>
+//   useEffect(() => {
+//     if (props.errors) {
+//       if (props.errors.login) {
+//         setLoginError(props.errors.login);
+//       }
+//     }
+//     // if (props.user){
+//     //     props.closeLoader();
+//     //     handleRedirect(props.previous_url);
+//     // }
+//   }, []);
 
-                            <div className="inputbox">
-                                <input 
-                                    type="button" 
-                                    value="submit" 
-                                    onClick={handleLogin}
-                                    disabled={!((password && email) || (password && contact)) ? true : false}
-                                />
-                            </div>
-                        </form>
-                        <Link to="/signup">New here? Sign up</Link>
-                    </Form>
+  return (
+    <Container>
+      <Section>
+        <FormSection>
+          <Form>
+            <h1>Welcome back!</h1>
+            <form>
+              {loginError.length>0 && (
+                <p style={{ color: "red", margin: "-10px 0 30px 0" }}>
+                  {loginError}
+                </p>
+              )}
 
-                </FormSection>
-                <Hero>
-                    <div>
-                        <img src="/images/donate1.jpg" alt="SignUp" />
-                    </div>
-                </Hero>
-            </Section>
+              <div className="inputbox-wrap">
+                <div className="inputbox">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => validateEmail(e.target.value)}
+                    required="required"
+                  />
+                  <span>Email</span>
+                </div>
+                {emailError && <p>{emailError}</p>}
+              </div>
 
-        </Container>
-    );
+              <div className="inputbox-wrap">
+                <div className="inputbox">
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => validatePassword(e.target.value)}
+                    required="required"
+                  />
+                  <span>Password</span>
+                </div>
+                {passwordError && <p>{passwordError}</p>}
+              </div>
+
+              <div className="inputbox">
+                <input
+                  type="button"
+                  value={ isLoading? "logingIn..." : "submit"}
+                  onClick={handleLogin}
+                  disabled={
+                    !((password && email) || (password && contact))
+                      ? true
+                      : false
+                  }
+                />
+              </div>
+            </form>
+            <Link to="/signup">New here? Sign up</Link>
+          </Form>
+        </FormSection>
+        <Hero>
+          <div>
+            <img src="/images/donate1.jpg" alt="SignUp" />
+          </div>
+        </Hero>
+      </Section>
+    </Container>
+  );
 };
 
 const Container = styled.div`
-    max-width: 100%;
-    padding: 20px 0;
-    background: linear-gradient(#000, #fa8128, #fff);
+  max-width: 100%;
+  padding: 20px 0;
+  background: linear-gradient(#000, #fa8128, #fff);
 `;
 
 const Section = styled.section`
-    display: flex;
-    flex-wrap: wrap;
-    align-content: start;
-    align-items: flex-start;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1128px;
-    background-color: #fff;
-    border-radius: 30px;
-    margin: 0 auto;
-    margin-top: 80px;
-    padding: 20px 0;
-    box-shadow: 0 0 2px 0 rgba(0,0,0,0.1);
-    /* border: 1px solid black; */
-    @media (min-width: 768px) and (max-width: 1023px){
-        width: 90%;
-    } 
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
+  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1128px;
+  background-color: #fff;
+  border-radius: 30px;
+  margin: 0 auto;
+  margin-top: 80px;
+  padding: 20px 0;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
+  /* border: 1px solid black; */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 90%;
+  }
 
-    @media (min-width: 1024px) {
-        width: 70%;
-    } 
-    @media (max-width: 768px) {
-        width: 95%;
-    }
+  @media (min-width: 1024px) {
+    width: 70%;
+  }
+  @media (max-width: 768px) {
+    width: 95%;
+  }
 `;
 
 const FormSection = styled.div`
-    width: 48%;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 48%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    /* border: 1px solid blue; */
-    @media (max-width: 768px) {
-        width: 100%;
-    }
+  /* border: 1px solid blue; */
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Form = styled.div`
-    padding: 50px;
-    background: #fff;
-    border-radius: 30px;
+  padding: 50px;
+  background: #fff;
+  border-radius: 30px;
+  /* border: 1px solid green; */
+  & h1 {
+    border-left: 5px solid #ff8c00;
+    padding: 10px;
+    color: #000;
+    letter-spacing: 5px;
+    margin-bottom: 35px;
+    font-weight: bold;
+    padding-left: 10px;
+  }
+  & .inputbox-wrap {
+    & p {
+      text-align: left;
+      padding-left: 10px;
+      color: red;
+    }
+    margin-bottom: 30px;
+  }
+  & .inputbox {
+    height: 50px;
+    padding: 0;
     /* border: 1px solid green; */
-    & h1{
-        border-left: 5px solid #ff8c00;
-        padding: 10px;
-        color: #000;
-        letter-spacing: 5px;
-        margin-bottom: 35px;
-        font-weight: bold;
-        padding-left: 10px;
+    position: relative;
+    &:last-child {
+      margin-bottom: 0;
     }
-    & .inputbox-wrap {
-        & p {
-            text-align: left;
-            padding-left: 10px;
-            color: red;
-        }
-        margin-bottom: 30px;
+  }
+  & input {
+    position: relative;
+    padding: 11px 5px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    border: 2px solid #000;
+    outline: none;
+    display: block;
+    width: 95%;
+    &:focus ~ span,
+    &:valid ~ span {
+      transform: translateX(-13px) translateY(-35px);
+      font-size: 1em;
     }
-    & .inputbox {
-        height: 50px;
-        padding: 0;
-        /* border: 1px solid green; */
-        position: relative;
-        &:last-child {
-            margin-bottom: 0;
-        }
-    }
-    & input {
-        position: relative;
-        padding: 11px 5px;
-        border-radius: 10px;
-        font-size: 1.2em;
-        border: 2px solid #000;
-        outline: none;
-        display: block;
-        width: 95%;
-        &:focus ~ span,
-        &:valid ~ span {
-            transform: translateX(-13px) translateY(-35px);
-            font-size: 1em;
-        }
-    }
+  }
 
-    & span {
-        position: absolute;
-        top: 14px;
-        left: 20px;
-        font-size: 1em;
-        transition: 0.6s;
-        font-family: sans-serif;
-    }
+  & span {
+    position: absolute;
+    top: 14px;
+    left: 20px;
+    font-size: 1em;
+    transition: 0.6s;
+    font-family: sans-serif;
+  }
 
-    & [type="button"] {
-        width: 100%;
-        background: #ffcd90;
-        color: #fff;
-        border: #fff;
-        &:hover {
-            background: #ff8c00;
-        }
+  & [type="button"] {
+    width: 100%;
+    background: #ffcd90;
+    color: #fff;
+    border: #fff;
+    &:hover {
+      background: #ff8c00;
     }
+  }
 
-    & a {
-        text-decoration: none!important;
-        color: #080808;
-        margin-top: 10px;
-        font-size: 13px;
-    }
+  & a {
+    text-decoration: none !important;
+    color: #080808;
+    margin-top: 10px;
+    font-size: 13px;
+  }
 
-    @media (max-width: 768px) {
-        padding: 0 20px;
-        & h1{
-        font-size: 1.5em;
-        }
+  @media (max-width: 768px) {
+    padding: 0 20px;
+    & h1 {
+      font-size: 1.5em;
     }
+  }
 `;
 
-
 const Hero = styled.div`
-    width: 50%;
-    overflow: hidden;
-    /* border: 1px solid red; */
-    div {
-        height: fit-content;
-        width: 400px;
-        background: #fff;
-        &>img{
-            height: 400px;
-            border-radius: 30px; 
-            /* border: 1px solid blue; */
-        }
+  width: 50%;
+  overflow: hidden;
+  /* border: 1px solid red; */
+  div {
+    height: fit-content;
+    width: 400px;
+    background: #fff;
+    & > img {
+      height: 400px;
+      border-radius: 30px;
+      /* border: 1px solid blue; */
     }
-    @media (max-width: 768px) {
-        display: none;
-    }
+  }
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const mapStateToProps = (state) => {
-    return {
-        previous_url: state.appState.previous_url,
-        user: state.userState.user,
-        errors: state.appState.errors,
-    }
+  return {
+    previous_url: state.appState.previous_url,
+    user: state.userState.user,
+    errors: state.appState.errors,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    signIn: (payload) => dispatch(loginAPI(payload)),
-    closeLoader: () => {
-        dispatch(setLoadingMessage(null));
-        dispatch(setLoading(false));
-      },
+  signIn: (payload) => dispatch(loginAPI(payload)),
+  closeLoader: () => {
+    dispatch(setLoadingMessage(null));
+    dispatch(setLoading(false));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

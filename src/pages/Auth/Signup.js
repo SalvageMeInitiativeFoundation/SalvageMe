@@ -1,11 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import axios from "axios";
+import {toast} from "react-toastify";
+import { useState, useEffect,useContext } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { signUpAPI } from "../../actions";
-import { Navigate } from "react-router-dom";
-import { isEmailValid, isPasswordValid, isContactValid } from "../../utils/middleware";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/userContext/userContext";
+import { isEmailValid, isPasswordValid, isContactValid, isConfirmPassword } from "../../utils/middleware";
 
 
 const Signup = (props) => {
@@ -13,13 +16,26 @@ const Signup = (props) => {
     const [username, setUsername] = useState("");
     const [contact, setContact] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
     // ERRORS
     const [emailError, setEmailError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+    const [confirmPasswordError, setConfirmPasswordError] = useState("");
     const [contactError, setContactError] = useState("");
 
+    //Loading
+    const [isLoading,setIsLoading]=useState(false);
+    const [isSignupError,setIsSignupError]=useState(false);
+
+    //Navigation
+    const navigate=useNavigate();
+
+    //context
+    const {setLocalUser,getLocalUser,setUser,user}=useContext(UserContext)
 
     const validateEmail = (value) => { 
+        
         setEmail(value);
         let emailRes = isEmailValid(value);
         setEmailError(emailRes[1] ? emailRes[1] : "");
@@ -31,27 +47,67 @@ const Signup = (props) => {
         setPasswordError(paswdRes[1] ? paswdRes[1] : "");
     }; 
 
+    const validateConfirmPassword = (value) => { 
+        setConfirmPassword(value);
+        console.log(confirmPassword);
+        let passwordInput={
+            'password':password,
+            'confirmPassword':confirmPassword
+        }
+        let conPaswdRes = isConfirmPassword(passwordInput,setConfirmPasswordError)
+        console.log(conPaswdRes);
+        
+        // setConfirmPasswordError(conPaswdRes ? "Password mismatch" : "");
+    }; 
+
     const validateContact = (value) => { 
         setContact(value);
         let contactRes = isContactValid(value);
         setContactError(contactRes[1] ? contactRes[1] : "");
     }; 
 
-    const handleSignup = (e) => {
+    const handleSignup = async(e) => {
         e.preventDefault();
-    
-        if (e.target !== e.currentTarget) {
-          return;
-        }
-    
+        setIsLoading(true);
         const payload = {
             name: username,
             email: email,
             contact: contact,
             password: password
         };
+        try {
+            const signUpUserResponse = await axios.post(
+                `${process.env.REACT_APP_BASE_URL}/auth/createUser`,
+                payload
+              );
+              if (signUpUserResponse.status== 200) {
+                // console.log('===========signup response======')
+                // console.log(signUpUserResponse.data._doc);
+                setLocalUser(signUpUserResponse.data._doc)
+                setIsLoading(false)
+                toast.success('Account Succesfully Created',{
+                  position: toast.POSITION.TOP_RIGHT
+              })
+                navigate("/");
+                reset();
+              }
+              else{
+                setIsLoading(false);
+              setIsSignupError(true)
+              setTimeout(()=>{
+                setIsSignupError(false);
+              },3000)
+            } 
+        } catch (error) {
+            setIsLoading(false);
+            toast.error('Couldn\'t create account',{
+              position: toast.POSITION.TOP_RIGHT
+          });
+            console.log(error);
+            
+        }
 
-        props.signUp(payload);
+        // props.signUp(payload);
       }
 
     const reset = () => {
@@ -79,6 +135,7 @@ const Signup = (props) => {
                 <FormSection>
                     <Form>
                         <h1>Join Us Now!</h1>
+                        {isSignupError&&<span style={{color:"red",textAlign: "center"}}>Couldn't Create Account</span> }
                         <form>
                             <div className="inputbox-wrap">
                                 <div className="inputbox">
@@ -131,12 +188,25 @@ const Signup = (props) => {
                                 {passwordError && <p>{passwordError}</p>}
                             </div>
 
+                            <div className="inputbox-wrap">
+                                <div className="inputbox">
+                                    <input 
+                                        type="password"
+                                        value={confirmPassword}
+                                        onChange={(e) => validateConfirmPassword(e.target.value)} 
+                                        required="required" 
+                                    />
+                                    <span>Confirm Password</span>
+                                </div>
+                                {confirmPasswordError && <p>{confirmPasswordError}</p>}
+                            </div>
+
                             <div className="inputbox">
                                 <input 
                                     type="button"
                                     disabled={!(password && email && contact)? true : false}
                                     onClick={(event) => handleSignup(event)}
-                                    value="submit" 
+                                    value={ isLoading?"SingingUp..." : "submit" }
                                 />
                             </div>
                         </form>
