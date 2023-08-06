@@ -43,7 +43,7 @@ const LandingPage = (props) => {
                 <Logo>
                     <Link to="/home">
                         <div className="logo-wrap">
-                            <img src="/images/logo.png" alt="Logo" />
+                            <img src="/images/logo.jpg" alt="Logo" />
                             <h1 className="logo-text-wrap">
                                 <span style={{color: "black"}}>Salvage</span>
                                 <span style={{color: "#ff8c00"}}>Me</span>
@@ -112,6 +112,7 @@ const Logo = styled.div`
         img {
             width: 50px;
             height: 50px;
+            border-radius: 50%;
         }
         .logo-text-wrap{
             border: 1px solid white;

@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Home from "../home";
+import Heroes from "../../components/heroes";
+import axios from "axios";
+
 
 const About = (props) => {
- 
+  const [users, setUsers] = useState(null);
+
+  useEffect(() => {
+    FetchData();
+  }, []);
+
+  const FetchData = async () => {
+    try {
+      const Users = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}/auth/users`
+      );
+      setUsers(Users.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <Container>
@@ -67,13 +85,29 @@ const About = (props) => {
                 in the lives of children and communities. Join us in creating a
                 brighter future through the power of knowledge.
               </p>
+
+              <Title>Meet our Heroes</Title>
+              <GridList>
+              {users == null ? (
+                <GridItem>
+                </GridItem>
+                ) : (
+                <>
+                {
+                  users.map((user, key) => ((user.donationCount>50 &&
+                    <GridItem>
+                      <Heroes key={key} user={user} />
+                    </GridItem>
+                  )))
+                }
+                </>
+                )}
+              </GridList>
             </Description>
           </AboutSection>
-
         </AboutWrapper>
-
       </Container>
-      <Home/>
+      {/* <Home/> */}
     </>
   );
 };
@@ -219,5 +253,32 @@ const Description = styled.div`
   }
 `;
 
+
+const GridList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(280px, 1fr));
+  grid-gap: 20px 10px;
+  /* border: 1px solid black; */
+
+  @media (min-width: 500px) {
+    grid-auto-columns: calc(50% - 10px);
+  }
+  
+  @media (min-width: 700px) {
+    grid-auto-columns: calc(calc(100% / 3) - 20px);
+    grid-gap: 30px 10px;
+  }
+  
+  @media (min-width: 1100px) {
+    grid-auto-columns: calc(25% - 30px);
+  }
+`;
+
+
+const GridItem = styled.div`
+  min-width: 250px;
+  /* border: 1px solid black; */
+`;
 
 export default About;
