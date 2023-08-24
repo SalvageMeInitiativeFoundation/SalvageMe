@@ -49,19 +49,19 @@ const Signup = (props) => {
 
     const handleConfirmPasswordChange=(value)=>{
        setConfirmPassword(value);
-       validateConfirmPassword();
+       validateConfirmPassword(value);
     }
 
-    const validateConfirmPassword = () => { 
+    const validateConfirmPassword = (value) => { 
       
         let passwordInput={
             'password':password,
-            'confirmPassword':confirmPassword
+            'confirmPassword':value,
         }
         if(confirmPassword.length>0){
         let conPaswdRes = isConfirmPassword(passwordInput,setConfirmPasswordError)
         // conPaswdRes?setConfirmPasswordError(""):setConfirmPasswordError("Confirm password is not matched");
-        console.log(conPaswdRes);
+        console.log('confirm password response',conPaswdRes);
         }
         
         // setConfirmPasswordError(conPaswdRes ? "Password mismatch" : "");
@@ -77,7 +77,7 @@ const Signup = (props) => {
         e.preventDefault();
         setIsLoading(true);
         const payload = {
-            name: username,
+            username: username,
             email: email,
             contact: contact,
             password: password
