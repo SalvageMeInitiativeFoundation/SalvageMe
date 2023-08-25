@@ -75,24 +75,25 @@ function Request() {
   ];
 
   return (
-    <>
+    <div>
       <div className="RequestSearch">
         <div className="RequestSearchOne">
           <input
             type="text"
             name="BooKName"
             id="bookName"
+            className="request-Text"
             placeholder="Search for book"
             onChange={handleChange}
             value={singleSearchValue}
           />
-          <button type="button" onClick={handleSingleSearch}>
+          <button type="button" className="button" onClick={handleSingleSearch}>
             Search
           </button>
         </div>
         <div>
           <Filter
-            placeHolder={"Filter by category..."}
+            placeHolder={"By category......."}
             options={options}
             setDonations={setDonations}
             setIsloading={setIsloading}
@@ -122,7 +123,7 @@ function Request() {
           })}
         </div>
       )}
-    </>
+    </div>
   );
 }
 
