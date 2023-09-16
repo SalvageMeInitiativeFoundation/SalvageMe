@@ -200,6 +200,7 @@ const NavbarLinks = styled.ul`
     transition: all 0.3s ease;
     &.active {
       display: flex;
+      width:90%
     }
   }
 `;
