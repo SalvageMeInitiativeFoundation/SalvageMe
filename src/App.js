@@ -17,6 +17,7 @@ import PrivateRoute from "./components/privateRoute";
 import LandingPage from "./pages/Landing/LandingPage";
 import UserContextProvider from "./context/userContext/userContext";
 import "./index.css";
+import 'rsuite/dist/rsuite.min.css';
 import Technology from './pages/Home/Technology';
 import Dashboard from './pages/Dashboard/Dashboard';
 

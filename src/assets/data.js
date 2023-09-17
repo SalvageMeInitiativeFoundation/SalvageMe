@@ -1,16 +1,16 @@
 export const imageSliders = [
     {
-        url: '/images/banner-soon.jpg',
+        url: 'https://salvagemeubcket.s3.amazonaws.com/landingPage/banner-soon.jpg',
         title: 'Launching Soon',
         description: "SalvageMe"
     },
     {
-        url: '/images/donate1.jpg',
+        url: 'https://salvagemeubcket.s3.amazonaws.com/landingPage/donate1.jpg',
         title: "Donate your books to us",
         description: "let's put your old books to use"
     },
     {
-        url: '/images/donate2.jpg',
+        url: 'https://salvagemeubcket.s3.amazonaws.com/landingPage/donate2.jpg',
         title: 'We donate your books',
         description: "to people who need them"
     }
