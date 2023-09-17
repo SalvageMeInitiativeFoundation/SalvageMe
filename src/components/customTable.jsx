@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Pagination, Table } from "rsuite";
 import { styled } from "styled-components";
 
+import "rsuite/dist/rsuite-no-reset.min.css";
+
 const { Column, HeaderCell, Cell } = Table;
 
 export default function CustomTable({ data,loading }) {
