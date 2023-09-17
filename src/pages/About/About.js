@@ -89,8 +89,7 @@ const About = (props) => {
               <Title>Meet our Heroes</Title>
               <GridList>
               {users == null ? (
-                <GridItem>
-                </GridItem>
+                <></>
                 ) : (
                 <>
                 {
@@ -107,7 +106,6 @@ const About = (props) => {
           </AboutSection>
         </AboutWrapper>
       </Container>
-      {/* <Home/> */}
     </>
   );
 };
