@@ -38,9 +38,9 @@ const Volunteer = (props) => {
       `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
     ).then((response) => {
       toast.success('Thanks for Volunteering');
-      console.log('SUCCESS!', response.status, response.text);
+      //console.log('SUCCESS!', response.status, response.text);
    }, (err) => {
-      console.log('FAILED...', err);
+      //console.log('FAILED...', err);
    });
 
     

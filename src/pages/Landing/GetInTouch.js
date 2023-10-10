@@ -37,9 +37,9 @@ const GetInTouch = (props) => {
       `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
     ).then((response) => {
       toast.success('Email sent');
-      console.log('SUCCESS!', response.status, response.text);
+      //console.log('SUCCESS!', response.status, response.text);
    }, (err) => {
-      console.log('FAILED...', err);
+      //console.log('FAILED...', err);
    });
 
     

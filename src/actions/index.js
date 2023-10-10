@@ -83,13 +83,13 @@ export function signUpAPI(data) {
           dispatch(setUserActivationStatus(true));
           dispatch(setLoadingMessage(messages.SIGNUP_SUCCESS_MESSAGE));
         } else if (data.failed) {
-          console.log(data.errors);
+          //console.log(data.errors);
           dispatch(setErrors(data.errors));
           dispatch(setLoading(false));
         }
       })
       .catch((errorMessage) => {
-        console.log(errorMessage);
+        //console.log(errorMessage);
         dispatch(setLoadingMessage(messages.SIGNUP_FAILED_MESSAGE));
       });
   };
@@ -144,13 +144,13 @@ export function loginAPI(payload) {
             })
           );
         } else if (data.failed) {
-          console.log(data.errors);
+          //console.log(data.errors);
           dispatch(setErrors({ login: data.errors }));
           dispatch(setLoading(false));
         }
       })
       .catch((errorMessage) => {
-        console.log(errorMessage);
+        //console.log(errorMessage);
       });
   };
 }
@@ -191,7 +191,7 @@ export function createDonationAPI({ payload, files }) {
         if (data.success) {
           dispatch(setCreateDonationStatus(true));
         } else if (data.failed) {
-          console.log(data.errors);
+          //console.log(data.errors);
           dispatch(setCreateDonationStatus(false));
           let msg = (
             <>
@@ -205,7 +205,7 @@ export function createDonationAPI({ payload, files }) {
         }
       })
       .catch((errorMessage) => {
-        console.log(errorMessage);
+        //console.log(errorMessage);
       });
   };
 }
@@ -227,10 +227,10 @@ export function getCategoriesAPI() {
       })
       .then((categories) => {
         dispatch(setCategories(categories));
-        console.log("Categories ", categories);
+        //console.log("Categories ", categories);
       })
       .catch((errorMessage) => {
-        console.log(errorMessage);
+        //console.log(errorMessage);
       });
   };
 }
@@ -259,18 +259,18 @@ export function requestAPI(data) {
       .then((response) => response.json())
       .then((data) => {
         if (data.failed) {
-          console.log(data.errors);
+          //console.log(data.errors);
           dispatch(setErrors(data.errors));
           dispatch(setLoading(false));
         }
         else {
-          console.log(data);
+          //console.log(data);
           dispatch(setUserOrder(data));
           dispatch(setLoading(false));
         }  
       })
       .catch((errorMessage) => {
-        console.log(errorMessage);
+        //console.log(errorMessage);
         dispatch(setLoadingMessage(""));
       });
   };

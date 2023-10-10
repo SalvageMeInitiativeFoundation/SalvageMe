@@ -13,12 +13,12 @@ const PhoneNumberInputField = () => {
       
       
     const onSubmit = (data) => {
-        console.log({data});
+        //console.log({data});
     };
 
     const handleValidate = (value) => {
         const isValid = isValidPhoneNumber(value);
-        console.log({ isValid })
+        //console.log({ isValid })
         return isValid
     };
 

@@ -66,9 +66,9 @@ const DonationForm = (props) => {
       setImageError({...imageError, images: "Too many files"});
     }
     else {
-      console.log("Accepted files", acceptedFiles);
-      console.log("Book images", bookImages);
-      console.log("Read book images", readBookImages);
+      //console.log("Accepted files", acceptedFiles);
+      //console.log("Book images", bookImages);
+      //console.log("Read book images", readBookImages);
       // Add acceptedfiles to setEventImages
       acceptedFiles.map((file) => {
         const reader = new FileReader();

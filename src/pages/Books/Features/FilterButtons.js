@@ -22,14 +22,14 @@ const FilterButtons = ({
         ...newCheckedInputs[filterTypeId],
         elem.value,
       ];
-      console.log(newCheckedInputs);
+      //console.log(newCheckedInputs);
     } else {
       if (newCheckedInputs[filterTypeId].includes(elem.value)) {
         let updatedCheckedInputs = newCheckedInputs[filterTypeId].filter(
           (item) => item !== elem.value
         );
         newCheckedInputs[filterTypeId] = updatedCheckedInputs;
-        console.log(newCheckedInputs);
+        //console.log(newCheckedInputs);
       }
     }
   };
@@ -39,7 +39,7 @@ const FilterButtons = ({
   };
 
   const handleFilter = () => {
-    console.log(newCheckedInputs);
+    //console.log(newCheckedInputs);
     filterEvents(newCheckedInputs);
   };
 

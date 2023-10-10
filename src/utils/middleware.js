@@ -84,7 +84,7 @@ export const isPasswordValid = (passwordInputValue) => {
 
 
 export const isConfirmPassword= (passwordInput, setError)=>{
-    console.log(passwordInput.confirmPassword)
+    //console.log(passwordInput.confirmPassword)
     if(passwordInput.confirmPassword.length>0){
        if(passwordInput.confirmPassword!==passwordInput.password)
     {

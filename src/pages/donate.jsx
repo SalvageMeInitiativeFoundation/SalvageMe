@@ -152,7 +152,7 @@ function Donate() {
         toast.error('Error Donating Book',{
           position: toast.POSITION.TOP_RIGHT
       })
-        console.log(error);
+        //console.log(error);
       }
     } else {
       setIsLoading(false);
@@ -183,7 +183,7 @@ function Donate() {
         // console.log(updateDonationResponse.data);
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

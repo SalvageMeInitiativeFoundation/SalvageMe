@@ -169,7 +169,7 @@ function SignUp() {
         toast.error('Couldn\'t create account',{
           position: toast.POSITION.TOP_RIGHT
       });
-        console.log(error);
+        //console.log(error);
       }
     }else{
       setIsLoading(false);

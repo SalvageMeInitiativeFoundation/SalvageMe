@@ -48,7 +48,7 @@ const Filter = ({ placeHolder, options, setDonations, setIsLoading }) => {
       setDonations(BookData.data);
       // setIsLoading((prev)=>!prev)
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       // setIsLoading((prev)=>!prev)
     }
   };

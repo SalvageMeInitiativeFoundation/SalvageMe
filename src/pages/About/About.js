@@ -18,7 +18,7 @@ const About = (props) => {
       );
       setUsers(Users.data);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

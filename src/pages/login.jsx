@@ -50,7 +50,7 @@ function Login() {
       toast.error('Error Signing In',{
         position: toast.POSITION.TOP_RIGHT
     });
-      console.log(error);
+      //console.log(error);
     }
     
   };

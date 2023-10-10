@@ -41,7 +41,7 @@ function Request() {
       setIsloading((prev) => !prev);
       // console.log(donations);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
       setIsloading((prev) => !prev);
     }
   };
