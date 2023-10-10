@@ -22,7 +22,7 @@ const LandingPage = (props) => {
             else {
                 setCurrentSlide(currentSlide + 1);
             }
-        }, 5000);
+        }, 9000);
 
         return() => clearTimeout(timer);
     },[currentSlide]);
