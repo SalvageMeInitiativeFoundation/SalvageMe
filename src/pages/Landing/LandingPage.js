@@ -41,7 +41,8 @@ const LandingPage = (props) => {
                 <BackgroundImage style={bgImageStyle}/>
                 <ImageOverlay />
                 <Logo>
-                    <Link to="/home">
+                {/* Replace "/" with "/home" in to field for Line below */}
+                    <Link to="/">
                         <div className="logo-wrap">
                             <img src="/images/logo.jpg" alt="Logo" />
                             <h1 className="logo-text-wrap">
