@@ -92,7 +92,6 @@ export const isConfirmPassword= (newPassword, confirmPassword)=>{
         return false;
     }
     else{
-        setError("");
         return true;
     } 
     }

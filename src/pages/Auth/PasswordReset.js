@@ -8,6 +8,9 @@ const PasswordReset = (props) => {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  // ERRORS
+  const [passwordError, setPasswordError] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     pswdReset();
@@ -22,7 +25,10 @@ const PasswordReset = (props) => {
   };
 
   const pswdReset = () => {
-    // Handles password reset api here
+    if (isConfirmPassword(newPassword, isConfirmPassword)){
+      // Handles password reset api here
+
+    }
   };
 
   return (
@@ -32,27 +38,26 @@ const PasswordReset = (props) => {
         <h2 style={{textAlign: "center"}}>Password Reset</h2>          
         <div className="inputbox-wrap">
             <div className="inputbox">
+              <span>New password</span>
                 <input
                 type="password"
                 value={newPassword}
                 onChange={(e) => validatePassword(e.target.value)}
                 required="required"
                 />
-                <span>New password</span>
             </div>
             {passwordError && <p>{passwordError}</p>}
             </div>
         <div className="inputbox-wrap">
             <div className="inputbox">
+              <span>Confirm new password</span>
                 <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required="required"
                 />
-                <span>Confirm new password</span>
             </div>
-            {passwordError && <p>{passwordError}</p>}
         </div>
         <button type="submit">Submit</button>
         </Form>

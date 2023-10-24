@@ -15,6 +15,7 @@ import Donate from "./pages/donate";
 import Request from "./pages/request";
 import PrivateRoute from "./components/privateRoute";
 import LandingPage from "./pages/Landing/LandingPage";
+import PasswordReset from './pages/Auth/PasswordReset';
 import UserContextProvider from "./context/userContext/userContext";
 import "./index.css";
 // import 'rsuite/dist/rsuite.min.css';
@@ -54,6 +55,7 @@ function App() {
             </Route>
             <Route path="/login" element={<Login/>} />
             <Route path="/signup" element={<Signup/>} />
+            <Route path="/password-reset" element={<PasswordReset/>} />
           </Routes>
         </BrowserRouter>
       </UserContextProvider>
