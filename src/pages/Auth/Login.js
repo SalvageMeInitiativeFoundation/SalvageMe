@@ -21,7 +21,7 @@ const Login = (props) => {
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
-  const [forgetPassword, setForgetPassword] = useState("");  
+  const [forgetPassword, setForgetPassword] = useState(false);  
 
   // ERRORS
   const [emailError, setEmailError] = useState("");
@@ -53,7 +53,7 @@ const Login = (props) => {
     let paswdRes = isPasswordValid(value);
     setPasswordError(paswdRes[1] ? paswdRes[1] : "");
   };
-
+ 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);

@@ -55,7 +55,7 @@ function App() {
             </Route>
             <Route path="/login" element={<Login/>} />
             <Route path="/signup" element={<Signup/>} />
-            <Route path="/password-reset" element={<PasswordReset/>} />
+            <Route path="/password-reset/:token/:id" element={<PasswordReset/>} />
           </Routes>
         </BrowserRouter>
       </UserContextProvider>

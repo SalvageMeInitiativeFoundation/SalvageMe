@@ -4,40 +4,55 @@ import styled from "styled-components";
 import emailjs from 'emailjs-com';
 import { MdReportGmailerrorred } from "react-icons/md";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const ForgetPassword = (props) => {
   const subject = 'Forget Password';
   const salvageMeMail='salvagemeinitiative@gmail.com';
   const [email, setEmail] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
+    let data = {
+      'data':email,
+    }
     e.preventDefault();
-    sendEmail();
-    setEmail("");
-    props.close();
+    try {
+      const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/resetPasswordRequest`,data)
+      if(res.status==200){
+        setEmail("");
+        toast.success('Mail Sent successfully');
+        props.close();
+
+      }else{
+        toast.error('couldn\'t send reset link');
+      }
+    } catch (error) {
+      toast.error('check internet connection');
+      console.log(error);
+    }
   };
 
-  const sendEmail = () => {
-    // Use the email service API to send the email
-    // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs
-    emailjs.send(
-      `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
-      `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
-      {
-        from_name:email,
-        to_email: salvageMeMail,
-        subject: subject,
-      },
-      `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
-    ).then((response) => {
-      toast.success('Email sent');
-      console.log('SUCCESS!', response.status, response.text);
-   }, (err) => {
-      console.log('FAILED...', err);
-   });
+  // const sendEmail = () => {
+  //   // Use the email service API to send the email
+  //   // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs
+  //   emailjs.send(
+  //     `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
+  //     `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
+  //     {
+  //       from_name:email,
+  //       to_email: salvageMeMail,
+  //       subject: subject,
+  //     },
+  //     `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
+  //   ).then((response) => {
+  //     toast.success('Email sent');
+  //     console.log('SUCCESS!', response.status, response.text);
+  //  }, (err) => {
+  //     console.log('FAILED...', err);
+  //  });
 
     
-  };
+  // };
 
   return (
     <Modal close={props.close}>
