@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Modal from "../../components/Modal";
 import styled from "styled-components";
 import { isPasswordValid, isConfirmPassword } from "../../utils/middleware";
@@ -6,10 +6,13 @@ import Loading from "../../components/Loading";
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { UserContext } from "../../context/userContext/userContext";
 
 const PasswordReset = (props) => {
-  // getting token from url
-  const { params } = useParams();
+  const {removeLocalUser} =useContext(UserContext);
+
+  // getting token and id from url
+  const { token,id } = useParams();
   const navigate = useNavigate();
 
   const [newPassword, setNewPassword] = useState("");
@@ -25,7 +28,7 @@ const PasswordReset = (props) => {
     e.preventDefault();
     pswdReset();
     setNewPassword("");
-    props.close();
+    // props.close();
   };
 
   const validatePassword = (value) => {
@@ -42,10 +45,11 @@ const PasswordReset = (props) => {
       };
       try {
         const res = await axios.post(
-          `${process.env.REACT_APP_BASE_URL}/auth/resetPassword/?token=${params.token}&id=${tokenData.userId}`,
+          `${process.env.REACT_APP_BASE_URL}/auth/resetPassword/?token=${token}&id=${tokenData.userId}`,
           data
         );
         if (res.status == 200) {
+          removeLocalUser();
           toast.success("Password reset successful");
           navigate("/login");
         } else {
@@ -63,14 +67,20 @@ const PasswordReset = (props) => {
   const validToken = async () => {
     // write api call for token validation here
     // TODO:create this api
+    console.log('=========================validation=======================');
+    console.log(token);
+    console.log(id);
+
     try {
       const res = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/auth/resetTokenPreValidation/?token=${params.token}&id=${params.id}`
+        `${process.env.REACT_APP_BASE_URL}/auth/resetTokenPreValidation/?token=${token}&id=${id}`
       );
       if (res.status == 200) {
+        console.log('======================validation data==================');
+        console.log(res.data);
         setTokenData(res.data);
-        setIsValidToken((prev) => !prev);
-        setIsLoading((prev)=> !prev);
+        setIsValidToken(true);
+        setIsLoading(false);
       }
     } catch (error) {
       toast.error("No internet");
@@ -79,7 +89,7 @@ const PasswordReset = (props) => {
     }
   };
 
-  useEffect(async() => {
+  useEffect(() => {
      validToken()
   }, []);
 
