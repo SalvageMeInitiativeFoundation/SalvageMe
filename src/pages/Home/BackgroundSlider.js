@@ -16,7 +16,7 @@ const BackgroundSlider = (props) => {
             else {
                 setCurrentSlide(currentSlide + 1);
             }
-        }, 5000);
+        }, 1000);
 
         return() => clearTimeout(timer);
     },[currentSlide]);
