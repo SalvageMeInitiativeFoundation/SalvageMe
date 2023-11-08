@@ -1,16 +1,16 @@
 export const imageSliders = [
     {
-        url: 'https://salvagemeubcket.s3.amazonaws.com/landingPage/banner-soon.jpg',
+        url: 'https://salvagemeubcket.s3.amazonaws.com/landingPage/rocket-compressed.jpg',
         title: 'Launching Soon',
         description: "SalvageMe"
     },
     {
-        url: 'https://salvagemeubcket.s3.amazonaws.com/landingPage/donate1.jpg',
+        url: 'https://salvagemeubcket.s3.amazonaws.com/landingPage/donate1-compressed.jpg',
         title: "Donate your books to us",
         description: "let's put your old books to use"
     },
     {
-        url: 'https://salvagemeubcket.s3.amazonaws.com/landingPage/donate2.jpg',
+        url: 'https://salvagemeubcket.s3.amazonaws.com/landingPage/donate2-compressed.jpg',
         title: 'We donate your books',
         description: "to people who need them"
     }
