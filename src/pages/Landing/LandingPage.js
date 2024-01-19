@@ -18,6 +18,8 @@ const LandingPage = (props) => {
     const [getInTouch, setGetInTouch] = useState(false);
     const [volunteer, setVolunteer] = useState(false);
     const [donate, setDonate] = useState(false);
+    const [support, setSupport] = useState(false);
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
