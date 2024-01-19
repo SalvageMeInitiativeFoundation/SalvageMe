@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import Modal from "../../components/Modal";
 import styled from "styled-components";
 import emailjs from "emailjs-com";
+import axios from "axios";
 import {toast} from "react-toastify";
+import { v4 as uuidv4, } from "uuid";
 
 
 const Support = (props) => {
@@ -10,13 +12,112 @@ const Support = (props) => {
   const salvageMeMail='salvagemeinitiative@gmail.com';
   const [MSISDN, setNumber] = useState("");
   const [amount, setAmount] = useState(5);
+  const [isLoading, setIsLoading] = useState(false);
+  const [verify, setVerify] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [uniqueId, setUniqueId] = useState("");
+
+  const MakePayment = async () => {
+    setIsLoading(true);
+    // console.log('loggiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin')
+    const _uid = uuidv4();
+    setUniqueId(_uid);
+    const data = {
+      "amount": amount,
+      "currency": "GHS",
+      "XReferenceId": _uid,
+      "externalId": _uid,
+      "payer": {
+        "partyIdType": "MSISDN",
+        "partyId": "233"+MSISDN.slice(1, MSISDN.length),
+      },
+      "payerMessage": "SalvageMe Donation",
+    };
+    console.log('data momo',data)
+    try {
+      const paymentResponse = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/payment/makePayment`,
+        data
+      );
+         console.log('creating payment')
+      if (paymentResponse.status == 200) {
+        setIsLoading(false);
+        setVerify(true);
+        // console.log('===============Login===============')
+        // console.log(loginResponse.data)
+        toast.success("Payment initiated, Complete transaction offline", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      } else {
+        toast.error("Error Initiating payment", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setIsError(true);
+      setTimeout(() => {
+        setIsError(false);
+      }, 3000);
+      toast.error("Server Error Initiating payment", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      //console.log(error);
+    }
+  };
+
+  const verifyPayment = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    console.log('refid',uniqueId)
+    const data = { "externalId": uniqueId};
+    try {
+      const paymentResponse = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/payment/verifyPayment`,
+        data
+      );
+      //    console.log(loginResponse.data)
+      if (paymentResponse.status == 200) {
+        setVerify(false);
+        // console.log('===============Login===============')
+        // console.log(loginResponse.data)
+        setIsLoading(false);
+        toast.success("Payment successfull,", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        props.close()
+
+      } else {
+        setVerify(false);
+        // console.log('===============Login===============')
+        // console.log(loginResponse.data)
+        setIsLoading(false);
+        toast.error("Error verifying payment", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        props.close()
+
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setIsError(true);
+      setTimeout(() => {
+        setIsError(false);
+      }, 3000);
+      toast.error("Server Error verifying payment", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      //console.log(error);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    sendEmail();
-    setNumber("");
-    setAmount(5);
-    props.close()
+    MakePayment()
+    // sendEmail();
+    // setNumber("");
+    // setAmount(5);
   };
 
 
@@ -62,7 +163,7 @@ const Support = (props) => {
               id="MSISDN"
               value={MSISDN}
               onChange={(e) => setNumber(e.target.value)}
-              placeholder="233XXXXXXXXX"
+              placeholder="0XXXXXXXXX"
               required
             />
           </div>
@@ -76,7 +177,9 @@ const Support = (props) => {
               required
             />
           </div>
-          <button type="submit">Submit</button>
+          {!verify&&<button type="submit">{isLoading?"Processing":"Pay"}</button>}
+          {verify&&<button type="button" onClick={verifyPayment}>{isLoading?"Processing":"Verify Payment"}</button>}
+
         </Form>
       </Wrapper>
     </Modal>
