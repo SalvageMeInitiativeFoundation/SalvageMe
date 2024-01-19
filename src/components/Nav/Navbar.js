@@ -26,7 +26,7 @@ const Navbar = (props) => {
     });
     navigate('/home')
     // console.log('===============LoggingOut==============')
-    //  console.log(user);
+     console.log('======active navbar=======');
   };
 
   return (
