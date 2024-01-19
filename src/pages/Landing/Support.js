@@ -71,7 +71,7 @@ const Support = (props) => {
     e.preventDefault();
     setIsLoading(true);
     console.log('refid',uniqueId)
-    const data = { "externalId": uniqueId};
+    const data = { "externalId": "42b21ce0-30db-45d8-ad04-299599718045"};
     try {
       const paymentResponse = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/payment/verifyPayment`,
