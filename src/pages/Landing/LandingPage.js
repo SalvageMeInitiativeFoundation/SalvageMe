@@ -78,6 +78,8 @@ const LandingPage = (props) => {
             {getInTouch && <GetInTouch close={()=>setGetInTouch(!getInTouch)}/>}
             {volunteer && <Volunteer close={()=>setVolunteer(!volunteer)}/>}
             {donate && <Donate close={()=>setDonate(!donate)}/>}
+            {support && <Support close={()=>setSupport(!support)}/>}
+
         </Container>
     );
 };
