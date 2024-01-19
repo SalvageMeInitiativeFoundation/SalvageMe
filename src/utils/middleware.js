@@ -83,17 +83,15 @@ export const isPasswordValid = (passwordInputValue) => {
 }
 
 
-export const isConfirmPassword= (passwordInput, setError)=>{
-    //console.log(passwordInput.confirmPassword)
-    if(passwordInput.confirmPassword.length>0){
-       if(passwordInput.confirmPassword!==passwordInput.password)
+export const isConfirmPassword= (newPassword, confirmPassword)=>{
+    if(newPassword.length>0 && confirmPassword.length>0){
+       if(newPassword !== confirmPassword)
     {
-        setError("Confirm password is not matched");
+        let errMsg="Password not matching";
         
         return false;
     }
     else{
-        setError("");
         return true;
     } 
     }

@@ -13,12 +13,15 @@ import {
   isPasswordValid,
   isContactValid,
 } from "../../utils/middleware";
+import ForgetPassword from "./ForgetPassword";
+
 
 const Login = (props) => {
   const { setLocalUser, getLocalUser, setUser, user } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
+  const [forgetPassword, setForgetPassword] = useState(false);  
 
   // ERRORS
   const [emailError, setEmailError] = useState("");
@@ -50,7 +53,7 @@ const Login = (props) => {
     let paswdRes = isPasswordValid(value);
     setPasswordError(paswdRes[1] ? paswdRes[1] : "");
   };
-
+ 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -147,8 +150,9 @@ const Login = (props) => {
                   <span>Password</span>
                 </div>
                 {passwordError && <p>{passwordError}</p>}
+                <a href="#" onClick={()=>setForgetPassword(!forgetPassword)}>Forget password?</a>
               </div>
-
+              
               <div className="inputbox">
                 <input
                   type="button"
@@ -171,6 +175,7 @@ const Login = (props) => {
           </div>
         </Hero>
       </Section>
+      {forgetPassword && <ForgetPassword close={()=>setForgetPassword(!forgetPassword)}/>}
     </Container>
   );
 };

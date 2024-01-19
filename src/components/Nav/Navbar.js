@@ -26,7 +26,7 @@ const Navbar = (props) => {
     });
     navigate('/home')
     // console.log('===============LoggingOut==============')
-    //  console.log(user);
+     console.log('======active navbar=======');
   };
 
   return (
@@ -200,8 +200,7 @@ const NavbarLinks = styled.ul`
     transition: all 0.3s ease;
     &.active {
       display: flex;
-      width: 90%;
-
+      width:90%
     }
   }
 `;

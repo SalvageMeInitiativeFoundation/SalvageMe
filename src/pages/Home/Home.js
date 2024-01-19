@@ -153,9 +153,8 @@ const Home = (props) => {
             </ServiceInfo>
           </Service>
 
-          <Service>
-          
-            <Link to="/services/technology">
+          <Service>          
+            <Link to="/services/">
               <BackgroundImage
                 style={{ backgroundImage: `url('/images/outreach1.png')`, backgroundColor: "#fff" }}
               />
@@ -376,6 +375,7 @@ const Services = styled.div`
     flex-wrap: wrap;
   }
 `;
+
 const Service = styled.div`
   width: 30%;
   @media (max-width: 767px) {

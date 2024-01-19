@@ -6,6 +6,7 @@ import { imageSliders } from "../../assets/data";
 import GetInTouch from "./GetInTouch";
 import Volunteer from "./Volunteer";
 import Donate from "./Donate";
+import CountdownTimer from "../../components/Timer/Timer";
 
 
 const LandingPage = (props) => {
@@ -53,6 +54,7 @@ const LandingPage = (props) => {
                     </Link>
                 </Logo>
                 <ImageInfo>
+                    <CountdownTimer initialSeconds={432000} autoStart={true}/>
                     <Title><q> {imageSliders[currentSlide].title} </q></Title>
                     <Description> {imageSliders[currentSlide].description} </Description>
                     <Carousel>
@@ -138,7 +140,7 @@ const ImageInfo = styled.div`
     padding: 0 10px;
     z-index: 2;
     color: white;
-    bottom: 40%;
+    bottom: 50%;
     @media (min-width: 1440px) {
     }
     @media (max-width: 768px) {

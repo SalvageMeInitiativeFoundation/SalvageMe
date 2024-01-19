@@ -90,12 +90,12 @@ const Signup = (props) => {
               if (signUpUserResponse.status== 200) {
                 // console.log('===========signup response======')
                 // console.log(signUpUserResponse.data._doc);
-                setLocalUser(signUpUserResponse.data._doc)
-                setIsLoading(false)
+                setLocalUser(signUpUserResponse.data._doc);
+                setIsLoading(false);
                 toast.success('Account Succesfully Created',{
                   position: toast.POSITION.TOP_RIGHT
               })
-                navigate("/");
+                navigate("/home");
                 reset();
               }
               else{
