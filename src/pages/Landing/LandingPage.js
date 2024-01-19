@@ -6,7 +6,9 @@ import { imageSliders } from "../../assets/data";
 import GetInTouch from "./GetInTouch";
 import Volunteer from "./Volunteer";
 import Donate from "./Donate";
+import Support from "./Support";
 import CountdownTimer from "../../components/Timer/Timer";
+import { MdOutlineContactSupport } from "react-icons/md";
 
 
 const LandingPage = (props) => {
@@ -14,6 +16,7 @@ const LandingPage = (props) => {
     const [getInTouch, setGetInTouch] = useState(false);
     const [volunteer, setVolunteer] = useState(false);
     const [donate, setDonate] = useState(false);
+    const [support, setSupport] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(()=>{
@@ -69,12 +72,14 @@ const LandingPage = (props) => {
                         <Action onClick={()=>setGetInTouch(!getInTouch)}>Get in touch</Action>
                         <Action onClick={()=>setVolunteer(!volunteer)}>Volunteer</Action>
                         <Action onClick={()=>setDonate(!donate)}>Donate</Action>
+                        <Action onClick={()=>setSupport(!support)}>Support ❤️</Action>
                     </ActionsWrap>
                 </Actions>
             </Wrapper>
             {getInTouch && <GetInTouch close={()=>setGetInTouch(!getInTouch)}/>}
             {volunteer && <Volunteer close={()=>setVolunteer(!volunteer)}/>}
             {donate && <Donate close={()=>setDonate(!donate)}/>}
+            {support && <Support close={()=>setSupport(!support)}/>}
         </Container>
     );
 };
