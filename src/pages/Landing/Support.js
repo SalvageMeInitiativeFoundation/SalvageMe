@@ -178,7 +178,7 @@ const Support = (props) => {
             />
           </div>
           {!verify&&<button type="submit">{isLoading?"Processing":"Pay"}</button>}
-          {verify&&<button type="button" onClick={verifyPayment}>{isLoading?"Processing":"Verify Payment"}</button>}
+          {verify&&<button type="button" onClick={verifyPayment}>{isLoading?"Processing":"I have paid"}</button>}
 
         </Form>
       </Wrapper>
