@@ -77,7 +77,7 @@ const Support = (props) => {
         `${process.env.REACT_APP_BASE_URL}/payment/verifyPayment`,
         data
       );
-      //    console.log(loginResponse.data)
+         console.log('=====response',paymentResponse)
       if (paymentResponse.status == 200) {
         setVerify(false);
         // console.log('===============Login===============')
@@ -100,12 +100,13 @@ const Support = (props) => {
 
       }
     } catch (error) {
+      console.log('Server error',error)
       setIsLoading(false);
       setIsError(true);
       setTimeout(() => {
         setIsError(false);
       }, 3000);
-      toast.error("Server Error verifying payment", {
+      toast.error("Please approve payment", {
         position: toast.POSITION.TOP_RIGHT,
       });
       //console.log(error);
