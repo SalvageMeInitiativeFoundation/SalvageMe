@@ -86,6 +86,7 @@ const Support = (props) => {
         toast.success("Payment successfull,", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        sendEmail();
         props.close()
 
       } else {
@@ -116,7 +117,6 @@ const Support = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     MakePayment()
-    // sendEmail();
     // setNumber("");
     // setAmount(5);
   };
@@ -138,7 +138,7 @@ const Support = (props) => {
         from_name:"yaphetofori@gmail.com", // TODO: this needs to change
         to_email: salvageMeMail,
         subject: subject,
-        message: `GHS {amount} support from ${MSISDN}`,
+        message: `GHS ${amount} support from ${MSISDN}`,
         name:"SalvageMe",
       },
       `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
