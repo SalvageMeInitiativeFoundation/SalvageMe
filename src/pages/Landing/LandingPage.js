@@ -72,6 +72,8 @@ const LandingPage = (props) => {
                         <Action onClick={()=>setGetInTouch(!getInTouch)}>Get in touch</Action>
                         <Action onClick={()=>setVolunteer(!volunteer)}>Volunteer</Action>
                         <Action onClick={()=>setDonate(!donate)}>Donate</Action>
+                        <Action onClick={()=>setSupport(!support)}>Support ❤️</Action>
+
                     </ActionsWrap>
                 </Actions>
             </Wrapper>
