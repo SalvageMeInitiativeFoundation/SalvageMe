@@ -58,7 +58,7 @@ const LandingPage = (props) => {
                     </Link>
                 </Logo>
                 <ImageInfo>
-                    <CountdownTimer initialSeconds={432000} autoStart={true}/>
+                    <CountdownTimer initialSeconds={7715600} autoStart={true}/>
                     <Title><q> {imageSliders[currentSlide].title} </q></Title>
                     <Description> {imageSliders[currentSlide].description} </Description>
                     <Carousel>

@@ -8,7 +8,7 @@ import { v4 as uuidv4, } from "uuid";
 
 
 const Support = (props) => {
-  const subject = 'Support';
+  const subject = 'Support MoMO Payment';
   const salvageMeMail='salvagemeinitiative@gmail.com';
   const [MSISDN, setNumber] = useState("");
   const [amount, setAmount] = useState(5);
@@ -45,7 +45,7 @@ const Support = (props) => {
         setVerify(true);
         // console.log('===============Login===============')
         // console.log(loginResponse.data)
-        toast.success("Payment initiated, Complete transaction offline", {
+        toast.success("Payment initiated, Complete transaction offline using my approvals", {
           position: toast.POSITION.TOP_RIGHT,
         });
       } else {
@@ -71,7 +71,7 @@ const Support = (props) => {
     e.preventDefault();
     setIsLoading(true);
     console.log('refid',uniqueId)
-    const data = { "externalId": "42b21ce0-30db-45d8-ad04-299599718045"};
+    const data = { "externalId": uniqueId};
     try {
       const paymentResponse = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/payment/verifyPayment`,
@@ -231,6 +231,7 @@ const Form = styled.form`
     outline: none;
     color: white;
     cursor: default;
+    font-Weight:bold;
   }
 `;
 
