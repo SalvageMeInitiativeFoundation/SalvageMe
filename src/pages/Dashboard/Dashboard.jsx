@@ -17,9 +17,9 @@ function Dashboard() {
   const fetchData =async()=>{
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/donation/myRequest/${user[0].email}`);
     if(res.status==200){
-      console.log("====================My request===========");
+      // console.log("====================My request===========");
     
-      console.log('mydata',res.data);
+      // console.log('mydata',res.data);
       setData(res.data);
       setApproved(()=>res.data.filter((myRequest)=>myRequest.status=='donated'));
       setProcessing(()=>res.data.filter((myRequest)=>myRequest.status=='processing'));

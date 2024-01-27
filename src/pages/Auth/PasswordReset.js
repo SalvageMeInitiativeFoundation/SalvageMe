@@ -57,7 +57,7 @@ const PasswordReset = (props) => {
         }
       } catch (error) {
         toast.error("Reset failed");
-        console.log(error);
+        // console.log(error);
       }
     } else {
       toast.error("Complete form");
@@ -67,17 +67,17 @@ const PasswordReset = (props) => {
   const validToken = async () => {
     // write api call for token validation here
     // TODO:create this api
-    console.log('=========================validation=======================');
-    console.log(token);
-    console.log(id);
+    // console.log('=========================validation=======================');
+    // console.log(token);
+    // console.log(id);
 
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_BASE_URL}/auth/resetTokenPreValidation/?token=${token}&id=${id}`
       );
       if (res.status == 200) {
-        console.log('======================validation data==================');
-        console.log(res.data);
+        // console.log('======================validation data==================');
+        // console.log(res.data);
         setTokenData(res.data);
         setIsValidToken(true);
         setIsLoading(false);
@@ -85,7 +85,7 @@ const PasswordReset = (props) => {
     } catch (error) {
       toast.error("No internet");
 
-      console.log(error);
+      // console.log(error);
     }
   };
 

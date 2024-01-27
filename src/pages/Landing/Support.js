@@ -33,13 +33,13 @@ const Support = (props) => {
       },
       "payerMessage": "SalvageMe Donation",
     };
-    console.log('data momo',data)
+    // console.log('data momo',data)
     try {
       const paymentResponse = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/payment/makePayment`,
         data
       );
-         console.log('creating payment')
+        //  console.log('creating payment')
       if (paymentResponse.status == 200) {
         setIsLoading(false);
         setVerify(true);
@@ -70,14 +70,14 @@ const Support = (props) => {
   const verifyPayment = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log('refid',uniqueId)
+    // console.log('refid',uniqueId)
     const data = { "externalId": uniqueId};
     try {
       const paymentResponse = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/payment/verifyPayment`,
         data
       );
-         console.log('=====response',paymentResponse)
+        //  console.log('=====response',paymentResponse)
       if (paymentResponse.status == 200) {
         setVerify(false);
         // console.log('===============Login===============')
@@ -101,7 +101,7 @@ const Support = (props) => {
 
       }
     } catch (error) {
-      console.log('Server error',error)
+      // console.log('Server error',error)
       setIsLoading(false);
       setIsError(true);
       setTimeout(() => {
@@ -144,9 +144,9 @@ const Support = (props) => {
       `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
     ).then((response) => {
       toast.success('Thank for Donating');
-      console.log('SUCCESS!', response.status, response.text);
+      // console.log('SUCCESS!', response.status, response.text);
    }, (err) => {
-      console.log('FAILED...', err);
+      console.log('FAILED to send mail...', err);
    });
     
   };
