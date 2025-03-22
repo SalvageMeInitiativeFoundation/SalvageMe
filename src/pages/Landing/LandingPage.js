@@ -1,7 +1,5 @@
 import React from "react";
-import axios from "axios";
 import styled from "styled-components";
-import toast from "react-toastify";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { imageSliders } from "../../assets/data";
@@ -10,7 +8,6 @@ import Volunteer from "./Volunteer";
 import Donate from "./Donate";
 import Support from "./Support";
 import CountdownTimer from "../../components/Timer/Timer";
-import { MdOutlineContactSupport } from "react-icons/md";
 
 const LandingPage = (props) => {
   const [currentSlide, setCurrentSlide] = useState(0);
