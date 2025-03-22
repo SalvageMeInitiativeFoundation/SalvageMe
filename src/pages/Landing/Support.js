@@ -19,7 +19,6 @@ const Support = (props) => {
 
   const MakePayment = async () => {
     setIsLoading(true);
-    // console.log('loggiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin')
     const _uid = uuidv4();
     setUniqueId(_uid);
     const data = {
@@ -40,7 +39,7 @@ const Support = (props) => {
         data
       );
         //  console.log('creating payment')
-      if (paymentResponse.status == 200) {
+      if (paymentResponse.status === 200) {
         setIsLoading(false);
         setVerify(true);
         // console.log('===============Login===============')
@@ -78,7 +77,7 @@ const Support = (props) => {
         data
       );
         //  console.log('=====response',paymentResponse)
-      if (paymentResponse.status == 200) {
+      if (paymentResponse.status === 200) {
         setVerify(false);
         // console.log('===============Login===============')
         // console.log(loginResponse.data)
@@ -121,16 +120,9 @@ const Support = (props) => {
     // setAmount(5);
   };
 
-
-  //  TODO:    MOMO API INTEGRATION HERE
-
-
-
-
   const sendEmail = () => {
     // This email implementation has to change for the purpose of alerting Admin if someone supports
     // Use the email service API to send the email
-    // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs
     emailjs.send(
       `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
       `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
@@ -143,10 +135,11 @@ const Support = (props) => {
       },
       `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
     ).then((response) => {
-      toast.success('Thank for Donating');
+      toast.success('Thank for Donating. Every child should have access to quality education');
       // console.log('SUCCESS!', response.status, response.text);
    }, (err) => {
-      console.log('FAILED to send mail...', err);
+      // console.log('FAILED to send mail...', err);
+
    });
     
   };

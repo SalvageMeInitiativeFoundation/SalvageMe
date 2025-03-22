@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import Modal from "../../components/Modal";
 import styled from "styled-components";
 import emailjs from "emailjs-com";
-import {toast} from "react-toastify";
-
+import { toast } from "react-toastify";
 
 const Donate = (props) => {
-  const subject = 'Donation';
-  const salvageMeMail='salvagemeinitiative@gmail.com';
+  const subject = "Donation";
+  const salvageMeMail = "salvagemeinitiative@gmail.com";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
@@ -16,42 +15,50 @@ const Donate = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     sendEmail();
-    setName("");
-    setEmail("");
-    setLocation("");
-    setBookQuantity(0);
-    props.close()
   };
 
   const sendEmail = () => {
     // Use the email service API to send the email
     // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs
-    emailjs.send(
-      `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
-      `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
-      {
-        from_name:email,
-        to_email: salvageMeMail,
-        subject: subject,
-        message: `Donation from ${name} at ${location}, ${bookQuantity} potential donations` ,
-        name:name,
-      },
-      `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
-    ).then((response) => {
-      toast.success('Thank for Donating');
-      //console.log('SUCCESS!', response.status, response.text);
-   }, (err) => {
-      //console.log('FAILED...', err);
-   });
-
-    
+    emailjs
+      .send(
+        `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
+        `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
+        {
+          from_name: email,
+          to_email: salvageMeMail,
+          subject: subject,
+          message: `Donation from ${name} at ${location}, ${bookQuantity} potential donations`,
+          name: name,
+        },
+        `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
+      )
+      .then(
+        (response) => {
+          toast.success("Thank for Donating, we will get back to you", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          props.close();
+          setName("");
+          setEmail("");
+          setLocation("");
+          setBookQuantity(0);
+          //console.log('SUCCESS!', response.status, response.text);
+        },
+        (err) => {
+          //console.log('FAILED...', err);
+          toast.error("Error occurred submitting your donation, try again", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
+      );
   };
 
   return (
     <Modal close={props.close}>
       <Wrapper>
         <Form onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
-        <h2 style={{textAlign: "center"}}>Support Literacy</h2>
+          <h2 style={{ textAlign: "center" }}>Support Literacy</h2>
           <div>
             <label htmlFor="name">Name</label>
             <input

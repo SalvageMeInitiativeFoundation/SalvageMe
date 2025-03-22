@@ -12,14 +12,12 @@ import Support from "./Support";
 import CountdownTimer from "../../components/Timer/Timer";
 import { MdOutlineContactSupport } from "react-icons/md";
 
-
 const LandingPage = (props) => {
-    const [currentSlide, setCurrentSlide] = useState(0);
-    const [getInTouch, setGetInTouch] = useState(false);
-    const [volunteer, setVolunteer] = useState(false);
-    const [donate, setDonate] = useState(false);
-    const [support, setSupport] = useState(false);
-
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [getInTouch, setGetInTouch] = useState(false);
+  const [volunteer, setVolunteer] = useState(false);
+  const [donate, setDonate] = useState(false);
+  const [support, setSupport] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -41,51 +39,65 @@ const LandingPage = (props) => {
     setCurrentSlide(currentSlide);
   };
 
-    return (
-        <Container>
-            <Wrapper>
-                <BackgroundImage style={bgImageStyle}/>
-                <ImageOverlay />
-                <Logo>
-                    <Link to="/home">
-                        <div className="logo-wrap">
-                            <img src="/images/logo.jpg" alt="Logo" />
-                            <h1 className="logo-text-wrap">
-                                <span style={{color: "black"}}>Salvage</span>
-                                <span style={{color: "#ff8c00"}}>Me</span>
-                            </h1>
-                        </div>
-                    </Link>
-                </Logo>
-                <ImageInfo>
-                    <CountdownTimer initialSeconds={7715600} autoStart={true}/>
-                    <Title><q> {imageSliders[currentSlide].title} </q></Title>
-                    <Description> {imageSliders[currentSlide].description} </Description>
-                    <Carousel>
-                        {
-                            imageSliders.map((imageSliders,currentSlide) => (
-                                <span key={currentSlide} onClick={() => goToNext(currentSlide)}></span>
-                            ))
-                        }
-                    </Carousel>
-                </ImageInfo>
-                <Actions>
-                    <ActionsWrap>
-                        <Action onClick={()=>setGetInTouch(!getInTouch)}>Get in touch</Action>
-                        <Action onClick={()=>setVolunteer(!volunteer)}>Volunteer</Action>
-                        <Action onClick={()=>setDonate(!donate)}>Donate</Action>
-                        <Action onClick={()=>setSupport(!support)}>Support ❤️</Action>
+  const getInitialSeconds = () => {
+    const targetDate = new Date("2025-06-17").getTime();
+    const today = new Date().getTime();
+    const differenceInSeconds = Math.floor((targetDate - today) / 1000);
+    return differenceInSeconds;
+  };
 
-                    </ActionsWrap>
-                </Actions>
-            </Wrapper>
-            {getInTouch && <GetInTouch close={()=>setGetInTouch(!getInTouch)}/>}
-            {volunteer && <Volunteer close={()=>setVolunteer(!volunteer)}/>}
-            {donate && <Donate close={()=>setDonate(!donate)}/>}
-            {support && <Support close={()=>setSupport(!support)}/>}
-
-        </Container>
-    );
+  return (
+    <Container>
+      <Wrapper>
+        <BackgroundImage style={bgImageStyle} />
+        <ImageOverlay />
+        <Logo>
+          <Link to="/home">
+            <div className="logo-wrap">
+              <img src="/images/logo.jpg" alt="Logo" />
+              <h1 className="logo-text-wrap">
+                <span style={{ color: "black" }}>Salvage</span>
+                <span style={{ color: "#ff8c00" }}>Me</span>
+              </h1>
+            </div>
+          </Link>
+        </Logo>
+        <ImageInfo>
+          <CountdownTimer initialSeconds={()=>getInitialSeconds()} autoStart={true} />
+          <Title>
+            <q> {imageSliders[currentSlide].title} </q>
+          </Title>
+          <Description> {imageSliders[currentSlide].description} </Description>
+          <Carousel>
+            {imageSliders.map((imageSliders, currentIndexSlide) => (
+              <span
+                key={currentIndexSlide}
+                onClick={() => goToNext(currentIndexSlide)}
+                style={{
+                  backgroundColor:
+                    currentIndexSlide === currentSlide ? "#ff8c00" : "white",
+                }}
+              ></span>
+            ))}
+          </Carousel>
+        </ImageInfo>
+        <Actions>
+          <ActionsWrap>
+            <Action onClick={() => setGetInTouch(!getInTouch)}>
+              Get in touch
+            </Action>
+            <Action onClick={() => setVolunteer(!volunteer)}>Volunteer</Action>
+            <Action onClick={() => setDonate(!donate)}>Donate</Action>
+            <Action onClick={() => setSupport(!support)}>Support ❤️</Action>
+          </ActionsWrap>
+        </Actions>
+      </Wrapper>
+      {getInTouch && <GetInTouch close={() => setGetInTouch(!getInTouch)} />}
+      {volunteer && <Volunteer close={() => setVolunteer(!volunteer)} />}
+      {donate && <Donate close={() => setDonate(!donate)} />}
+      {support && <Support close={() => setSupport(!support)} />}
+    </Container>
+  );
 };
 
 const Container = styled.div`
