@@ -14,7 +14,6 @@ export const imageSliders = [
         title: 'We donate your books',
         description: "to people who need them"
     }
-    
 ]
 
 export const books = [
