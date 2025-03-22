@@ -35,8 +35,9 @@ const Donate = (props) => {
       )
       .then(
         (response) => {
-          toast.success("Thank for Donating, we will get back to you", {
+          toast.success("Thank for Donating, we will get back to you.", {
             position: toast.POSITION.TOP_RIGHT,
+            toastId: "donate-success",
           });
           props.close();
           setName("");
@@ -47,8 +48,9 @@ const Donate = (props) => {
         },
         (err) => {
           //console.log('FAILED...', err);
-          toast.error("Error occurred submitting your donation, try again", {
+          toast.error("Error occurred submitting your donation, try again.", {
             position: toast.POSITION.TOP_RIGHT,
+            toastId: "donate-error",
           });
         }
       );

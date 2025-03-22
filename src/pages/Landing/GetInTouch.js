@@ -34,8 +34,9 @@ const GetInTouch = (props) => {
       )
       .then(
         (response) => {
-          toast.success("Email sent successfully, we will get back to you", {
+          toast.success("Email sent successfully, we will get back to you.", {
             position: toast.POSITION.TOP_RIGHT,
+            toastId: "get-in-touch-success",
           });
           props.close();
           setName("");
@@ -45,8 +46,9 @@ const GetInTouch = (props) => {
         },
         (err) => {
           // console.log('FAILED...', err);
-          toast.error("Error occurred sending us a email, try again", {
+          toast.error("Error occurred sending us a email, try again.", {
             position: toast.POSITION.TOP_RIGHT,
+            toastId: "get-in-touch-error",
           });
         }
       );

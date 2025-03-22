@@ -34,8 +34,9 @@ const Volunteer = (props) => {
       )
       .then(
         (response) => {
-          toast.success("Thanks for Volunteering, we will get back to you",{
+          toast.success("Thanks for Volunteering, we will get back to you.",{
             position: toast.POSITION.TOP_RIGHT,
+            toastId: "volunteer-success",
           });
           props.close();
           setName("");
@@ -47,6 +48,7 @@ const Volunteer = (props) => {
           //console.log('FAILED...', err);
           toast.error("Error occurred volunteering, try again",{
             position: toast.POSITION.TOP_RIGHT,
+            toastId: "volunteer-error",
           }
           );
         }
