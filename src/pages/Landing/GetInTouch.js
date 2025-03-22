@@ -1,62 +1,73 @@
 import React, { useState } from "react";
 import Modal from "../../components/Modal";
 import styled from "styled-components";
-import emailjs from 'emailjs-com';
+import emailjs from "emailjs-com";
 import { MdReportGmailerrorred } from "react-icons/md";
 import { toast } from "react-toastify";
 
 const GetInTouch = (props) => {
-  const subject = 'Get In Touch';
-  const salvageMeMail='salvagemeinitiative@gmail.com';
+  const subject = "Get In Touch";
+  const salvageMeMail = "salvagemeinitiative@gmail.com";
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    sendEmail()
-    setName("");
-    setEmail("");
-    setMessage("");
-    props.close();
+    sendEmail();
   };
 
   const sendEmail = () => {
     // Use the email service API to send the email
-    // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs
-    emailjs.send(
-      `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
-      `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
-      {
-        from_name:email,
-        to_email: salvageMeMail,
-        subject: subject,
-        message: message,
-        name:name,
-      },
-      `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
-    ).then((response) => {
-      toast.success('Email sent');
-      //console.log('SUCCESS!', response.status, response.text);
-   }, (err) => {
-      //console.log('FAILED...', err);
-   });
-
-    
+    emailjs
+      .send(
+        `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
+        `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
+        {
+          from_name: email,
+          to_email: salvageMeMail,
+          subject: subject,
+          message: message,
+          name: name,
+        },
+        `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
+      )
+      .then(
+        (response) => {
+          toast.success("Email sent successfully, we will get back to you.", {
+            position: toast.POSITION.TOP_RIGHT,
+            toastId: "get-in-touch-success",
+          });
+          props.close();
+          setName("");
+          setEmail("");
+          setMessage("");
+          // console.log('SUCCESS!', response.status, response.text);
+        },
+        (err) => {
+          // console.log('FAILED...', err);
+          toast.error("Error occurred sending us a email, try again.", {
+            position: toast.POSITION.TOP_RIGHT,
+            toastId: "get-in-touch-error",
+          });
+        }
+      );
   };
 
   return (
     <Modal close={props.close}>
       <Wrapper>
-        <Form 
-        // action="https://formsubmit.co/54a6c8c4d6fea625aa1e1a32e5cc9bdf" method="POST" 
-        onSubmit={handleSubmit} onClick={(e) => e.stopPropagation()}>
-        <h2 style={{textAlign: "center"}}>Reach Out</h2>
+        <Form
+          // action="https://formsubmit.co/54a6c8c4d6fea625aa1e1a32e5cc9bdf" method="POST"
+          onSubmit={handleSubmit}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <h2 style={{ textAlign: "center" }}>Reach Out</h2>
           <div>
             <label htmlFor="name">Name</label>
             <input
               type="text"
-              name='name'
+              name="name"
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -67,7 +78,7 @@ const GetInTouch = (props) => {
             <label htmlFor="email">Email</label>
             <input
               type="email"
-              name='email'
+              name="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

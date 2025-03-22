@@ -22,8 +22,8 @@ export default function CustomTable({ data,loading }) {
   });
 
   let currentWidth =window.innerWidth<450?Math.floor(window.innerWidth*0.9): Math.floor(window.innerWidth*0.7);
-  console.log('=======================width================')
-  console.log('currentwidth',currentWidth)
+  // console.log('=======================width================')
+  // console.log('currentwidth',currentWidth)
 
   return (
     <TableWrapper>

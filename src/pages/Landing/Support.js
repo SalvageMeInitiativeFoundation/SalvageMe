@@ -19,7 +19,6 @@ const Support = (props) => {
 
   const MakePayment = async () => {
     setIsLoading(true);
-    // console.log('loggiiiiiiiiiiiiiiiiiiiiiiiiiiiiiin')
     const _uid = uuidv4();
     setUniqueId(_uid);
     const data = {
@@ -33,24 +32,26 @@ const Support = (props) => {
       },
       "payerMessage": "SalvageMe Donation",
     };
-    console.log('data momo',data)
+    // console.log('data momo',data)
     try {
       const paymentResponse = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/payment/makePayment`,
         data
       );
-         console.log('creating payment')
-      if (paymentResponse.status == 200) {
+        //  console.log('creating payment')
+      if (paymentResponse.status === 200) {
         setIsLoading(false);
         setVerify(true);
         // console.log('===============Login===============')
         // console.log(loginResponse.data)
-        toast.success("Payment initiated, Complete transaction offline using my approvals", {
+        toast.success("Payment initiated, Complete transaction offline using my approvals.", {
           position: toast.POSITION.TOP_RIGHT,
+          toastId: "support-success",
         });
       } else {
-        toast.error("Error Initiating payment", {
+        toast.error("Error Initiating payment.", {
           position: toast.POSITION.TOP_RIGHT,
+          toastId: "support-error",
         });
         setIsLoading(false);
       }
@@ -60,8 +61,9 @@ const Support = (props) => {
       setTimeout(() => {
         setIsError(false);
       }, 3000);
-      toast.error("Server Error Initiating payment", {
+      toast.error("Server Error Initiating payment.", {
         position: toast.POSITION.TOP_RIGHT,
+        toastId: "support-error",
       });
       //console.log(error);
     }
@@ -70,21 +72,22 @@ const Support = (props) => {
   const verifyPayment = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log('refid',uniqueId)
+    // console.log('refid',uniqueId)
     const data = { "externalId": uniqueId};
     try {
       const paymentResponse = await axios.post(
         `${process.env.REACT_APP_BASE_URL}/payment/verifyPayment`,
         data
       );
-         console.log('=====response',paymentResponse)
-      if (paymentResponse.status == 200) {
+        //  console.log('=====response',paymentResponse)
+      if (paymentResponse.status === 200) {
         setVerify(false);
         // console.log('===============Login===============')
         // console.log(loginResponse.data)
         setIsLoading(false);
-        toast.success("Payment successfull,", {
+        toast.success("Payment successfull.", {
           position: toast.POSITION.TOP_RIGHT,
+          toastId: "support-success",
         });
         sendEmail();
         props.close()
@@ -94,14 +97,15 @@ const Support = (props) => {
         // console.log('===============Login===============')
         // console.log(loginResponse.data)
         setIsLoading(false);
-        toast.error("Error verifying payment", {
+        toast.error("Error verifying payment.", {
           position: toast.POSITION.TOP_RIGHT,
+          toastId: "support-error",
         });
         props.close()
 
       }
     } catch (error) {
-      console.log('Server error',error)
+      // console.log('Server error',error)
       setIsLoading(false);
       setIsError(true);
       setTimeout(() => {
@@ -109,6 +113,7 @@ const Support = (props) => {
       }, 3000);
       toast.error("Please approve payment", {
         position: toast.POSITION.TOP_RIGHT,
+        toastId: "support-error",
       });
       //console.log(error);
     }
@@ -121,16 +126,9 @@ const Support = (props) => {
     // setAmount(5);
   };
 
-
-  //  TODO:    MOMO API INTEGRATION HERE
-
-
-
-
   const sendEmail = () => {
     // This email implementation has to change for the purpose of alerting Admin if someone supports
     // Use the email service API to send the email
-    // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs
     emailjs.send(
       `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
       `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
@@ -143,10 +141,13 @@ const Support = (props) => {
       },
       `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
     ).then((response) => {
-      toast.success('Thank for Donating');
-      console.log('SUCCESS!', response.status, response.text);
+      toast.success('Thank for Donating. Every child should have access to quality education.',
+        {toastId: "support-success", position: toast.POSITION.TOP_RIGHT,}
+      );
+      // console.log('SUCCESS!', response.status, response.text);
    }, (err) => {
-      console.log('FAILED...', err);
+      // console.log('FAILED to send mail...', err);
+
    });
     
   };
