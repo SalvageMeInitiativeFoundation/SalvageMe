@@ -10,7 +10,7 @@ import emailjs from 'emailjs-com';
 import {toast} from "react-toastify";
 
 
-const Home = (props) => {
+const Home = () => {
   let { secId } = useParams();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -53,13 +53,6 @@ const Home = (props) => {
       element.scrollIntoView({ behavior: "smooth" });
     }
   };
-
-  useEffect(() => {
-    const path = window.location.pathname;
-    props.setPath(path);
-  }, []);
-
-
 
   const sendEmail = () => {
     // Use the email service API to send the email

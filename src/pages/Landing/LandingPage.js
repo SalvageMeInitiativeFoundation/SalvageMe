@@ -9,7 +9,7 @@ import Donate from "./Donate";
 import Support from "./Support";
 import CountdownTimer from "../../components/Timer/Timer";
 
-const LandingPage = (props) => {
+const LandingPage = ({differenceInSeconds}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [getInTouch, setGetInTouch] = useState(false);
   const [volunteer, setVolunteer] = useState(false);
@@ -36,20 +36,13 @@ const LandingPage = (props) => {
     setCurrentSlide(currentSlide);
   };
 
-  const getInitialSeconds = () => {
-    const targetDate = new Date("2025-06-17").getTime();
-    const today = new Date().getTime();
-    const differenceInSeconds = Math.floor((targetDate - today) / 1000);
-    return differenceInSeconds;
-  };
-
   return (
     <Container>
       <Wrapper>
         <BackgroundImage style={bgImageStyle} />
         <ImageOverlay />
         <Logo>
-          <Link to="/home">
+          <Link to="/">
             <div className="logo-wrap">
               <img src="/images/logo.jpg" alt="Logo" />
               <h1 className="logo-text-wrap">
@@ -60,7 +53,7 @@ const LandingPage = (props) => {
           </Link>
         </Logo>
         <ImageInfo>
-          <CountdownTimer initialSeconds={()=>getInitialSeconds()} autoStart={true} />
+          <CountdownTimer initialSeconds={differenceInSeconds} autoStart={true} />
           <Title>
             <q> {imageSliders[currentSlide].title} </q>
           </Title>
