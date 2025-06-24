@@ -49,10 +49,10 @@ const Footer = (props) => {
             <a href="/about">About</a>
           </p>
           <p>
-            <a href="/home/services">Services</a>
+            <a href="/services">Services</a>
           </p>
           <p>
-            <a href="/home/reviews">Reviews</a>
+            <a href="/reviews">Reviews</a>
           </p>
         </LeftSide>
 

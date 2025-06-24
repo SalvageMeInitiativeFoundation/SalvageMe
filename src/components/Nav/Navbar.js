@@ -24,7 +24,7 @@ const Navbar = (props) => {
     toast.success("Logout Successful", {
       position: toast.POSITION.TOP_RIGHT,
     });
-    navigate('/home')
+    navigate('/')
     // console.log('===============LoggingOut==============')
      console.log('======active navbar=======');
   };
@@ -33,7 +33,7 @@ const Navbar = (props) => {
     <NavWrap>
       <Nav className="navbar">
         <Logo className="navbar-logo">
-          <Link to="/home">
+          <Link to="/">
             <div className="logo-wrap">
               <img src="/images/logo.jpg" alt="Logo" />
               <h1 className="logo-text-wrap">

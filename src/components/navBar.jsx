@@ -37,7 +37,7 @@ function NavBar() {
     <>
       <div className="NavBarContainer">
         <header className="navBarHeader">
-          <Link to="/home">
+          <Link to="/">
             <h2>
               Salvage<span>Me</span>
             </h2>
