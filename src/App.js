@@ -23,24 +23,22 @@ import Technology from './pages/Home/Technology';
 import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
-  const [activePage, setActivePage] = useState("/");
 
-  const path = window.location.pathname;
-
-  useEffect(() => {
-    // console.log("PATH ", path);
-    setActivePage(path);
-  }, [path]);
+  const getInitialSeconds = () => {
+    const targetDate = new Date("2025-06-17").getTime();
+    const today = new Date().getTime();
+    const differenceInSeconds = Math.floor((targetDate - today) / 1000);
+    return differenceInSeconds;
+  };
 
   return (
     
       <UserContextProvider>
         <BrowserRouter>
          <ToastContainer/>
-          {activePage === '/' ? <></> : <NavBar />} 
+          {getInitialSeconds()<1 ?<NavBar />: <></> } 
           <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/home" element={<Home setPath={setActivePage}/>} />
+            <Route path="/" element={getInitialSeconds()<1?<Home /> : <LandingPage differenceInSeconds={getInitialSeconds()} />} />
             <Route path="/about" element={<About />} /> 
             <Route path='/services/technology' element={<Technology/>}/>
             <Route path='/dashboard' element={<Dashboard/>}/>

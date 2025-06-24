@@ -95,7 +95,7 @@ const Signup = (props) => {
                 toast.success('Account Succesfully Created',{
                   position: toast.POSITION.TOP_RIGHT
               })
-                navigate("/home");
+                navigate("/");
                 reset();
               }
               else{
@@ -137,7 +137,7 @@ const Signup = (props) => {
 
     return (
         <Container>
-            {/* {(props.user || props.activate_user) && <Navigate to='/home' />} */}
+            {/* {(props.user || props.activate_user) && <Navigate to='/' />} */}
             <Section>
                 <FormSection>
                     <Form>
