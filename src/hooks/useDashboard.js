@@ -15,7 +15,6 @@ const useDashboard = () => {
           const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/donation/myRequest/${user[0].email}`);
           if(res.status==200){
             setData(res.data);
-            setLoading(!loading);
             
           }
         } catch (error) {

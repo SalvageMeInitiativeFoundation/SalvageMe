@@ -51,7 +51,7 @@ flex-direction:column;
 
 `;
 const DashboardContainer = styled.div`
-  border: 1px solid black;
+  border: 1px solid #36454f;
   display:block;
   margin:auto;
   margin-top:10px;
@@ -68,19 +68,22 @@ const DashboardHeading = styled.p`
 
 const StatSection = styled.div`
   display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  justify-content: space-evenly;
   max-width:810px;
-  margin: auto;
+  width:100%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
   gap:10px;
   flex-wrap: wrap;
 `;
 const StatContainer = styled.div`
-  border: 1px solid black;
+  border: 1px solid #36454f;
   padding: 10px;
   border-radius: 10px;
   flex: 1;
+  min-width:150px;
   & .number{
     font-size: 24px;
     font-weight: bold;
@@ -89,6 +92,7 @@ const StatContainer = styled.div`
   & .caption{
     font-size: 14px;
     text-align: center;
+    color: #36454f;
   }
 `;
 
