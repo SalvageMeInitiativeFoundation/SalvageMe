@@ -4,11 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/Nav/Navbar";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
-import Books from "./pages/Books/Books";
 import BookDetailPage from "./pages/Books/BookDetailPage";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
-
 import Donate from "./pages/donate";
 import Request from "./pages/request";
 import PrivateRoute from "./components/privateRoute";

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import DonorBook from "../components/donorBook";
-import { IoIosFunnel } from "react-icons/io";
 import Filter from "../components/filter";
 import axios from "axios";
 import Spinner from "../shared/spinner";
 import { UserContext } from "../context/userContext/userContext";
+import styled from "styled-components";
 
 function Request() {
   const {requestQty}=useContext(UserContext);
@@ -56,7 +56,6 @@ function Request() {
 
   const handleChange = (e) => {
     e.preventDefault();
-    // console.log(e.target.value);
     setSingleSearchValue(e.target.value);
   };
 
@@ -76,7 +75,7 @@ function Request() {
 
   return (
     <div>
-      <div className="RequestSearch">
+      <RequestSearch className="RequestSearch">
         <div className="RequestSearchOne">
           <input
             type="text"
@@ -99,7 +98,8 @@ function Request() {
             setIsloading={setIsloading}
           />
         </div>
-      </div>
+          
+      </RequestSearch>
       {requestQty.length>=1&&<p style={{textAlign:'center',color:'red'}} >
         
        NB: Users can only request a book at a time
@@ -107,22 +107,58 @@ function Request() {
       {isLoading ? (
         <Spinner></Spinner>
       ) : donations.filter((donation)=>donation.status=="recieved").length < 1 ? (
-        <div className="flexLayout">
+        <FlexLayout>
           <p>Thank you for joining our wait list,<span style={{fontWeight:'bold'}}> Launching Soon</span> </p>
           
-        </div>
+        </FlexLayout>
       ) : (
-        <div className="flexLayout">
+        <FlexLayout>
           {donations.map((donation, index) => {
 
             if (donation.status == "recieved") {
               return <DonorBook key={index} donation={donation} />;
             }
           })}
-        </div>
+        </FlexLayout>
       )}
     </div>
   );
 }
+
+const RequestSearch = styled.div`
+  margin: 85px 10px;
+  display: flex;
+  justify-content: space-between;
+  justify-items: baseline;
+  align-items: center;
+  & .RequestSearchOne {
+  display: flex;
+  align-items: center;
+  }
+  & .RequestSearchOne Button {
+    margin-left: 10px;
+    height: 48px;
+  }
+  & .RequestSearchOne input {
+    width: 30vw;
+  } 
+  @media (max-width:768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  @media (max-width: 540px) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  `
+  const FlexLayout = styled.div`
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-wrap: wrap;
+   padding: 10px;
+  `
 
 export default Request;

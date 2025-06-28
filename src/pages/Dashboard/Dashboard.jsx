@@ -1,7 +1,4 @@
-import React, { useEffect, useState,useContext } from "react";
-import axios from "axios";
 import CustomTable from "../../components/customTable";
-import { UserContext } from "../../context/userContext/userContext";
 import { styled } from "styled-components";
 import useDashboard from "../../hooks/useDashboard";
 
@@ -55,8 +52,13 @@ const DashboardContainer = styled.div`
   display:block;
   margin:auto;
   margin-top:10px;
+  margin-bottom:20px;
   border-radius:15px;
   padding:10px;
+  @media (max-width: 768px) {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 `;
 
 const DashboardHeading = styled.p`
@@ -71,12 +73,16 @@ const StatSection = styled.div`
   justify-content: space-evenly;
   max-width:810px;
   width:100%;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  margin-top: 40px;
+  margin-bottom: 40px;
   margin-left: auto;
   margin-right: auto;
   gap:10px;
   flex-wrap: wrap;
+  @media (max-width: 768px) {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 `;
 const StatContainer = styled.div`
   border: 1px solid #36454f;

@@ -63,13 +63,13 @@ const Navbar = (props) => {
             <Link to="/request" onClick={handleToggleNav}>Request</Link>
           </li>
 
-          {user.length > 0 ? (
+          {user ? (
             <NavList className="dropdown">
               <NavLink>
                 <User className="user-sm">
                   <span>
-                    {user.length > 0 && user[0].image ? (
-                      <img src={user[0].image} alt="Profile picture" />
+                    {user && user.image ? (
+                      <img src={user.image} alt="Profile picture" />
                     ) : (
                       <img src="/images/icons/user.svg" alt="Profile picture" />
                     )}
@@ -123,8 +123,6 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  /* background-color: white; */
-
 `;
 
 const Logo = styled.div`

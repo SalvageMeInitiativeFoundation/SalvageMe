@@ -20,7 +20,7 @@ function Donate() {
 
   useEffect(() => {
     // console.log("=====================useremail======================");
-    // console.log(user[0]);
+    // console.log(user);
     // console.log(donationFormData);
     if (!selectedImage) {
       setPreview(null);
@@ -50,7 +50,7 @@ function Donate() {
   const [donationFormData, setDonationFormData] = useState({
     title: "",
     category: "",
-    donor: user[0].email,
+    donor: user.email,
     withOwner: "false",
     image: "",
   });
@@ -136,7 +136,7 @@ function Donate() {
           setDonationFormData({
             title: "",
             category: "",
-            donor: user[0].email,
+            donor: user.email,
             withOwner: "false",
             image: "",
           });
@@ -169,16 +169,16 @@ function Donate() {
     // TODO:create api for this which doesn't need token
 
     const updateDonationCountData = {
-      email: user[0].email,
-      donationCount: user[0].donationCount + 1,
+      email: user.email,
+      donationCount: user.donationCount + 1,
     };
     try {
       const updateDonationResponse = await axios.put(
-        `${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user[0]._id}`,
+        `${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user._id}`,
         updateDonationCountData
       );
       if (updateDonationResponse.status == 200) {
-        setLocalUser({ ...user[0], donationCount: user[0].donationCount + 1 });
+        setLocalUser({ ...user, donationCount: user.donationCount + 1 });
         // console.log(
         //   "=====================updatingUserCount====================="
         // );
@@ -195,7 +195,7 @@ function Donate() {
     <>
       <main className="Donate">
         <div className="DonateForm">
-          <h1 style={{ textAlign: "center",color:'#ff8c00' }}>Donate a Book</h1>
+          <h1 style={{ textAlign: "center",color:'#ff8c00', marginBottom:"30px" }}>Donate a Book</h1>
           {isError? (
             <span style={{ color: "red", textAlign: "center" }}>
               Complete all fields including image
@@ -272,7 +272,7 @@ function Donate() {
                         className="ProfileImage"
                       />
                     ) : (
-                      <MdCloudUpload size={80} className="CloudImage" />
+                      <MdCloudUpload size={160} className="CloudImage" />
                     )}
                   </label>
                 </div>
@@ -309,6 +309,17 @@ const DonationForm = styled.form`
   flex-direction: row;
   display: flex;
   justify-content: space-between;
+  gap:8px;
+  }
+  & .DonateFormDetails {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+
+  
   }
   & .formButtonActive {
     background-color: #ff8c00;
@@ -325,7 +336,15 @@ const DonationForm = styled.form`
     border:  #ff8c00 solid 1px;
     width: 100%;
   }
-`
+  @media (max-width:768px) {
+    & .DonateFormDetails{display: grid;
+    grid-template-columns: 1fr ;
+    gap: 30px;
+    margin-bottom: 10px;
+    align-items: center;
+    }
+    }
+  `
 const DonateFormDetailsBookDetails = styled.div`
   & .inputbox-wrap {
     flex-direction: column;

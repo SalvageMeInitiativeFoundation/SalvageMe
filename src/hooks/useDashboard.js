@@ -12,7 +12,7 @@ const useDashboard = () => {
       
       const fetchData =async()=>{
         try {
-          const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/donation/myRequest/${user[0].email}`);
+          const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/donation/myRequest/${user.email}`);
           if(res.status==200){
             setData(res.data);
             

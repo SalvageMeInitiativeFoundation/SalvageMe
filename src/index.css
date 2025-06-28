@@ -53,12 +53,6 @@ p {
   margin-bottom: 10px;
 }
 
-.flexLayout {
-  display: flex;
-  place-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
 .NavBarContainer{
   position: fixed;
   top: 0px;
@@ -68,9 +62,6 @@ p {
 
 }
 .navBarHeader {
-  /* width: 100%; */
-  /* position: sticky; */
-  /* previous color #9747ff91 */
   background-color:#ff8c00b4; 
   display: flex;
   flex-direction: row;
@@ -90,7 +81,6 @@ p {
 .navBarList {
   display: flex;
   justify-content: space-around;
-  /* align-items: center; */
 }
 .NavLoginLogoutButton{
   background-color: #ff8c00;
@@ -98,16 +88,12 @@ p {
   border-radius: 10px;
   width: 70px;
   border: none;
-  /* display: block; */
-  /* margin: auto; */
+
   color: white;
   cursor: pointer;
 
 }
-/* .navBarList li {
-  margin: 0px 0px 0px 10px;
-  font-weight: 450;
-} */
+
 
 .Selected {
   color: white;
@@ -249,47 +235,6 @@ ul {
   text-align: center;
 }
 
-.C1 {
-  background-color: #f5c109;
-  height: 7px;
-}
-.C2 {
-  background-color: #38a405;
-  height: 7px;
-}
-.C3 {
-  background-color: #b92e2e;
-  height: 7px;
-}
-.C4 {
-  background-color: #b714a6;
-  height: 7px;
-}
-.C5 {
-  background-color: #2a27b5;
-  height: 7px;
-}
-.C6 {
-  background-color: #f5c109;
-  height: 7px;
-}
-.C7 {
-  background-color: #38a405;
-  height: 7px;
-}
-.C8 {
-  background-color: #b92e2e;
-  height: 7px;
-}
-.C9 {
-  background-color: #b714a6;
-  height: 7px;
-}
-.C10 {
-  background-color: #2a27b5;
-  height: 7px;
-}
-
 .LoginForm {
   display: block;
   margin: auto;
@@ -344,25 +289,19 @@ ul {
 
 .Donate {
   display: flex;
+  justify-content: center;
 }
 .DonateForm {
-  display: block;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   padding: 20px;
   margin-top: 17vh;
-  backdrop-filter: blur(20px);
+  margin-bottom: 20px;
   border-radius: 10px;
-  width: 70vw;
+  width: fit-content;
 }
-.DonateFormDetails {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px 10px;
-  margin-bottom: 10px;
-  align-items: center;
-  
-}
+
 .ProfileImageDivContainer{
   display: block;
   margin: auto;
@@ -400,27 +339,6 @@ ul {
   margin-top: auto;
   background-color: #38a405;
 }
-
-.RequestSearch {
-  margin: 85px 10px;
-
-  display: flex;
-  justify-content: space-between;
-  justify-items: baseline;
-  align-items: baseline;
-}
-.RequestSearchOne {
-  display: flex;
-  align-items: center;
-}
-.RequestSearchOne Button {
-  margin-left: 10px;
-  height: 48px;
-}
-.RequestSearchOne input {
-  width: 30vw;
-}
-
 
 .dropdown-container {
   text-align: left;
@@ -461,63 +379,25 @@ ul {
   background-color: #f19d35;
 }
 
-.Filter-container {
-  text-align: left;
-  border: 2px solid black;
-  position: relative;
-  border-radius: 10px;
-  margin: 5px 0px 5px 0px;
-  width: 150px;
-  
-}
 
-.Filter-input {
-  padding: 11px 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  user-select: none;
-}
-.Filter-menu {
-  position: absolute;
-  transform: translateY(4px);
-  width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: auto;
-  max-height: 150px;
-  background-color: #fff;
-}
-.Filter-item {
-  padding: 5px;
-  cursor: pointer;
-}
-.Filter-item.selected {
-  background-color: #0d6efd;
-  color: #fff;
-}
-
-.Filter-item:hover {
-  background-color: #9747ff;
-}
 
 .ProfileImageContainer{
   border-radius: 15px;
-  width: 150px;
-  height:150px;
+  min-width: 300px;
+  min-height:300px;
   border: #050505 solid 1px;
   margin-bottom: 20px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   overflow: hidden;
   cursor: pointer;
-  
-
-
+  display: flex;
+  justify-content: center;
 }
 .ProfileImage{
   width: 100%;
   height: 100%;
   object-fit: fit;
+  cursor:pointer
 }
 .CloudImage{
   display: block;
@@ -555,26 +435,6 @@ ul {
   }
  
   
-  .RequestSearch{
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .Filter-container{
-    display: flex;
-    float: right;
-  }
-
-  .DonateForm{
-    width: 90%;
-  }
-  .DonateFormDetails {
-    display: grid;
-    grid-template-columns: 1fr ;
-    gap: 30px;
-    margin-bottom: 10px;
-    align-items: center;
-  }
   
   .DashboardMini:nth-child(odd){
     display: none;
@@ -603,9 +463,6 @@ ul {
     border-radius: 10px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   }
-
-
-
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
@@ -636,49 +493,13 @@ ul {
     border-radius: 0px;
     /* font-weight: bold; */
   }
-  .Dashboard {
-    justify-content: center;
-   
+  .DonateForm{
+    width: 90%;
   }
-  .DashboardMini:nth-child(even){
-    display: none;
-    text-overflow: ellipsis;
-  }
- 
-  .RequestSearch{
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .Filter-container{
-    display: flex;
-    float: right;
-  }
-
-
-  /* .DonateFormDetails {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 10px;
-    margin-bottom: 10px;
-    align-items: center;
-  } */
- 
+  
 
 }
 
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px)and (max-width:992px) {
-  .Dashboard {
-    justify-content: center;
-   
-  }
-  .DashboardMini:nth-child(even){
-    display: none;
-    text-overflow: ellipsis;
-  }
-
-}
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
@@ -710,13 +531,6 @@ ul {
   }
   .SignUpFormInputFormColumn{
     width: 100%;
-  }
-  .DonateFormDetails {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 25px;
-    margin-bottom: 10px;
-    align-items: center;
   }
 
 
