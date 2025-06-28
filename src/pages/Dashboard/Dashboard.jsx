@@ -3,47 +3,37 @@ import axios from "axios";
 import CustomTable from "../../components/customTable";
 import { UserContext } from "../../context/userContext/userContext";
 import { styled } from "styled-components";
+import useDashboard from "../../hooks/useDashboard";
 
 function Dashboard() {
-  const { user } = useContext(UserContext);
-  const [data,setData] = useState([]);
-  const [approved,setApproved] = useState();
-  const [processing,setProcessing] = useState();
-  const [rejected,setRejected] = useState();
-  const [loading,setLoading] = useState(true);
-  useEffect(()=>{
-     fetchData();
-  },[])
-  const fetchData =async()=>{
-    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/donation/myRequest/${user[0].email}`);
-    if(res.status==200){
-      // console.log("====================My request===========");
-    
-      // console.log('mydata',res.data);
-      setData(res.data);
-      setApproved(()=>res.data.filter((myRequest)=>myRequest.status=='donated'));
-      setProcessing(()=>res.data.filter((myRequest)=>myRequest.status=='processing'));
-      setRejected(()=>res.data.filter((myRequest)=>myRequest.status=='rejected'));
-      setLoading(!loading);
-      
-    }
-  }
+  const { data, loading,filterData} =  useDashboard()
+
   return (
     <MyDashboard>
       <DashboardHeading> Welcome to your Dashboard</DashboardHeading>
       {loading?<p style={{textAlign:'center',marginTop:'10px'}}>loading....</p>:data.length>0?
       <>
+        <StatSection>
+          <StatContainer>
+              <p className="number">{data.length}</p>
+              <p className="caption">Total Requests</p> 
+          </StatContainer>
+          <StatContainer>
+              <p className="number">{filterData('approved').length}</p>
+              <p className="caption">Approved Requests</p>
+          </StatContainer>
+          <StatContainer>
+              <p className="number">{filterData('processing').length}</p>
+              <p className="caption">Total Processing</p>   
+          </StatContainer>
+          <StatContainer>
+            <p className="number">{filterData('rejected').length}</p>
+            <p className="caption">Total Rejected</p>  
+          </StatContainer>
+        </StatSection>
         <DashboardContainer>
-        <DashboardTitle>My approved Request</DashboardTitle>
-        <CustomTable data={approved} loading={loading}/>
-          </DashboardContainer>
-          <DashboardContainer>
-        <DashboardTitle>My Processing Request</DashboardTitle>
-          <CustomTable data={processing} loading={loading}/>
-          </DashboardContainer>
-        <DashboardContainer>
-          <DashboardTitle>My Rejected Request</DashboardTitle>
-          <CustomTable data={rejected} loading={loading}/>
+          <DashboardTitle>My Request List</DashboardTitle>
+          <CustomTable data={data} loading={loading}/>
         </DashboardContainer>
       </>:
       <p style={{textAlign:'center',marginTop:'10px'}}>No data Recorded</p>
@@ -74,6 +64,32 @@ const DashboardHeading = styled.p`
  font-size:24px;
  text-align:center;
  margin-top:5px;
+`;
+
+const StatSection = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-width:810px;
+  margin: auto;
+  gap:10px;
+  flex-wrap: wrap;
+`;
+const StatContainer = styled.div`
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  flex: 1;
+  & .number{
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff8c00;
+  }
+  & .caption{
+    font-size: 14px;
+    text-align: center;
+  }
 `;
 
 const DashboardTitle = styled.p`

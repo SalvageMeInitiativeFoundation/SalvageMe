@@ -156,8 +156,8 @@ const Login = (props) => {
               <div className="inputbox">
                 <input
                   type="button"
-                  value={ isLoading? "logingIn..." : "submit"}
-                  onClick={handleLogin}
+                  value={ isLoading? "Logging in..." : "Submit"}
+                  onClick={!isLoading?handleLogin:null}
                   disabled={
                     !((password && email) || (password && contact))
                       ? true
@@ -166,7 +166,7 @@ const Login = (props) => {
                 />
               </div>
             </form>
-            <Link to="/signup">New here? Sign up</Link>
+            <Link to="/signup">New here? <em className="newuserlink" >Sign up</em> </Link>
           </Form>
         </FormSection>
         <Hero>
@@ -271,6 +271,10 @@ const Form = styled.div`
       transform: translateX(-13px) translateY(-35px);
       font-size: 1em;
     }
+  }
+
+  & .newuserlink{
+    color: #ff8c00
   }
 
   & span {

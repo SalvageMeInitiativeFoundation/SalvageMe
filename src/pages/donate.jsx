@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import DonorBook from "../components/donorBook";
+import styled from "styled-components";
 import Dropdown from "../components/dropdown";
 import axios from "axios";
 import { MdCloudUpload } from "react-icons/md";
@@ -7,7 +8,7 @@ import { UserContext } from "../context/userContext/userContext";
 import { toast } from "react-toastify";
 
 function Donate() {
-  const { setLocalUser, getLocalUser, setUser, user } = useContext(UserContext);
+  const { setLocalUser,user } = useContext(UserContext);
 
   const [filterCategory, setFilterCategory] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -115,10 +116,10 @@ function Donate() {
             },
           }
         );
-        const image = urlResponse.data.imageUrl;
+        const imageUrl = urlResponse.data.imageUrl;
         const donationDetails = {
           ...donationFormData,
-          image: urlResponse.data.imageUrl,
+          image: imageUrl,
           category: filterCategory,
         };
         // console.log("===============donation details=====");
@@ -148,11 +149,12 @@ function Donate() {
           updateDonationCount();
         }
       } catch (error) {
-        setIsLoading(false);
         toast.error('Error Donating Book',{
           position: toast.POSITION.TOP_RIGHT
       })
         //console.log(error);
+      }finally{         
+        setIsLoading(false);
       }
     } else {
       setIsLoading(false);
@@ -193,7 +195,7 @@ function Donate() {
     <>
       <main className="Donate">
         <div className="DonateForm">
-          <h3 style={{ textAlign: "center",color:'#ff8c00' }}>Donate a book</h3>
+          <h1 style={{ textAlign: "center",color:'#ff8c00' }}>Donate a Book</h1>
           {isError? (
             <span style={{ color: "red", textAlign: "center" }}>
               Complete all fields including image
@@ -205,62 +207,64 @@ function Donate() {
           ) : (
             ""
           )}
-          {/* {isSuccessful&&<span style={{color:"green",textAlign: "center"}}>Donation sent successfully,you can upload more</span>  } */}
-          <form>
+          <DonationForm>
             <div className="DonateFormDetails">
-              <div>
-                <label>Title</label>
-                <br></br>
-                <input
-                  type="text"
-                  name="Title"
-                  id="title"
-                  className="donation-Text"
-                  placeholder="Enter name of donation"
-                  required={true}
-                  value={title}
-                  onChange={handleChange}
-                />
-                <br></br>
-                <label>Category</label>
-                <br></br>
-                <Dropdown
-                  placeHolder="Search..."
-                  options={options}
-                  setFilterCategory={setFilterCategory}
-                />
-                <label>Volunteer Collection</label>
-                <br></br>
-                <div className="formButtons">
-                  <button
-                    type="button"
-                    className={
-                      withOwner == "true" ? "formButtonActive button" : "formButton button"
-                    }
-                    onClick={handleChange}
-                    id="withOwner"
-                    value={"true"}
-                  >
-                    Yes
-                  </button>
-                  <button
-                    type="button"
-                    className={
-                      withOwner == "false" ? "formButtonActive button" : "formButton button"
-                    }
-                    onClick={handleChange}
-                    id="withOwner"
-                    value={"false"}
-                  >
-                    No
-                  </button>
+              <DonateFormDetailsBookDetails>
+                <div className="inputbox-wrap">
+                  <label>Title</label>
+                  <br></br>
+                  <input
+                    type="text"
+                    name="Title"
+                    id="title"
+                    className="donation-Text"
+                    placeholder="Enter name of donation"
+                    required={true}
+                    value={title}
+                    onChange={handleChange}
+                  />
                 </div>
-
-                <br></br>
-              </div>
+                <div className="inputbox-wrap">
+                  <label>Category</label>
+                  <br></br>
+                  <Dropdown
+                    placeHolder="Search..."
+                    options={options}
+                    setFilterCategory={setFilterCategory}
+                  />
+                </div>
+                <div className="inputbox-wrap">
+                  <label>Volunteer for Book Collection</label>
+                  <br></br>
+                  <div className="formButtons">
+                    <button
+                      type="button"
+                      className={
+                        withOwner == "true" ? "formButtonActive button" : "formButton button"
+                      }
+                      onClick={handleChange}
+                      id="withOwner"
+                      value={"true"}
+                    >
+                      Yes
+                    </button>
+                    <button
+                      type="button"
+                      className={
+                        withOwner == "false" ? "formButtonActive button" : "formButton button"
+                      }
+                      onClick={handleChange}
+                      id="withOwner"
+                      value={"false"}
+                    >
+                      No
+                    </button>
+                  </div>
+                </div>
+              </DonateFormDetailsBookDetails>
               <div className="ProfileImageDivContainer">
                 <div className="ProfileImageContainer">
-                  <label for="bookImage">
+                  <label htmlFor="bookImage">
                     {selectedImage != null ? (
                       <img
                         src={preview}
@@ -286,15 +290,71 @@ function Donate() {
             <button
               type="button"
               className="button DonateButton"
-              onClick={(e) => addDonation(picFile, e)}
+              onClick={(e) =>isLoading? null : addDonation(picFile, e)}
             >
               {isLoading ? "Loading...." : "Donate"}
             </button>
-          </form>
+          </DonationForm>
         </div>
       </main>
     </>
   );
 }
+
+const DonationForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  & .formButtons {
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  }
+  & .formButtonActive {
+    background-color: #ff8c00;
+    color: #ffffff;
+    padding: 14px 20px 14px 20px;
+    width: 100%;
+
+  }
+  & .formButton{
+    padding: 14px 20px 14px 20px;
+    margin: 2px;
+    color: #050505;
+    background-color: #ffffff;
+    border:  #ff8c00 solid 1px;
+    width: 100%;
+  }
+`
+const DonateFormDetailsBookDetails = styled.div`
+  & .inputbox-wrap {
+    flex-direction: column;
+    & p {
+      text-align: left;
+      padding-left: 10px;
+      color: red;
+    }
+    margin-top: 20px;
+  }
+
+  & input {
+    position: relative;
+    padding: 11px 5px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    border: 2px solid #000;
+    outline: none;
+    display: block;
+    width: 100%;
+    border-radius: 10px;
+    height: fit-content;
+    &:focus ~ span,
+    
+  }
+  & input[type="file"] {
+    border: none;
+    padding-top: 0;
+  }
+`;
 
 export default Donate;

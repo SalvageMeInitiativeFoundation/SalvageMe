@@ -1,18 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useState, useContext } from "react";
 import { connect } from "react-redux";
-import { NavLink, Link,useNavigate } from "react-router-dom";
+import { NavLink, Link,useNavigate, useLocation } from "react-router-dom";
 import { logOutAPI } from "../../actions";
 import { toast } from "react-toastify";
 import { UserContext } from "../../context/userContext/userContext";
 
 const Navbar = (props) => {
+  const location = useLocation();
   const navigate=useNavigate();
-  const { removeLocalUser, getLocalUser, setUser, user } = useContext(UserContext);
-  console.log(user[0]);
+  const { removeLocalUser, user } = useContext(UserContext);
+  const darkbackgroundRoutes = ["/donate", "/request","/dashboard"];
 
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isDarkBackground, setIsDarkBackground] = useState(false);
+
+  useEffect(() => {
+    setIsDarkBackground(darkbackgroundRoutes.includes(location.pathname));
+  }, [location]);
 
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -25,13 +31,14 @@ const Navbar = (props) => {
       position: toast.POSITION.TOP_RIGHT,
     });
     navigate('/')
-    // console.log('===============LoggingOut==============')
-     console.log('======active navbar=======');
   };
+
+  
+  
 
   return (
     <NavWrap>
-      <Nav className="navbar">
+      <Nav className={`navbar`}>
         <Logo className="navbar-logo">
           <Link to="/">
             <div className="logo-wrap">
@@ -44,8 +51,8 @@ const Navbar = (props) => {
           </Link>
         </Logo>
 
-        <NavbarToggle className="navbar-toggle" onClick={handleToggleNav}>
-          <span className="navbar-toggle-icon">&#9776;</span>
+        <NavbarToggle className={` ${isDarkBackground ? "darkBorder" : ""}`} onClick={handleToggleNav}>
+          <span className={`navbar-toggle-icon ${isDarkBackground ? "darkBackground" : ""}`}>&#9776;</span>
         </NavbarToggle>
 
         <NavbarLinks className={`navbar-links ${isNavOpen ? "active" : ""}`}>
@@ -62,9 +69,9 @@ const Navbar = (props) => {
                 <User className="user-sm">
                   <span>
                     {user.length > 0 && user[0].image ? (
-                      <img src={user[0].image} alt="" />
+                      <img src={user[0].image} alt="Profile picture" />
                     ) : (
-                      <img src="/images/icons/user.svg" alt="" />
+                      <img src="/images/icons/user.svg" alt="Profile picture" />
                     )}
                     <span>
                       &nbsp; Me
@@ -116,7 +123,8 @@ const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  /* background-color: #f8f8f8; */
+  /* background-color: white; */
+
 `;
 
 const Logo = styled.div`
@@ -154,6 +162,11 @@ const NavbarToggle = styled.button`
     color: #fff;
     margin-bottom: 5px;
   }
+  & .darkBackground {
+    color: black;
+  }
+  & .darkBorder {
+    border: 2px solid black;}
   @media (max-width: 768px) {
     display: block;
   }

@@ -114,10 +114,8 @@ function Request() {
       ) : (
         <div className="flexLayout">
           {donations.map((donation, index) => {
-            {/* console.log("=============================="); */}
 
             if (donation.status == "recieved") {
-              {/* console.log(donation); */}
               return <DonorBook key={index} donation={donation} />;
             }
           })}

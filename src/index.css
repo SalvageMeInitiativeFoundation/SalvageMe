@@ -15,9 +15,7 @@ body {
   height: 40px;
   margin-top: 5px;
   margin-bottom: 5px;
-  padding-left: 10px;
-  
-
+  padding: 22px 5px;
 }
 .donation-Text {
   border-radius: 10px;
@@ -34,71 +32,12 @@ body {
   background-color: #ff8c00;
   padding: 15px 20px 15px 20px;
   border-radius: 10px;
-  width: 20vw;
+  min-width: 20vw;
   border: none;
-   /* display: block;  */
-  /* margin: auto;  */
   color: white;
   cursor: pointer;
 } 
 
-/* 
- 
-input[type=email] {
-  border-radius: 10px;
-  width: 100%;
-  height: 40px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-input[type=link] {
-  border-radius: 10px;
-  width: 100%;
-  height: 40px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-input[type=password] {
-  border-radius: 10px;
-  width: 100%;
-  height: 40px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-input[type=checkbox] {
-  border-radius: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  width: 100%;
-  height: 20px;
-  
-} */
-
-
-
-/* 
-/* 
-
- */
- .formButtons {
-  flex-direction: row;
-  display: flex;
-  justify-content: space-around;
-}
-.formButtonActive {
-  background-color: #ff8c00;
-  color: #ffffff;
-  padding: 14px 20px 14px 20px;
-  width: 20vw;
-}
-.formButton{
-  padding: 14px 20px 14px 20px;
-  margin: 2px;
-  color: #050505;
-  background-color: #ffffff;
-  border:  #ff8c00 solid 1px;
-  width: 20vw;
-}
 
 hr {
   margin: 5px 0px 0px 0px;
@@ -154,7 +93,7 @@ p {
   /* align-items: center; */
 }
 .NavLoginLogoutButton{
-  background-color: #9747ff;
+  background-color: #ff8c00;
   padding: 5px 5px 5px 5px;
   border-radius: 10px;
   width: 70px;
@@ -488,11 +427,12 @@ ul {
   border: 2px solid black;
   position: relative;
   border-radius: 10px;
+
   margin: 5px 0px 5px 0px;
 }
 
 .dropdown-input {
-  padding: 5px;
+  padding: 11px 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -532,7 +472,7 @@ ul {
 }
 
 .Filter-input {
-  padding: 5px;
+  padding: 11px 5px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -625,11 +565,13 @@ ul {
     float: right;
   }
 
-
+  .DonateForm{
+    width: 90%;
+  }
   .DonateFormDetails {
     display: grid;
     grid-template-columns: 1fr ;
-    gap: 10px 10px;
+    gap: 30px;
     margin-bottom: 10px;
     align-items: center;
   }

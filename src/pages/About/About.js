@@ -45,7 +45,7 @@ const About = (props) => {
                 <span style={{ color: "black" }}>Salvage</span>
                 <span style={{ color: "#ff8c00" }}>Me</span> &nbsp;
                 is a Ghanaian-led non-governmental organization (NGO) founded by
-                Dadson Papa Kow and co-founded by Elijah Ocupualor in 2022. Our
+                Papa Kow Dadson and co-founded by Elijah Ocupualor in 2022. Our
                 mission is to promote knowledge sharing, reduce waste, and
                 maximize educational opportunities to achieve academic equity
                 through book donations. We believe that every child deserves
