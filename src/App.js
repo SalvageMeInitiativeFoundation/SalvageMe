@@ -1,16 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/Nav/Navbar";
 import Home from "./pages/Home/Home";
 import About from "./pages/About/About";
-import Books from "./pages/Books/Books";
 import BookDetailPage from "./pages/Books/BookDetailPage";
-import CreateDonation from "./pages/Books/CreateDonation";
 import Login from "./pages/Auth/Login";
 import Signup from "./pages/Auth/Signup";
-
 import Donate from "./pages/donate";
 import Request from "./pages/request";
 import PrivateRoute from "./components/privateRoute";
@@ -40,10 +36,10 @@ function App() {
           <Routes>
             <Route path="/" element={getInitialSeconds()<1?<Home /> : <LandingPage differenceInSeconds={getInitialSeconds()} />} />
             <Route path="/about" element={<About />} /> 
-            <Route path='/services/technology' element={<Technology/>}/>
+            <Route path='/services/' element={<Technology/>}/>
+            <Route path='/services/:category' element={<Technology/>}/>
             <Route path='/dashboard' element={<Dashboard/>}/>
             {/* <Route path="/request" element={<Books />} />  */}
-            {/* <Route path="/donate" element={<CreateDonation />} /> */}
             <Route path="/books/:bookId" element={<BookDetailPage />} />
             <Route path="/request" element={<PrivateRoute />}>
               <Route path="/request" element={<Request/>} />

@@ -21,6 +21,7 @@ const Home = () => {
   // ERRORS
   const [emailError, setEmailError] = useState("");
   const [contactError, setContactError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const validateEmail = (value) => {
     setEmail(value);
@@ -42,6 +43,7 @@ const Home = () => {
     }
 
   //  TODO:implement emailjs for volunteer and partnership
+    setSubmitting(true);
     sendEmail();
     
   };
@@ -75,12 +77,12 @@ const Home = () => {
       setUsername('');
       setMessage('');
       //console.log('SUCCESS!', response.status, response.text);
-   }, (err) => {
+    }, (err) => {
       toast.error('Mail Error');
       //console.log('FAILED...', err);
-   });
-
-    
+    }).finally(() => {
+      setSubmitting(false);
+    }); 
   };
 
 
@@ -97,8 +99,8 @@ const Home = () => {
           <p><b>
           <span style={{ color: "black" }}>Salvage</span>
           <span style={{ color: "#ff8c00" }}>Me</span></b> &nbsp; is a
-            Ghanaian-led non-governmental organization (NGO) founded by Dadson
-            Papa Kow and co-founded by Elijah Ocupualor in 2022. Our mission is
+            Ghanaian-led non-governmental organization (NGO) founded by
+            Papa Kow Dadson and co-founded by Elijah Ocupualor in 2022. Our mission is
             to promote knowledge sharing, reduce waste, and maximize educational
             opportunities to achieve academic equity through book donations. We
             believe that every child deserves access to quality education, and
@@ -305,8 +307,8 @@ const Home = () => {
                   <input
                     type="button"
                     disabled={!(message && email && contact) ? true : false}
-                    onClick={(event) => handlePartnership(event)}
-                    value="Submit"
+                    onClick={(event) => !submitting?handlePartnership(event):null}
+                    value={submitting?"Submitting...":"Submit"}
                   />
                 </div>
               </form>

@@ -39,8 +39,12 @@ const BackgroundSlider = (props) => {
                     <Description> {imageSliders[currentSlide].description} </Description>
                     <Carousel>
                         {
-                            imageSliders.map((imageSliders,currentSlide) => (
-                                <span key={currentSlide} onClick={() => goToNext(currentSlide)}></span>
+                            imageSliders.map((imageSliders,currentIndexSlide) => (
+                                <span key={currentIndexSlide} onClick={() => goToNext(currentIndexSlide)}
+                                    style={{
+                                        backgroundColor:currentIndexSlide === currentSlide ? "#ff8c00" : "white",
+                                    }}
+                                ></span>
                             ))
                         }
                     </Carousel>

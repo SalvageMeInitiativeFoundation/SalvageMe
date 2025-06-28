@@ -4,13 +4,11 @@ import {UserContext} from "../context/userContext/userContext";
 
 function PrivateRoute(){
     const location=useLocation();
-    // console.log('=====Location in private route===')
-    // console.log(location);
-    const {getLocalUser,setUser,user}=useContext(UserContext)
-    // useEffect(()=>{
-    //     getLocalUser();
-    //    },[])
-    return(user.length>0?<Outlet/>:<Navigate to={'/login'} state={location.pathname}/>)
+    
+    const {user}=useContext(UserContext)
+   
+    
+    return(user?<Outlet/>:<Navigate to={'/login'} state={location.pathname}/>)
 
 }
 export default PrivateRoute;
