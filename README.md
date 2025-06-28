@@ -21,5 +21,10 @@
 
 ## DonationPage
 ![DonationPage](donation-page.png)
+
+## Guidelines
+- Always modify exixting component instead of creating new components
+- Avoid redundancy in styling
+
 ----
 

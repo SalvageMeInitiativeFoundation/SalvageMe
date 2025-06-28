@@ -6,21 +6,21 @@ import { toast } from "react-toastify";
 
 function DonorBook({donation}) {    
   // console.log(...donation.listRecievers)
-  const {setLocalUser,getLocalUser,setUser,user,setRequestQty,requestQty}=useContext(UserContext)
+  const {setLocalUser,user,setRequestQty,requestQty}=useContext(UserContext)
 
   const [requestList,setrequestlist]=useState([])
   const [listRecievers,setListRecievers]=useState(null)
   useEffect(()=>{
-    setListRecievers([...donation.listRecievers,{"recieversId":user[0].email}])
+    setListRecievers([...donation.listRecievers,{"recieversId":user.email}])
   },[])
 
   const requestBook=async(donation)=>{
     // console.log('=========================')
     // console.log(listRecievers);
     // TODO:change current reciever to user email
-    const requestData={'status':'processing','currentReciever':user[0].email,'listRecievers':listRecievers}
-    if(requestQty.length<1||user[0].accountType=='org'){
-      // console.log(user[0].accountType=='org')
+    const requestData={'status':'processing','currentReciever':user.email,'listRecievers':listRecievers}
+    if(requestQty.length<1||user.accountType=='org'){
+      // console.log(user.accountType=='org')
     try {
       const requestBookResponse = await axios.put(`${process.env.REACT_APP_BASE_URL}/donation/updateDonation/${donation._id}`,requestData);
       // console.log("================================")
@@ -44,19 +44,18 @@ function DonorBook({donation}) {
   }
   const updateRequestCount=async()=>{
     // TODO:create api for this which doesn't need token
-    const updateRequestCountData={email:user[0].email,recievedCount:user[0].recievedCount+1}
+    const updateRequestCountData={email:user.email,recievedCount:user.recievedCount+1}
     try {
-          const updateRequestResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user[0]._id}`,updateRequestCountData);
+          const updateRequestResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user._id}`,updateRequestCountData);
           if(updateRequestResponse.status==200){
             // console.log('======================updating request count==========')
             // console.log(updateRequestResponse.data);
-                setLocalUser({...user[0],recievedCount:user[0].recievedCount+1})
+                setLocalUser({...user,recievedCount:user.recievedCount+1})
 
           }
     } catch (error) {
       //console.log(error)
     }
-
 
   }
 

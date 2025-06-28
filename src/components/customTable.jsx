@@ -9,6 +9,9 @@ const { Column, HeaderCell, Cell } = Table;
 export default function CustomTable({ data,loading }) {
   const [limit, setLimit] = React.useState(10);
   const [page, setPage] = React.useState(1);
+  const [currentWidth, setCurrentWidth] = React.useState(
+    window.innerWidth < 450 ? Math.floor(window.innerWidth * 0.9) : Math.floor(window.innerWidth * 0.7)
+  );
 
   const handleChangeLimit = (dataKey) => {
     setPage(1);
@@ -20,17 +23,18 @@ export default function CustomTable({ data,loading }) {
     const end = start + limit;
     return i >= start && i < end;
   });
+  useEffect(() => {
+      setCurrentWidth( window.innerWidth < 450 ? Math.floor(window.innerWidth * 0.9) : Math.floor(window.innerWidth * 0.7));
+    ;}, [window.innerWidth]);
 
-  let currentWidth =window.innerWidth<450?Math.floor(window.innerWidth*0.9): Math.floor(window.innerWidth*0.7);
-  // console.log('=======================width================')
-  // console.log('currentwidth',currentWidth)
+  
 
   return (
     <TableWrapper>
       <Table height={460} data={newData} width={currentWidth} loading={loading} compact={true}>
         <Column minWidth={150} flexGrow={2} align="left" fullText={true}>
           <HeaderCell>Title</HeaderCell>
-          <Cell dataKey="title" />
+          <Cell dataKey="title" style={ {textTransform: "capitalize"}} />
         </Column>
 
         <Column minWidth={80} flexGrow={1} align="left" fullText={true}>
@@ -40,7 +44,7 @@ export default function CustomTable({ data,loading }) {
 
         <Column minWidth={70} flexGrow={1} align="left">
           <HeaderCell>Status</HeaderCell>
-          <Cell dataKey="status" />
+          <Cell dataKey="status" style={ {textTransform: "capitalize"}} />
         </Column>
 
         {/* <Column flexGrow={1}>
@@ -76,5 +80,6 @@ const TableWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
- width:fit-content
+  width:fit-content
 `;
+

@@ -212,12 +212,12 @@ const Signup = (props) => {
                                 <input 
                                     type="button"
                                     disabled={!(password && email && contact)? true : false}
-                                    onClick={(event) => handleSignup(event)}
+                                    onClick={(event) => !isLoading?handleSignup(event):null}
                                     value={ isLoading?"SingingUp..." : "submit" }
                                 />
                             </div>
                         </form>
-                        <Link to="/login">Already a member? Log in</Link>
+                        <Link to="/login">Already a member? <em className="olduserlink" >Log in</em> </Link>
                     </Form>
 
                 </FormSection>
@@ -324,6 +324,10 @@ const Form = styled.div`
             transform: translateX(-13px) translateY(-35px);
             font-size: 1em;
         }
+    }
+
+    & .olduserlink{
+    color: #ff8c00
     }
 
     & span {

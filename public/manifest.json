@@ -8,12 +8,17 @@
       "type": "image/x-icon"
     },
     {
-      "src": "SalvageMe.png",
+      "src": "/images/logo/SalvageMe64.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "64x64"
     },
     {
-      "src": "SalvageMe.png",
+      "src": "/images/logo/SalvageMe256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "/images/logo/SalvageMe.png",
       "type": "image/png",
       "sizes": "512x512"
     }
