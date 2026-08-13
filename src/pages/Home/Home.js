@@ -79,7 +79,7 @@ const Home = () => {
       //console.log('SUCCESS!', response.status, response.text);
     }, (err) => {
       toast.error('Mail Error');
-      //console.log('FAILED...', err);
+      console.log('FAILED...', err);
     }).finally(() => {
       setSubmitting(false);
     }); 

@@ -40,17 +40,22 @@ const Filter = ({ placeHolder, options, setDonations, setIsLoading }) => {
   };
 
   const FetchDataByCategory = async (category) => {
-    // setIsLoading((prev)=>!prev)
+    // If the selected category is 'All' fetch all donations
     try {
-      const BookData = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/donation/category/${category}`
-      );
-      // console.log(BookData.data)
+      setIsLoading(true);
+      let BookData;
+      if (/all/i.test(category)) {
+        BookData = await axios.get(`${process.env.REACT_APP_BASE_URL}/donation/`);
+      } else {
+        BookData = await axios.get(
+          `${process.env.REACT_APP_BASE_URL}/donation/category/${category}`,
+        );
+      }
       setDonations(BookData.data);
-      // setIsLoading((prev)=>!prev)
     } catch (error) {
-      //console.error(error);
-      // setIsLoading((prev)=>!prev)
+      // ignore errors for now
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -83,15 +88,16 @@ const Filter = ({ placeHolder, options, setDonations, setIsLoading }) => {
 
 const Filtercontainer = styled.div`
   text-align: left;
-  border: 2px solid black;
+  border: 1px solid rgba(0,0,0,0.12);
   position: relative;
   border-radius: 10px;
   margin: 5px 0px 5px 0px;
-  width: 150px;
+  width: 170px;
   float: right;
 
   & .Filter-input {
-  padding: 11px 5px;
+  height: 48px;
+  padding: 0 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -106,6 +112,8 @@ const Filtercontainer = styled.div`
     overflow: auto;
     max-height: 150px;
     background-color: #fff;
+    z-index: 1000;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
   }
   & .Filter-item {
     padding: 5px;

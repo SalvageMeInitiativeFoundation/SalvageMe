@@ -1,6 +1,7 @@
 import CustomTable from "../../components/customTable";
 import { styled } from "styled-components";
 import useDashboard from "../../hooks/useDashboard";
+import Spinner from "../../shared/spinner";
 
 function Dashboard() {
   const { data, loading,filterData} =  useDashboard()
@@ -8,7 +9,9 @@ function Dashboard() {
   return (
     <MyDashboard>
       <DashboardHeading> Welcome to your Dashboard</DashboardHeading>
-      {loading?<p style={{textAlign:'center',marginTop:'10px'}}>loading....</p>:data.length>0?
+      {loading ? (
+        <Spinner />
+      ) : data.length > 0 ?
       <>
         <StatSection>
           <StatContainer>
@@ -16,12 +19,12 @@ function Dashboard() {
               <p className="caption">Total Requests</p> 
           </StatContainer>
           <StatContainer>
-              <p className="number">{filterData('approved').length}</p>
-              <p className="caption">Approved Requests</p>
+              <p className="number">{filterData('fulfilled').length}</p>
+              <p className="caption">Fulfilled Requests</p>
           </StatContainer>
           <StatContainer>
-              <p className="number">{filterData('processing').length}</p>
-              <p className="caption">Total Processing</p>   
+              <p className="number">{filterData('pending').length}</p>
+              <p className="caption">Pending Requests</p>   
           </StatContainer>
           <StatContainer>
             <p className="number">{filterData('rejected').length}</p>
@@ -32,8 +35,12 @@ function Dashboard() {
           <DashboardTitle>My Request List</DashboardTitle>
           <CustomTable data={data} loading={loading}/>
         </DashboardContainer>
-      </>:
-      <p style={{textAlign:'center',marginTop:'10px'}}>No data Recorded</p>
+      </> :
+      <NoDataState>
+        <div className="illustration">📭</div>
+        <h3>No data recorded</h3>
+        <p>There are no requests yet. Once users request books, they'll appear here.</p>
+      </NoDataState>
       }
       
     </MyDashboard>
@@ -42,7 +49,7 @@ function Dashboard() {
 
 const MyDashboard = styled.div`
 text-align:center;
-margin-top:80px;
+margin-top:120px;
 display:flex;
 flex-direction:column;
 
@@ -63,21 +70,20 @@ const DashboardContainer = styled.div`
 
 const DashboardHeading = styled.p`
  font-weight:bold;
- font-size:24px;
+ font-size:28px;
  text-align:center;
- margin-top:5px;
+ margin-top:12px;
 `;
-
 const StatSection = styled.div`
   display: flex;
   justify-content: space-evenly;
-  max-width:810px;
-  width:100%;
+  max-width: 810px;
+  width: 100%;
   margin-top: 40px;
   margin-bottom: 40px;
   margin-left: auto;
   margin-right: auto;
-  gap:10px;
+  gap: 10px;
   flex-wrap: wrap;
   @media (max-width: 768px) {
     margin-left: 10px;
@@ -107,6 +113,20 @@ const DashboardTitle = styled.p`
  font-size:14px;
  text-align:left;
  margin-top:5px;
+`;
+
+const NoDataState = styled.div`
+  max-width: 700px;
+  margin: 24px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#fff,#fbfbff);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  text-align: center;
+  color: #333;
+  & .illustration { font-size:40px; margin-bottom:8px }
+  & h3 { margin: 6px 0; font-size:18px }
+  & p { margin: 0; color: #666 }
 `;
 
 export default Dashboard;

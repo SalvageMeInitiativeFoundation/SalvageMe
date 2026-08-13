@@ -88,9 +88,9 @@ const Signup = (props) => {
                 payload
               );
               if (signUpUserResponse.status== 200) {
-                // console.log('===========signup response======')
-                // console.log(signUpUserResponse.data._doc);
-                setLocalUser(signUpUserResponse.data._doc);
+                console.log('===========signup response======')
+                console.log(signUpUserResponse.data);
+                setLocalUser(signUpUserResponse.data);
                 setIsLoading(false);
                 toast.success('Account Succesfully Created',{
                   position: toast.POSITION.TOP_RIGHT
@@ -107,10 +107,10 @@ const Signup = (props) => {
             } 
         } catch (error) {
             setIsLoading(false);
-            toast.error('Couldn\'t create account',{
+            toast.error(error.message,{
               position: toast.POSITION.TOP_RIGHT
           });
-            console.log(error);
+            console.log(error.message);
             
         }
 

@@ -34,17 +34,23 @@ export default function CustomTable({ data,loading }) {
       <Table height={460} data={newData} width={currentWidth} loading={loading} compact={true}>
         <Column minWidth={150} flexGrow={2} align="left" fullText={true}>
           <HeaderCell>Title</HeaderCell>
-          <Cell dataKey="title" style={ {textTransform: "capitalize"}} />
+          <Cell>
+            {(row) => (row.book_id && row.book_id.title) || row.title || "-"}
+          </Cell>
         </Column>
 
         <Column minWidth={80} flexGrow={1} align="left" fullText={true}>
           <HeaderCell>Category</HeaderCell>
-          <Cell dataKey="category" />
+          <Cell>
+            {(row) => (row.book_id && row.book_id.category) || row.category || "-"}
+          </Cell>
         </Column>
 
         <Column minWidth={70} flexGrow={1} align="left">
           <HeaderCell>Status</HeaderCell>
-          <Cell dataKey="status" style={ {textTransform: "capitalize"}} />
+          <Cell>
+            {(row) => (row.status || (row.book_id && row.book_id.status) || "-")}
+          </Cell>
         </Column>
 
         {/* <Column flexGrow={1}>

@@ -7,7 +7,7 @@ import { UserContext } from "../context/userContext/userContext";
 import styled from "styled-components";
 
 function Request() {
-  const {requestQty}=useContext(UserContext);
+  const {requestQty,user}=useContext(UserContext);
   const [singleSearchValue, setSingleSearchValue] = useState("");
   const [isLoading, setIsloading] = useState(true);
   const [donations, setDonations] = useState(null);
@@ -21,7 +21,12 @@ function Request() {
     setIsloading(true);
     try {
       const BookData = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/donation/`
+        `${process.env.REACT_APP_BASE_URL}/donation/`,
+        {
+            headers: {
+              Authorization: `Bearer ${user?.accessToken}`,
+            },
+        }
       );
       setDonations(BookData.data);
       setIsloading(false);
@@ -35,14 +40,20 @@ function Request() {
     setIsloading(true);
     try {
       const BookData = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/donation/${title}`
+        `${process.env.REACT_APP_BASE_URL}/donation/${title}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user?.accessToken}`,
+          },
+        }
       );
+      console.log("Search By Title Result:", BookData.data);
       setDonations(BookData.data);
-      setIsloading((prev) => !prev);
-      // console.log(donations);
     } catch (error) {
-      //console.error(error);
-      setIsloading((prev) => !prev);
+      console.log("Search By Title Error:");
+      console.error(error);
+    } finally {
+      setIsloading(false);
     }
   };
 
@@ -50,14 +61,17 @@ function Request() {
     e.preventDefault();
     if (singleSearchValue.length > 0) {
       FetchDataByTitle(singleSearchValue);
+    } else {
+      FetchData();
     }
-    FetchData();
   };
 
   const handleChange = (e) => {
     e.preventDefault();
     setSingleSearchValue(e.target.value);
   };
+
+  
 
   const options = [
     { value: "all Categories", label: "All Categories" },
@@ -95,30 +109,32 @@ function Request() {
             placeHolder={"By category......."}
             options={options}
             setDonations={setDonations}
-            setIsloading={setIsloading}
+            setIsLoading={setIsloading}
           />
         </div>
           
       </RequestSearch>
-      {requestQty.length>=1&&<p style={{textAlign:'center',color:'red'}} >
-        
-       NB: Users can only request a book at a time
-      </p>}
+      {requestQty.length >= 1 && (
+        <Banner role="status" aria-live="polite">
+          <strong>Note:</strong>&nbsp;Users can only request one book at a time.
+        </Banner>
+      )}
       {isLoading ? (
-        <Spinner></Spinner>
-      ) : donations.filter((donation)=>donation.status=="recieved").length < 1 ? (
-        <FlexLayout>
-          <p>Thank you for joining our wait list,<span style={{fontWeight:'bold'}}> Launching Soon</span> </p>
-          
-        </FlexLayout>
+        <Spinner />
+      ) : donations.filter((donation) => donation.status == "recieved").length < 1 ? (
+        <EmptyState>
+          <div className="empty-illustration">📚</div>
+          <h3>No books available right now</h3>
+          <p>We're restocking our collection — check back soon or try a different category.</p>
+          <small style={{ color: "#666" }}>You can also sign up for notifications when new books arrive.</small>
+        </EmptyState>
       ) : (
         <FlexLayout>
-          {donations.map((donation, index) => {
-
-            if (donation.status == "recieved") {
-              return <DonorBook key={index} donation={donation} />;
-            }
-          })}
+          {donations
+            .filter((donation) => donation.status && donation.status.toLowerCase().startsWith("rec"))
+            .map((donation, index) => (
+              <DonorBook key={donation._id || index} donation={donation} />
+            ))}
         </FlexLayout>
       )}
     </div>
@@ -126,7 +142,7 @@ function Request() {
 }
 
 const RequestSearch = styled.div`
-  margin: 85px 10px;
+  margin: 120px 10px 20px 10px;
   display: flex;
   justify-content: space-between;
   justify-items: baseline;
@@ -154,11 +170,44 @@ const RequestSearch = styled.div`
   }
   `
   const FlexLayout = styled.div`
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   flex-wrap: wrap;
-   padding: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 24px 20px 60px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
   `
+
+  const Banner = styled.div`
+    max-width: 1100px;
+    margin: 16px auto;
+    padding: 12px 16px;
+    background: linear-gradient(90deg, #fffaf0, #fff7e6);
+    border-left: 4px solid #ffdd57;
+    color: #8a6d3b;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    text-align: center;
+    font-weight: 600;
+    @media (max-width: 768px) {
+      margin: 16px 10px;
+    }
+  `;
+
+  const EmptyState = styled.div`
+    max-width: 1100px;
+    margin: 48px 10px;
+    padding: 28px;
+    border-radius: 12px;
+    text-align: center;
+    background: linear-gradient(180deg, #ffffff, #fffdf6);
+    box-shadow: 0 8px 30px rgba(17,17,17,0.06);
+    color: #333;
+    & .empty-illustration{ font-size:48px; margin-bottom:8px }
+    & h3 { margin: 8px 0; font-size:20px }
+    & p { margin: 6px 0 12px 0; color:#555 }
+  `;
 
 export default Request;

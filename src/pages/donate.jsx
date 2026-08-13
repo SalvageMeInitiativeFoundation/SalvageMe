@@ -11,6 +11,7 @@ function Donate() {
   const { setLocalUser,user } = useContext(UserContext);
 
   const [filterCategory, setFilterCategory] = useState(null);
+  const [donationLevel, setDonationLevel] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [picFile, setPicFile] = useState(null);
@@ -45,6 +46,13 @@ function Donate() {
     { value: "Literature", label: "Literature" },
     { value: "Geography & History", label: "Geography & History" },
     { value: "Philosophy & Psychology", label: "Philosophy & Psychology" },
+  ];
+
+  const levelOptions = [
+    { value: "creche", label: "Creche" },
+    { value: "nursery", label: "Nursery" },
+    { value: "primary", label: "Primary" },
+    { value: "jhs", label: "JHS" },
   ];
 
   const [donationFormData, setDonationFormData] = useState({
@@ -121,12 +129,18 @@ function Donate() {
           ...donationFormData,
           image: imageUrl,
           category: filterCategory,
+          level: donationLevel,
         };
         // console.log("===============donation details=====");
         // console.log(donationDetails);
         const donationResponse = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/donation/createDonation`,
-          donationDetails
+          donationDetails,
+          {
+            headers: {
+              Authorization: `Bearer ${user?.accessToken}`,
+            },
+          }
         );
         if (donationResponse.status == 200) {
           // console.log(
@@ -140,19 +154,24 @@ function Donate() {
             withOwner: "false",
             image: "",
           });
+          // clear chosen category, level and image preview
+          setFilterCategory(null);
+          setDonationLevel(null);
           setSelectedImage(null);
           setIsLoading(false);
           setIsSucessful(true);
+          // clear success flag shortly after so future resets work
+          setTimeout(() => setIsSucessful(false), 1200);
           toast.success('Book Successfully Donated',{
             position: toast.POSITION.TOP_RIGHT
         })
-          updateDonationCount();
         }
       } catch (error) {
         toast.error('Error Donating Book',{
           position: toast.POSITION.TOP_RIGHT
       })
-        //console.log(error);
+        console.log("==image upload error==");
+        console.log(error);
       }finally{         
         setIsLoading(false);
       }
@@ -165,29 +184,6 @@ function Donate() {
     }
   };
 
-  const updateDonationCount = async () => {
-    // TODO:create api for this which doesn't need token
-
-    const updateDonationCountData = {
-      email: user.email,
-      donationCount: user.donationCount + 1,
-    };
-    try {
-      const updateDonationResponse = await axios.put(
-        `${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user._id}`,
-        updateDonationCountData
-      );
-      if (updateDonationResponse.status == 200) {
-        setLocalUser({ ...user, donationCount: user.donationCount + 1 });
-        // console.log(
-        //   "=====================updatingUserCount====================="
-        // );
-        // console.log(updateDonationResponse.data);
-      }
-    } catch (error) {
-      //console.log(error);
-    }
-  };
 
   const { title, category, donor, withOwner } = donationFormData;
 
@@ -195,16 +191,13 @@ function Donate() {
     <>
       <main className="Donate">
         <div className="DonateForm">
-          <h1 style={{ textAlign: "center",color:'#ff8c00', marginBottom:"30px" }}>Donate a Book</h1>
+          <h1 style={{ textAlign: "center",color:'#ff8c00', marginBottom:"10px" }}>Donate a Book</h1>
+          <p className="DonateSubtitle" style={{textAlign:'center', marginBottom: '24px', color:'#6b6b6b'}}>Share a book - add a title, select a category, and upload an image to help us list it faster.</p>
           {isError? (
             <span style={{ color: "red", textAlign: "center" }}>
               Complete all fields including image
             </span>
-          ) : isSuccessful ? (
-            <span style={{ color: "green", textAlign: "center" }}>
-              Donation sent successfully,you can upload more
-            </span>
-          ) : (
+          ): (
             ""
           )}
           <DonationForm>
@@ -231,6 +224,17 @@ function Donate() {
                     placeHolder="Search..."
                     options={options}
                     setFilterCategory={setFilterCategory}
+                    resetKey={isSuccessful}
+                  />
+                </div>
+                <div className="inputbox-wrap">
+                  <label>Donation Level</label>
+                  <br></br>
+                  <Dropdown
+                    placeHolder="Select level..."
+                    options={levelOptions}
+                    setFilterCategory={setDonationLevel}
+                    resetKey={isSuccessful}
                   />
                 </div>
                 <div className="inputbox-wrap">
@@ -305,46 +309,128 @@ const DonationForm = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  & .formButtons {
-  flex-direction: row;
-  display: flex;
-  justify-content: space-between;
-  gap:8px;
-  }
-  & .DonateFormDetails {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 10px;
-  align-items: center;
-  justify-content: center;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(18, 18, 18, 0.06);
+  border: 1px solid rgba(0,0,0,0.04);
 
-  
+  & .formButtons {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
   }
+
+  & .DonateFormDetails {
+    display: grid;
+    grid-template-columns: 1fr minmax(220px, 360px);
+    gap: 20px;
+    margin-bottom: 10px;
+    align-items: start;
+  }
+
+  & label {
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  & input[type="text"],
+  & input[type="email"],
+  & textarea {
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.12);
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+  }
+
   & .formButtonActive {
     background-color: #ff8c00;
     color: #ffffff;
-    padding: 14px 20px 14px 20px;
+    padding: 12px 16px;
     width: 100%;
-
+    border-radius: 8px;
+    border: none;
   }
+
   & .formButton{
-    padding: 14px 20px 14px 20px;
+    padding: 12px 16px;
     margin: 2px;
     color: #050505;
     background-color: #ffffff;
     border:  #ff8c00 solid 1px;
     width: 100%;
+    border-radius: 8px;
   }
-  @media (max-width:768px) {
-    & .DonateFormDetails{display: grid;
-    grid-template-columns: 1fr ;
-    gap: 30px;
-    margin-bottom: 10px;
+
+  & .ProfileImageDivContainer {
+    width: 100%;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  & .ProfileImageContainer {
+    width: 100%;
+    max-width: 360px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 2px dashed rgba(0,0,0,0.06);
+    background: #fafafa;
+    padding: 12px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  & .ProfileImage {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    display: block;
+  }
+
+  & .CloudImage {
+    color: #ff8c00;
+    opacity: 0.9;
+  }
+
+  & .DonateButton {
+    background: #ff8c00;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    align-self: flex-end;
+    box-shadow: 0 8px 18px rgba(255,140,0,0.16);
+  }
+
+  @media (max-width:768px) {
+    & .DonateFormDetails{
+      display: grid;
+      grid-template-columns: 1fr ;
+      gap: 20px;
+      margin-bottom: 10px;
+      align-items: center;
     }
-    }
-  `
+  }
+`;
 const DonateFormDetailsBookDetails = styled.div`
   & .inputbox-wrap {
     flex-direction: column;

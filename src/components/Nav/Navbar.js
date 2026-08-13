@@ -255,6 +255,25 @@ const NavList = styled.li`
   .show {
     display: block;
   }
+  @media (max-width: 768px) {
+    /* ensure dropdown content is visible inside the mobile nav */
+    & div.dropdown-content {
+      display: block;
+      position: relative;
+      background-color: transparent;
+      box-shadow: none;
+      min-width: 100%;
+      margin-top: 6px;
+      &.right { right: auto; }
+      & > a {
+        background-color: transparent;
+        opacity: 1;
+        color: #fff;
+        padding: 8px 0;
+      }
+      & > div { padding: 0; }
+    }
+  }
 `;
 
 const User = styled.span`

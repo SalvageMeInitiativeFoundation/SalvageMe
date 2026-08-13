@@ -1,76 +1,81 @@
 import axios from "axios";
 import React,{useEffect, useState,useContext } from "react";
-import {UserContext} from "../context/userContext/userContext";
+import styled from "styled-components";
+import DeliveryModal from "./DeliveryModal";
 import { toast } from "react-toastify";
+import { UserContext } from "../context/userContext/userContext";
 
 
-function DonorBook({donation}) {    
-  // console.log(...donation.listRecievers)
-  const {setLocalUser,user,setRequestQty,requestQty}=useContext(UserContext)
+function DonorBook({donation}) {
+  const { setRequestQty, requestQty, user } = useContext(UserContext);
+  const [showModal, setShowModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const [requestList,setrequestlist]=useState([])
-  const [listRecievers,setListRecievers]=useState(null)
-  useEffect(()=>{
-    setListRecievers([...donation.listRecievers,{"recieversId":user.email}])
-  },[])
+  const alreadyRequested = requestQty && requestQty.includes(donation._id);
 
-  const requestBook=async(donation)=>{
-    // console.log('=========================')
-    // console.log(listRecievers);
-    // TODO:change current reciever to user email
-    const requestData={'status':'processing','currentReciever':user.email,'listRecievers':listRecievers}
-    if(requestQty.length<1||user.accountType=='org'){
-      // console.log(user.accountType=='org')
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => setShowModal(false);
+
+  const handleConfirm = async (deliveryLocation) => {
+    // compose request payload and call API
+    const requestData = {
+      recipient_id: user?._id,
+      book_id: donation._id,
+      delivery_location: deliveryLocation,
+      delivery_latitude: 0.1245,
+      delivery_longitude: 1.2346,
+    };
     try {
-      const requestBookResponse = await axios.put(`${process.env.REACT_APP_BASE_URL}/donation/updateDonation/${donation._id}`,requestData);
-      // console.log("================================")
-      // console.log(requestBookResponse.data.listRecievers);
-      if(requestBookResponse.status==200){
-        setrequestlist((prev)=>[...prev,donation._id])
-        toast.success("Book Request Successful",{
-          position: toast.POSITION.TOP_RIGHT
-      })
-        updateRequestCount()
-        setRequestQty((prev)=>[...prev,donation._id])
+      setIsSubmitting(true);
+      const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/request/createRequest`, requestData, {
+        headers: { Authorization: `Bearer ${user?.accessToken}` },
+      });
+      if (res.status === 200) {
+        toast.success("Book Request Successful", { position: toast.POSITION.TOP_RIGHT });
+        // update context request list
+        setRequestQty((prev) => (prev ? [...prev, donation._id] : [donation._id]));
+        setShowModal(false);
       }
-
-    } catch (error) {
-      toast.error('Could\'t Request Book,Try again',{
-        position: toast.POSITION.TOP_RIGHT
-    })
-      //console.error(error)
+    } catch (err) {
+      toast.error("Could not request book, try again", { position: toast.POSITION.TOP_RIGHT });
+      console.error("Error occurred while requesting book:", err);
+    } finally {
+      setIsSubmitting(false);
     }
-  }
-  }
-  const updateRequestCount=async()=>{
-    // TODO:create api for this which doesn't need token
-    const updateRequestCountData={email:user.email,recievedCount:user.recievedCount+1}
-    try {
-          const updateRequestResponse=await axios.put(`${process.env.REACT_APP_BASE_URL}/auth/updateUserCount/${user._id}`,updateRequestCountData);
-          if(updateRequestResponse.status==200){
-            // console.log('======================updating request count==========')
-            // console.log(updateRequestResponse.data);
-                setLocalUser({...user,recievedCount:user.recievedCount+1})
-
-          }
-    } catch (error) {
-      //console.log(error)
-    }
-
-  }
-
+  };
 
   return (
-    <>
-      <div className="DonorBook">
-        <div style={{width:"150px",height:"150px"}}>
-          <img src={donation.image} alt="Image of Book" />
-        </div>
-
-        <h5 style={{ marginLeft: "5px",padding:"5px" }}>{donation.title}</h5>
-        <button className={requestList.includes(donation._id)?"DonorBookButtonRequested" : "DonorBookButton"} type="button" onClick={()=>requestBook(donation)}>{requestList.includes(donation._id)?"Requested":"Request"}</button>
+    <div className="DonorBook">
+      <div className="DonorBookImageWrap">
+        <img className="DonorBookCover" src={donation.image} alt={`Cover of ${donation.title}`} />
       </div>
-    </>
+      <div className="DonorBookBody">
+        <h4 className="DonorBookTitle">{donation.title}</h4>
+        <p className="DonorBookMeta">{donation.category || "General"} • {donation.level ? donation.level.toUpperCase() : "N/A"}</p>
+        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginTop:8}}>
+          <button
+            className={alreadyRequested ? "DonorBookButtonRequested" : "DonorBookButton"}
+            type="button"
+            onClick={openModal}
+            disabled={alreadyRequested}
+          >
+            {alreadyRequested ? 'Requested' : 'Request'}
+          </button>
+        </div>
+      </div>
+
+      {showModal && (
+        <DeliveryModal
+          donation={donation}
+          onClose={closeModal}
+          onConfirm={handleConfirm}
+          isSubmitting={isSubmitting}
+        />
+      )}
+    </div>
   );
 }
+
 export default DonorBook;

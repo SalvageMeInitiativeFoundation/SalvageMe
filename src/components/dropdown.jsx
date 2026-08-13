@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 
-const Dropdown = ({ placeHolder,options,setFilterCategory }) => {
+const Dropdown = ({ placeHolder,options,setFilterCategory, resetKey }) => {
     const [showMenu,setShowMenu]=useState(false);
     const [selectedValue, setSelectedValue] = useState(null);
+    useEffect(()=>{
+      if (resetKey) {
+        setSelectedValue(null);
+      }
+    }, [resetKey]);
     useEffect(()=>{
         const handler = ()=>setShowMenu(false)
         window.addEventListener("click",handler)

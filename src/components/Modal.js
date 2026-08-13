@@ -1,25 +1,28 @@
 import React from "react";
+import { createPortal } from "react-dom";
 import styled from "styled-components";
 
 
 const Modal = (props) => {
-
-  return (
-    <>
-        <Container onClick={props.close}>
-          {props.children}
-        </Container>
-    </>
+  // Render the modal overlay into document.body to avoid being clipped
+  // by parent stacking contexts (transforms) and to cover the full viewport.
+  const content = (
+    <Container onClick={props.close}>
+      {props.children}
+    </Container>
   );
+
+  if (typeof document !== "undefined") {
+    return createPortal(content, document.body);
+  }
+
+  return content;
 };
 
 const Container = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 999;
+  inset: 0;
+  z-index: 10000;
   background-color: rgba(0, 0, 0, 0.8);
   animation: fadeIn 0.4s;
 `;

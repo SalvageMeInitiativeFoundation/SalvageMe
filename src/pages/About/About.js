@@ -14,11 +14,11 @@ const About = (props) => {
   const FetchData = async () => {
     try {
       const Users = await axios.get(
-        `${process.env.REACT_APP_BASE_URL}/auth/users`
+        `${process.env.REACT_APP_BASE_URL}/dashboard/users`
       );
       setUsers(Users.data);
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 
@@ -93,11 +93,11 @@ const About = (props) => {
                 ) : (
                 <>
                 {
-                  users.map((user, key) => ((user.donationCount>50 &&
-                    <GridItem>
-                      <Heroes key={key} user={user} />
+                  users.sort((a, b) => b.donationCount - a.donationCount).slice(0, 4).map((user, key) => (
+                    <GridItem key={key}>
+                      <Heroes user={user} />
                     </GridItem>
-                  )))
+                  ))
                 }
                 </>
                 )}

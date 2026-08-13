@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 import {FaLinkedin} from 'react-icons/fa';
 import {MdOutlineFavoriteBorder,MdCloudUpload} from 'react-icons/md';
 import {BsArrowDownLeft} from 'react-icons/bs';
+import { AVATARS } from "../utils/constants";
 
 function Heroes({user}){
+
+    const avatarUrl = useMemo(() => {
+      if (user && user.image) return user.image;
+      const seed = (user && (user.username || user.id)) || Math.random().toString(36).slice(2,10);
+      // simple deterministic hash to pick an avatar from AVATARS
+      let hash = 0;
+      for (let i = 0; i < seed.length; i++) {
+        hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+      }
+      const idx = hash % AVATARS.length;
+      return AVATARS[idx];
+    }, [user?.image, user?.username, user?.id]);
 
     return(
         <HeroCard>
         <BackgroundImage
-          style={{ backgroundImage: user.image ? `url(${user.image})` : `url('/images/icons/user.svg')` }}
+          style={{ backgroundImage: user.image ? `url(${user.image})` : `url(${avatarUrl})` }}
         />
         <HeroInfo>
           <HeroTitle> {user.username} </HeroTitle>

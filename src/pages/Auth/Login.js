@@ -71,8 +71,8 @@ const Login = (props) => {
       //    console.log(loginResponse.data)
       if (loginResponse.status == 200) {
         setLocalUser(loginResponse.data);
-        // console.log('===============Login===============')
-        // console.log(loginResponse.data)
+        console.log('===============Login===============')
+        console.log(loginResponse.data)
         setIsLoading(false);
         reset();
         toast.success("Sign In Successful", {
