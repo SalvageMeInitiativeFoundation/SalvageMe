@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { IoIosFunnel } from "react-icons/io";
 import axios from "axios";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 
 const Filter = ({ placeHolder, options, setDonations, setIsLoading }) => {
@@ -53,7 +54,8 @@ const Filter = ({ placeHolder, options, setDonations, setIsLoading }) => {
       }
       setDonations(BookData.data);
     } catch (error) {
-      // ignore errors for now
+      const msg = error?.response?.data?.message || error?.message || "Could not fetch categories";
+      toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
     } finally {
       setIsLoading(false);
     }

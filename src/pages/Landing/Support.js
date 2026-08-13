@@ -61,11 +61,9 @@ const Support = (props) => {
       setTimeout(() => {
         setIsError(false);
       }, 3000);
-      toast.error("Server Error Initiating payment.", {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: "support-error",
-      });
-      //console.log(error);
+      const msg = error?.response?.data?.message || error?.message || 'Server Error Initiating payment.';
+      toast.error(msg, { position: toast.POSITION.TOP_RIGHT, toastId: "support-error" });
+      console.error(error);
     }
   };
 
@@ -111,11 +109,9 @@ const Support = (props) => {
       setTimeout(() => {
         setIsError(false);
       }, 3000);
-      toast.error("Please approve payment", {
-        position: toast.POSITION.TOP_RIGHT,
-        toastId: "support-error",
-      });
-      //console.log(error);
+      const msg = error?.response?.data?.message || error?.message || 'Please approve payment';
+      toast.error(msg, { position: toast.POSITION.TOP_RIGHT, toastId: "support-error" });
+      console.error(error);
     }
   };
 

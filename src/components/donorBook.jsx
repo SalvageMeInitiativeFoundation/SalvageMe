@@ -38,9 +38,11 @@ function DonorBook({donation}) {
         setRequestQty((prev) => (prev ? [...prev, donation._id] : [donation._id]));
         setShowModal(false);
       }
-    } catch (err) {
-      toast.error("Could not request book, try again", { position: toast.POSITION.TOP_RIGHT });
-      console.error("Error occurred while requesting book:", err);
+    } catch (error) {
+      setShowModal(false);
+      const msg = error?.response?.data?.message || "Could not request book, try again";
+      toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
+      console.error("Error occurred while requesting book:", error);
     } finally {
       setIsSubmitting(false);
     }

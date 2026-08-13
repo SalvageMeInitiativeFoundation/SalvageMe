@@ -53,11 +53,13 @@ const PasswordReset = (props) => {
           toast.success("Password reset successful");
           navigate("/login");
         } else {
-          toast.error("Reset failed");
+            const msg = res?.data?.message || 'Reset failed';
+            toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
         }
       } catch (error) {
-        toast.error("Reset failed");
-        // console.log(error);
+          const msg = error?.response?.data?.message || error?.message || 'Reset failed';
+          toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
+          console.error(error);
       }
     } else {
       toast.error("Complete form");
@@ -83,9 +85,9 @@ const PasswordReset = (props) => {
         setIsLoading(false);
       }
     } catch (error) {
-      toast.error("No internet");
-
-      // console.log(error);
+      const msg = error?.response?.data?.message || error?.message || 'Token validation failed';
+      toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
+      console.error(error);
     }
   };
 

@@ -86,8 +86,9 @@ const StatSection = styled.div`
   gap: 10px;
   flex-wrap: wrap;
   @media (max-width: 768px) {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 40px 10px;
+    max-width: calc(100% - 20px);
+    box-sizing: border-box;
   }
 `;
 const StatContainer = styled.div`

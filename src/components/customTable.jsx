@@ -10,7 +10,7 @@ export default function CustomTable({ data,loading }) {
   const [limit, setLimit] = React.useState(10);
   const [page, setPage] = React.useState(1);
   const [currentWidth, setCurrentWidth] = React.useState(
-    window.innerWidth < 450 ? Math.floor(window.innerWidth * 0.9) : Math.floor(window.innerWidth * 0.7)
+    Math.floor(Math.min(window.innerWidth * 0.95, 1000))
   );
 
   const handleChangeLimit = (dataKey) => {
@@ -24,14 +24,21 @@ export default function CustomTable({ data,loading }) {
     return i >= start && i < end;
   });
   useEffect(() => {
-      setCurrentWidth( window.innerWidth < 450 ? Math.floor(window.innerWidth * 0.9) : Math.floor(window.innerWidth * 0.7));
-    ;}, [window.innerWidth]);
+    const handleResize = () => {
+      setCurrentWidth(Math.floor(Math.min(window.innerWidth * 0.95, 1000)));
+    };
+    window.addEventListener("resize", handleResize);
+    // initial
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   
 
   return (
     <TableWrapper>
-      <Table height={460} data={newData} width={currentWidth} loading={loading} compact={true}>
+      <div className="table-scroll">
+        <Table height={460} data={newData} width={currentWidth} loading={loading} compact={true}>
         <Column minWidth={150} flexGrow={2} align="left" fullText={true}>
           <HeaderCell>Title</HeaderCell>
           <Cell>
@@ -58,6 +65,7 @@ export default function CustomTable({ data,loading }) {
           <Cell dataKey="remark" />
         </Column> */}
       </Table>
+      </div>
       <div style={{ padding: 20, width: "100%" }}>
         <Pagination
           prev
@@ -86,6 +94,12 @@ const TableWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width:fit-content
+  width: 100%;
+
+  .table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 `;
 

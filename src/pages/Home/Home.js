@@ -78,7 +78,7 @@ const Home = () => {
       setMessage('');
       //console.log('SUCCESS!', response.status, response.text);
     }, (err) => {
-      toast.error('Mail Error');
+      toast.error('Unable to send email, check internet connection');
       console.log('FAILED...', err);
     }).finally(() => {
       setSubmitting(false);

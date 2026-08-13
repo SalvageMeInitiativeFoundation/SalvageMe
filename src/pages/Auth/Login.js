@@ -87,10 +87,9 @@ const Login = (props) => {
       setTimeout(() => {
         setLoginError('')
       }, 3000);
-      toast.error("Error Signing In", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      console.log(error);
+      const msg = error?.response?.data?.message || error?.message || 'Error Signing In';
+      toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
+      console.error(error);
     }
     // props.signIn(payload);
   };

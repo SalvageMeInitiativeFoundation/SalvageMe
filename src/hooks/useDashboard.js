@@ -27,7 +27,8 @@ const useDashboard = () => {
             
           }
         } catch (error) {
-           toast.error(error.message, { position: toast.POSITION.TOP_RIGHT });  
+            const msg = error?.response?.data?.message || error?.message || 'Could not fetch dashboard data';
+            toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
         } finally {
           setLoading(!loading);
         } 

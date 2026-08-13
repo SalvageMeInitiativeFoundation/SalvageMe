@@ -166,10 +166,9 @@ function SignUp() {
         }
       } catch (error) {
         setIsLoading(false);
-        toast.error('Couldn\'t create account',{
-          position: toast.POSITION.TOP_RIGHT
-      });
-        //console.log(error);
+        const msg = error?.response?.data?.message || error?.message || 'Could not create account';
+        toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
+        console.error(error);
       }
     }else{
       setIsLoading(false);

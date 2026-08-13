@@ -24,11 +24,13 @@ const ForgetPassword = (props) => {
         props.close();
 
       }else{
-        toast.error('couldn\'t send reset link');
+        const msg = res?.data?.message || 'Could not send reset link';
+        toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
       }
     } catch (error) {
-      toast.error('check internet connection');
-      console.log(error);
+      const msg = error?.response?.data?.message || error?.message || 'Check internet connection';
+      toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
+      console.error(error);
     }
   };
 

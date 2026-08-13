@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Heroes from "../../components/heroes";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 
 const About = (props) => {
@@ -18,7 +19,8 @@ const About = (props) => {
       );
       setUsers(Users.data);
     } catch (error) {
-      console.log(error);
+      const msg = error?.response?.data?.message || error?.message || 'Could not fetch users';
+      toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
     }
   };
 

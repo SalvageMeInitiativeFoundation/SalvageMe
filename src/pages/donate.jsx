@@ -37,7 +37,7 @@ function Donate() {
 
   const options = [
     { value: "Language", label: "Language" },
-    { value: "religion", label: "Religion" },
+    { value: "Religion", label: "Religion" },
     { value: "Social Science", label: "Social Science" },
     { value: "Ap. Science & Technology", label: "Ap. Science & Technology" },
     { value: "Art Recreation", label: "Art Recreation" },
@@ -167,11 +167,9 @@ function Donate() {
         })
         }
       } catch (error) {
-        toast.error('Error Donating Book',{
-          position: toast.POSITION.TOP_RIGHT
-      })
-        console.log("==image upload error==");
-        console.log(error);
+        const msg = error?.response?.data?.message || error?.message || 'Error Donating Book';
+        toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
+        console.error("==image upload error==", error);
       }finally{         
         setIsLoading(false);
       }

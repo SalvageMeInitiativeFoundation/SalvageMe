@@ -107,10 +107,9 @@ const Signup = (props) => {
             } 
         } catch (error) {
             setIsLoading(false);
-            toast.error(error.message,{
-              position: toast.POSITION.TOP_RIGHT
-          });
-            console.log(error.message);
+                        const msg = error?.response?.data?.message || error?.message || 'Could not create account';
+                        toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
+                        console.error(error);
             
         }
 

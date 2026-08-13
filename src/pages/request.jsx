@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import DonorBook from "../components/donorBook";
 import Filter from "../components/filter";
 import axios from "axios";
@@ -32,6 +33,8 @@ function Request() {
       setIsloading(false);
       // console.log(donations);
     } catch (error) {
+      const msg = error?.response?.data?.message || error?.message || 'Could not fetch donations';
+      toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
       setIsloading(false);
     }
   };
@@ -50,8 +53,8 @@ function Request() {
       console.log("Search By Title Result:", BookData.data);
       setDonations(BookData.data);
     } catch (error) {
-      console.log("Search By Title Error:");
-      console.error(error);
+      const msg = error?.response?.data?.message || error?.message || 'Search failed';
+      toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
     } finally {
       setIsloading(false);
     }
