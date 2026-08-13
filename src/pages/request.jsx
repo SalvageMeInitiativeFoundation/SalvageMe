@@ -201,7 +201,7 @@ const RequestSearch = styled.div`
 
   const EmptyState = styled.div`
     max-width: 1100px;
-    margin: 48px 10px;
+    margin: 48px auto;
     padding: 28px;
     border-radius: 12px;
     text-align: center;
@@ -211,6 +211,9 @@ const RequestSearch = styled.div`
     & .empty-illustration{ font-size:48px; margin-bottom:8px }
     & h3 { margin: 8px 0; font-size:20px }
     & p { margin: 6px 0 12px 0; color:#555 }
+    @media (max-width: 768px) {
+      margin: 48px 10px;
+    }
   `;
 
 export default Request;
