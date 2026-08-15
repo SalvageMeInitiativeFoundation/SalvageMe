@@ -130,6 +130,11 @@ const Filtercontainer = styled.div`
   & .Filter-item:hover {
     background-color: #ff8c00;
   }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    float: none;
+  }
   `
   
 

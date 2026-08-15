@@ -572,6 +572,10 @@ const Form = styled.div`
     /* #3F704D; */
     color: #fff;
     border: #fff;
+    font-weight: 600;
+    &:not(:disabled) {
+      background: #ff8c00;
+    }
     &:hover {
       background: #ff8c00;
     }
