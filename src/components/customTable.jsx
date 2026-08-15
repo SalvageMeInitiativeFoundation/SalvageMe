@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Pagination, Table } from "rsuite";
 import { styled } from "styled-components";
+import { capitalizeWords } from "../utils/constants";
 
 import "rsuite/dist/rsuite-no-reset.min.css";
 
@@ -49,7 +50,7 @@ export default function CustomTable({ data,loading }) {
         <Column minWidth={80} flexGrow={1} align="left" fullText={true}>
           <HeaderCell>Category</HeaderCell>
           <Cell>
-            {(row) => (row.book_id && row.book_id.category) || row.category || "-"}
+            {(row) => (row.book_id && row.book_id.category) || capitalizeWords(row.category) || "-"}
           </Cell>
         </Column>
 
