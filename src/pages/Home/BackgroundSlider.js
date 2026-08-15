@@ -200,6 +200,7 @@ const Action = styled.div`
     padding: 5px 20px;
     border-radius: 30px;
     min-width: 100px;
+    font-weight: 600;
     transition: background-color 0.3s ease;
     &:hover {
         background-color: #ff8c00;

@@ -191,19 +191,19 @@ function Donate() {
         <div className="DonateForm">
           <h1 style={{ textAlign: "center",color:'#ff8c00', marginBottom:"10px" }}>Donate a Book</h1>
           <p className="DonateSubtitle" style={{textAlign:'center', marginBottom: '24px', color:'#6b6b6b'}}>Share a book - add a title, select a category, and upload an image to help us list it faster.</p>
-          {isError? (
-            <span style={{ color: "red", textAlign: "center" }}>
-              Complete all fields including image
-            </span>
-          ): (
-            ""
-          )}
+          
           <DonationForm>
+            {isError? (
+              <span style={{ color: "red", textAlign: "center",marginBottom: "5px" }}>
+                Complete all fields including image
+              </span>
+            ): (
+              ""
+            )}
             <div className="DonateFormDetails">
               <DonateFormDetailsBookDetails>
                 <div className="inputbox-wrap">
                   <label>Title</label>
-                  <br></br>
                   <input
                     type="text"
                     name="Title"
@@ -217,7 +217,6 @@ function Donate() {
                 </div>
                 <div className="inputbox-wrap">
                   <label>Category</label>
-                  <br></br>
                   <Dropdown
                     placeHolder="Search..."
                     options={options}
@@ -227,7 +226,6 @@ function Donate() {
                 </div>
                 <div className="inputbox-wrap">
                   <label>Donation Level</label>
-                  <br></br>
                   <Dropdown
                     placeHolder="Select level..."
                     options={levelOptions}
@@ -426,6 +424,11 @@ const DonationForm = styled.form`
       gap: 20px;
       margin-bottom: 10px;
       align-items: center;
+    }
+
+    & .DonateButton {
+      width: 100%;
+      align-self: stretch;
     }
   }
 `;

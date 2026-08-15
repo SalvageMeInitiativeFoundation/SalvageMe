@@ -49,19 +49,20 @@ function DonorBook({donation}) {
   };
 
   return (
-    <div className="DonorBook">
-      <div className="DonorBookImageWrap">
+    <div className="DonorBook" style={{ border: '1px solid rgba(0, 0, 0, 0.08)' }}>
+      <div className="DonorBookImageWrap" style={{ padding: '12px' }}>
         <img className="DonorBookCover" src={donation.image} alt={`Cover of ${donation.title}`} />
       </div>
       <div className="DonorBookBody">
         <h4 className="DonorBookTitle">{donation.title}</h4>
         <p className="DonorBookMeta">{donation.category || "General"} • {donation.level ? donation.level.toUpperCase() : "N/A"}</p>
-        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginTop:8}}>
+        <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginTop:15, width:'100%'}}>
           <button
             className={alreadyRequested ? "DonorBookButtonRequested" : "DonorBookButton"}
             type="button"
             onClick={openModal}
             disabled={alreadyRequested}
+            style={{ width: '100%' }}
           >
             {alreadyRequested ? 'Requested' : 'Request'}
           </button>

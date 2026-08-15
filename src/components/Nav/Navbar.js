@@ -57,10 +57,10 @@ const Navbar = (props) => {
 
         <NavbarLinks className={`navbar-links ${isNavOpen ? "active" : ""}`}>
           <li className="navbar-link">
-            <Link to="/donate" onClick={handleToggleNav}>Donate</Link>
+            <NavLink to="/donate" onClick={handleToggleNav} className={({ isActive }) => (isActive ? "active" : "")}>Donate</NavLink>
           </li>
           <li className="navbar-link">
-            <Link to="/request" onClick={handleToggleNav}>Request</Link>
+            <NavLink to="/request" onClick={handleToggleNav} className={({ isActive }) => (isActive ? "active" : "")}>Request</NavLink>
           </li>
 
           {user ? (
@@ -85,7 +85,7 @@ const Navbar = (props) => {
                 </User>
               </NavLink>
               <div className="dropdown-content right">
-                <Link to="/dashboard">Dashboard</Link>
+                <NavLink to="/dashboard">Dashboard</NavLink>
                 <Link to="">
                   <button
                     className="NavLoginLogoutButton"
@@ -167,6 +167,11 @@ const NavbarToggle = styled.button`
     border: 2px solid black;}
   @media (max-width: 768px) {
     display: block;
+
+    .navbar-toggle-icon {
+      font-size: 32px;
+      line-height: 1;
+    }
   }
 `;
 
@@ -180,6 +185,7 @@ const NavbarLinks = styled.ul`
     a {
       text-decoration: none;
       color: #ff8c00;
+      font-weight: 600;
     }
     @media (max-width: 768px) {
       margin-bottom: 10px;
@@ -194,6 +200,11 @@ const NavbarLinks = styled.ul`
       &:hover {
         background-color: #000;
         cursor: default;
+      }
+      a.active {
+        border: 1px solid #ff8c00;
+        border-radius: 30px;
+        padding: 5px 20px;
       }
     }
   }
@@ -237,6 +248,7 @@ const NavList = styled.li`
       background-color: #000;
       opacity: 0.8;
       color: #fff;
+      font-weight: 600;
       padding: 5px 16px;
       text-decoration: none;
       margin-left: 0;
@@ -297,6 +309,7 @@ const User = styled.span`
   span {
     display: flex;
     align-items: center;
+    font-weight: 600;
   }
 `;
 

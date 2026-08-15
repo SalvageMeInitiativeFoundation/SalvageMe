@@ -56,8 +56,15 @@ export default function CustomTable({ data,loading }) {
         <Column minWidth={70} flexGrow={1} align="left">
           <HeaderCell>Status</HeaderCell>
           <Cell>
-            {(row) => (row.status || (row.book_id && row.book_id.status) || "-")}
-          </Cell>
+    {(row) => {
+      const status =
+        row.status ||
+        (row.book_id && row.book_id.status) ||
+        "-";
+
+      return <StatusBadge status={status}>{status}</StatusBadge>;
+    }}
+  </Cell>
         </Column>
 
         {/* <Column flexGrow={1}>
@@ -101,5 +108,63 @@ const TableWrapper = styled.div`
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
+`;
+
+const StatusBadge = styled.span`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+
+  ${({ status }) => {
+    switch (status?.toLowerCase()) {
+      case "pending":
+        return `
+          background: #fff3cd;
+          color: #856404;
+        `;
+
+      case "approved":
+        return `
+          background: #d1ecf1;
+          color: #0c5460;
+        `;
+
+      case "rejected":
+        return `
+          background: #f8d7da;
+          color: #721c24;
+        `;
+
+      case "fulfilled":
+        return `
+          background: #d4edda;
+          color: #155724;
+        `;
+
+      case "returned":
+        return `
+          background: #e2e3e5;
+          color: #383d41;
+        `;
+
+      case "delivering":
+        return `
+          background: #cce5ff;
+          color: #004085;
+        `;
+
+      default:
+        return `
+          background: #f1f3f5;
+          color: #495057;
+        `;
+    }
+  }}
 `;
 

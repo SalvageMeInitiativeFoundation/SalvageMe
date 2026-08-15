@@ -59,6 +59,7 @@ const BackgroundImage = styled.div`
   background-color: #333;
   background-position: center;
   background-size: cover;
+  border: 1px solid orange;
 `;
 
 const HeroInfo = styled.div`
@@ -68,7 +69,13 @@ const HeroInfo = styled.div`
   padding: 20px;
 `;
 
-const Content = styled.p``;
+const Content = styled.p`
+  color: #ff8c00;
+  background: #fff3e0;
+  border-radius: 30px;
+  text-align: center;
+  padding: 8px 12px;
+`;
 
 const HeroTitle = styled.p`
   margin-top: 1px;

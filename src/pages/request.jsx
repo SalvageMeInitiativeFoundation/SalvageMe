@@ -12,10 +12,13 @@ function Request() {
   const [singleSearchValue, setSingleSearchValue] = useState("");
   const [isLoading, setIsloading] = useState(true);
   const [donations, setDonations] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
+  const [recommendationsLoading, setRecommendationsLoading] = useState(true);
 
   useEffect(() => {
     // console.log("fetching");
     FetchData();
+    FetchRecommendations();
   }, []);
 
   const FetchData = async () => {
@@ -38,6 +41,41 @@ function Request() {
       setIsloading(false);
     }
   };
+
+  const FetchRecommendations = async () => {
+  setRecommendationsLoading(true);
+
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_BASE_URL}/ai/recommendations`,
+      {
+        headers: {
+          Authorization: `Bearer ${user?.accessToken}`,
+        },
+      }
+    );
+
+    const recommendationsData = response?.data?.data;
+
+    const recommendedBooks = Array.isArray(recommendationsData)
+      ? recommendationsData
+      : recommendationsData?.recommendations || [];
+
+    const filteredRecommendations = recommendedBooks.filter(
+      (book) =>
+        book.status 
+      &&
+        book.status.toLowerCase().startsWith("rec")
+    );
+
+    setRecommendations(filteredRecommendations);
+  } catch (error) {
+    console.error("Failed to fetch AI recommendations:", error);
+    setRecommendations([]);
+  } finally {
+    setRecommendationsLoading(false);
+  }
+};
 
   const FetchDataByTitle = async (title) => {
     setIsloading(true);
@@ -99,7 +137,7 @@ function Request() {
             name="BooKName"
             id="bookName"
             className="request-Text"
-            placeholder="Search for book"
+            placeholder="Search community for book"
             onChange={handleChange}
             value={singleSearchValue}
           />
@@ -109,7 +147,7 @@ function Request() {
         </div>
         <div>
           <Filter
-            placeHolder={"By category......."}
+            placeHolder={"Filter by category......."}
             options={options}
             setDonations={setDonations}
             setIsLoading={setIsloading}
@@ -117,6 +155,35 @@ function Request() {
         </div>
           
       </RequestSearch>
+      {!recommendationsLoading && recommendations.length > 0 && (
+        <RecommendationSection>
+          <RecommendationHeader>
+            <div>
+              <h2>Recommended for You</h2>
+              <p>
+                Books selected based on your previous activity and interests.
+              </p>
+            </div>
+
+            <span className="ai-badge">✨ AI Recommended</span>
+          </RecommendationHeader>
+
+          <RecommendationLayout>
+            {recommendations.map((book) => (
+              <RecommendationCard key={book._id}>
+                <DonorBook donation={book} />
+
+                <SimilarityScore>
+                  <span>Match</span>
+                  <strong>
+                    {Math.round((book.similarityScore || 0) * 100)}%
+                  </strong>
+                </SimilarityScore>
+              </RecommendationCard>
+            ))}
+          </RecommendationLayout>
+        </RecommendationSection>
+      )}
       {requestQty.length >= 1 && (
         <Banner role="status" aria-live="polite">
           <strong>Note:</strong>&nbsp;Users can only request one book at a time.
@@ -124,7 +191,7 @@ function Request() {
       )}
       {isLoading ? (
         <Spinner />
-      ) : donations.filter((donation) => donation.status == "recieved").length < 1 ? (
+      ) : donations.filter((donation) => donation.status.toLowerCase() == "recieved").length < 1 ? (
         <EmptyState>
           <div className="empty-illustration">📚</div>
           <h3>No books available right now</h3>
@@ -132,6 +199,17 @@ function Request() {
           <small style={{ color: "#666" }}>You can also sign up for notifications when new books arrive.</small>
         </EmptyState>
       ) : (
+        <div>
+        <CommunityHeader>
+          <div>
+            <h2>Available Donations</h2>
+            <p>
+              Browse books donated by our community that are currently available.
+            </p>
+          </div>
+
+          <span className="community-badge">📚 Community Donations</span>
+        </CommunityHeader>
         <FlexLayout>
           {donations
             .filter((donation) => donation.status && donation.status.toLowerCase().startsWith("rec"))
@@ -139,6 +217,7 @@ function Request() {
               <DonorBook key={donation._id || index} donation={donation} />
             ))}
         </FlexLayout>
+        </div>
       )}
     </div>
   );
@@ -157,19 +236,60 @@ const RequestSearch = styled.div`
   & .RequestSearchOne Button {
     margin-left: 10px;
     height: 48px;
+    font-weight: 600;
   }
   & .RequestSearchOne input {
     width: 30vw;
   } 
   @media (max-width:768px) {
-    display: flex;
     flex-direction: column;
     align-items: stretch;
+
+    & > div {
+      width: 100%;
+    }
+
+    & .RequestSearchOne {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    & .RequestSearchOne .request-Text {
+      width: 75%;
+      min-width: 0;
+    }
+
+    & .RequestSearchOne Button {
+      flex: 1;
+      margin-left: 0;
+    }
   }
   @media (max-width: 540px) {
-    display: flex;
     flex-direction: column;
     align-items: stretch;
+
+    & > div {
+      width: 100%;
+    }
+
+    & .RequestSearchOne {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    & .RequestSearchOne .request-Text {
+      width: 75%;
+      min-width: 0;
+    }
+
+    & .RequestSearchOne Button {
+      flex: 1;
+      margin-left: 0;
+    }
   }
   `
   const FlexLayout = styled.div`
@@ -181,6 +301,9 @@ const RequestSearch = styled.div`
     padding: 24px 20px 60px 20px;
     max-width: 1100px;
     margin: 0 auto;
+    @media (max-width: 768px) {
+    padding: 0px 0px;
+    }
   `
 
   const Banner = styled.div`
@@ -215,5 +338,141 @@ const RequestSearch = styled.div`
       margin: 48px 10px;
     }
   `;
+
+  const RecommendationSection = styled.section`
+    max-width: 1100px;
+    margin: 20px auto 30px;
+    padding: 0 20px;
+
+    @media (max-width: 768px) {
+      padding: 0 10px;
+    }
+  `;
+
+  const RecommendationHeader = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 18px;
+
+    h2 {
+      margin: 0 0 5px;
+      font-size: 24px;
+      color: #222;
+    }
+
+    p {
+      margin: 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .ai-badge {
+      white-space: nowrap;
+      padding: 7px 12px;
+      border-radius: 20px;
+      background: #f3e8ff;
+      color: #7c3aed;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 540px) {
+      align-items: flex-start;
+      flex-direction: column;
+
+      h2 {
+        font-size: 21px;
+      }
+    }
+  `;
+
+  const RecommendationLayout = styled.div`
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 5px 4px 18px;
+
+    &::-webkit-scrollbar {
+      height: 6px;
+    }
+  `;
+
+  const RecommendationCard = styled.div`
+    position: relative;
+    flex: 0 0 auto;
+    min-width: 220px;
+  `;
+
+  const SimilarityScore = styled.div`
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    padding: 5px 8px;
+    border-radius: 15px;
+
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+
+    span {
+      font-size: 10px;
+      color: #666;
+    }
+
+    strong {
+      font-size: 12px;
+      color: #198754;
+    }
+  `;
+
+  const CommunityHeader = styled.div`
+  max-width: 1100px;
+  margin: 30px auto 18px;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  h2 {
+    margin: 0 0 5px;
+    font-size: 24px;
+    color: #222;
+  }
+
+  p {
+    margin: 0;
+    color: #666;
+    font-size: 14px;
+  }
+
+  .community-badge {
+    white-space: nowrap;
+    padding: 7px 12px;
+    border-radius: 20px;
+    background: #eef7ee;
+    color: #2e7d32;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 540px) {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 0 10px;
+
+    h2 {
+      font-size: 21px;
+    }
+  }
+`;
 
 export default Request;
