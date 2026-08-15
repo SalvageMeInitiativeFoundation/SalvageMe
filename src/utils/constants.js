@@ -17,6 +17,9 @@ export const AVATARS = [
   '/images/avatars/avatar_4.png',
   '/images/avatars/avatar_5.png',]
 
+export const capitalizeWords = (str) =>
+  str.replace(/\b\w/g, (char) => char.toUpperCase());
+
 
 // "http://localhost:5000";
 export const BASE_URL = "http://localhost:5000";

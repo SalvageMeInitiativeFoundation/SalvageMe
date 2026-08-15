@@ -4,6 +4,7 @@ import styled from "styled-components";
 import DeliveryModal from "./DeliveryModal";
 import { toast } from "react-toastify";
 import { UserContext } from "../context/userContext/userContext";
+import {capitalizeWords} from "../utils/constants";
 
 
 function DonorBook({donation}) {
@@ -55,7 +56,7 @@ function DonorBook({donation}) {
       </div>
       <div className="DonorBookBody">
         <h4 className="DonorBookTitle">{donation.title}</h4>
-        <p className="DonorBookMeta">{donation.category || "General"} • {donation.level ? donation.level.toUpperCase() : "N/A"}</p>
+        <p className="DonorBookMeta">{donation.category ? capitalizeWords(donation.category) : "General"} • {donation.level ? donation.level.toUpperCase() : "N/A"}</p>
         <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginTop:15, width:'100%'}}>
           <button
             className={alreadyRequested ? "DonorBookButtonRequested" : "DonorBookButton"}
