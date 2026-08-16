@@ -173,6 +173,7 @@ const Actions = styled.div`
   .button {
     flex: 1;
     width: 100%;
+    font-weight: 600;
   }
   @media (max-width: 768px) {
     flex-direction: column;

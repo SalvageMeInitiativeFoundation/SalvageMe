@@ -23,6 +23,7 @@ const Signup = (props) => {
     const [passwordError, setPasswordError] = useState("");
     const [confirmPasswordError, setConfirmPasswordError] = useState("");
     const [contactError, setContactError] = useState("");
+    const [usernameError, setUsernameError] = useState("");
 
     //Loading
     const [isLoading,setIsLoading]=useState(false);
@@ -46,6 +47,15 @@ const Signup = (props) => {
         let paswdRes = isPasswordValid(value);
         setPasswordError(paswdRes[1] ? paswdRes[1] : "");
     }; 
+    const validateUsername = (value) => {
+        setUsername(value);
+        if(value.length<1){
+            setUsernameError("Username is required");
+        }
+        else{
+            setUsernameError("");
+        }
+    };
 
     const handleConfirmPasswordChange=(value)=>{
        setConfirmPassword(value);
@@ -59,12 +69,11 @@ const Signup = (props) => {
             'confirmPassword':value,
         }
         if(confirmPassword.length>0){
-        let conPaswdRes = isConfirmPassword(passwordInput,setConfirmPasswordError)
-        // conPaswdRes?setConfirmPasswordError(""):setConfirmPasswordError("Confirm password is not matched");
+        let conPaswdRes = isConfirmPassword(passwordInput.password,passwordInput.confirmPassword)
+        conPaswdRes?setConfirmPasswordError(""):setConfirmPasswordError("Password not matching");
         console.log('confirm password response',conPaswdRes);
         }
         
-        // setConfirmPasswordError(conPaswdRes ? "Password mismatch" : "");
     }; 
 
     const validateContact = (value) => { 
@@ -123,6 +132,18 @@ const Signup = (props) => {
         setPassword("");
     };
 
+    const isFormValid = Boolean(
+    username.trim() &&
+    email.trim() &&
+    contact.trim() &&
+    password &&
+    confirmPassword &&
+    !emailError &&
+    !contactError &&
+    !passwordError &&
+    !confirmPasswordError
+    );
+
     useEffect(() => {
         if (props.errors){
             if (props.errors.email){
@@ -146,12 +167,13 @@ const Signup = (props) => {
                             <div className="inputbox-wrap">
                                 <div className="inputbox">
                                     <input 
+                                        id="email"
                                         type="email"
                                         value={email}
                                         onChange={(e) => validateEmail(e.target.value)} 
                                         required="required" 
                                     />
-                                    <span>Email</span>
+                                    <label htmlFor="email">Email</label>
                                 </div>
                                 {emailError && <p>{emailError}</p>}
                             </div>
@@ -159,24 +181,27 @@ const Signup = (props) => {
                             <div className="inputbox-wrap">
                                 <div className="inputbox">
                                     <input 
+                                        id="username"
                                         type="text"
                                         value={username}
-                                        onChange={(e) => setUsername(e.target.value)} 
+                                        onChange={(e) => validateUsername(e.target.value)} 
                                         required="required" 
                                     />
-                                    <span>Username</span>
+                                    <label htmlFor="username">Username</label>
                                 </div>
+                                {usernameError && <p>{usernameError}</p>}
                             </div>
                             
                             <div className="inputbox-wrap">
                                 <div className="inputbox">
                                     <input 
+                                        id="contact"
                                         type="tel"
                                         value={contact}
                                         onChange={(e) => validateContact(e.target.value)} 
                                         required="required" 
                                     />
-                                    <span>Contact</span>
+                                    <label htmlFor="contact">Contact</label>
                                 </div>
                                 {contactError && <p>{contactError}</p>}
                             </div>
@@ -184,12 +209,13 @@ const Signup = (props) => {
                             <div className="inputbox-wrap">
                                 <div className="inputbox">
                                     <input 
+                                        id="password"
                                         type="password"
                                         value={password}
                                         onChange={(e) => validatePassword(e.target.value)} 
                                         required="required" 
                                     />
-                                    <span>Password</span>
+                                    <label htmlFor="password">Password</label>
                                 </div>
                                 {passwordError && <p>{passwordError}</p>}
                             </div>
@@ -197,12 +223,13 @@ const Signup = (props) => {
                             <div className="inputbox-wrap">
                                 <div className="inputbox">
                                     <input 
+                                        id="confirmPassword"
                                         type="password"
                                         value={confirmPassword}
                                         onChange={(e) => handleConfirmPasswordChange(e.target.value)} 
                                         required="required" 
                                     />
-                                    <span>Confirm Password</span>
+                                    <label htmlFor="confirmPassword">Confirm Password</label>
                                 </div>
                                 {confirmPasswordError && <p>{confirmPasswordError}</p>}
                             </div>
@@ -210,9 +237,10 @@ const Signup = (props) => {
                             <div className="inputbox">
                                 <input 
                                     type="button"
-                                    disabled={!(password && email && contact)? true : false}
+                                    className={isFormValid ? "submit-valid" : "submit-invalid"}
+                                    disabled={!isFormValid}
                                     onClick={(event) => !isLoading?handleSignup(event):null}
-                                    value={ isLoading?"SingingUp..." : "submit" }
+                                    value={ isLoading?"Signing Up..." : "Submit" }
                                 />
                             </div>
                         </form>
@@ -318,8 +346,8 @@ const Form = styled.div`
         outline: none;
         display: block;
         width: 95%;
-        &:focus ~ span,
-        &:valid ~ span {
+        &:focus ~ label,
+        &:valid ~ label {
             transform: translateX(-13px) translateY(-35px);
             font-size: 1em;
         }
@@ -329,7 +357,7 @@ const Form = styled.div`
     color: #ff8c00
     }
 
-    & span {
+    & label {
         position: absolute;
         top: 14px;
         left: 20px;
@@ -340,9 +368,18 @@ const Form = styled.div`
 
     & [type="button"] {
         width: 100%;
-        background: #ffcd90;
         color: #fff;
         border: #fff;
+        font-weight: 600;
+
+        &.submit-invalid {
+        background: #ffcd90;
+        }
+
+        &.submit-valid {
+            background: #ff8c00;
+        }
+
         &:hover {
             background: #ff8c00;
         }

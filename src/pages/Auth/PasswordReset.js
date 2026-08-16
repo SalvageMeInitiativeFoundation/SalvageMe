@@ -62,7 +62,7 @@ const PasswordReset = (props) => {
           console.error(error);
       }
     } else {
-      toast.error("Complete form");
+      toast.error("Complete form, password mismatch", { position: toast.POSITION.TOP_RIGHT });
     }
   };
 

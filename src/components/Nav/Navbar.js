@@ -21,7 +21,7 @@ const Navbar = (props) => {
   }, [location]);
 
   const handleToggleNav = () => {
-    setIsNavOpen(!isNavOpen);
+    setIsNavOpen((prev) => !prev);
   };
 
   const LogoutUser = (e) => {
@@ -85,7 +85,7 @@ const Navbar = (props) => {
                 </User>
               </NavLink>
               <div className="dropdown-content right">
-                <NavLink to="/dashboard">Dashboard</NavLink>
+                <NavLink to="/dashboard" onClick={handleToggleNav}>Dashboard</NavLink>
                 <Link to="">
                   <button
                     className="NavLoginLogoutButton"
@@ -152,6 +152,7 @@ const NavbarToggle = styled.button`
   display: none;
   background-color: transparent;
   border: 1px solid #fff;
+  border-radius: 5px;
   outline: none;
   cursor: pointer;
   .navbar-toggle-icon {
@@ -182,14 +183,17 @@ const NavbarLinks = styled.ul`
   .navbar-link {
     margin-right: 10px;
     cursor: default;
+
     a {
       text-decoration: none;
       color: #ff8c00;
       font-weight: 600;
     }
+
     @media (max-width: 768px) {
       margin-bottom: 10px;
     }
+
     @media (min-width: 769px) {
       border: 1px solid white;
       padding: 5px 20px;
@@ -197,10 +201,12 @@ const NavbarLinks = styled.ul`
       text-align: center;
       min-width: 60px;
       transition: background-color 0.3s ease;
+
       &:hover {
         background-color: #000;
         cursor: default;
       }
+
       a.active {
         border: 1px solid #ff8c00;
         border-radius: 30px;
@@ -208,21 +214,37 @@ const NavbarLinks = styled.ul`
       }
     }
   }
+
   @media (max-width: 768px) {
-    display: none;
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
-    background-color: rgba(0, 0, 0, 0.8);
+
+    background-color: rgba(0, 0, 0, 0.9);
     padding: 20px;
+
     position: absolute;
     top: 70px;
     left: 0;
-    width: 100%;
+
+    width: 90%;
     z-index: 1000;
-    transition: all 0.3s ease;
+
+    /* Start off-screen */
+    transform: translateX(-110%);
+    opacity: 0;
+    visibility: hidden;
+
+    /* Animate the menu */
+    transition:
+      transform 0.35s ease,
+      opacity 0.3s ease,
+      visibility 0.35s ease;
+
     &.active {
-      display: flex;
-      width:90%
+      transform: translateX(0);
+      opacity: 1;
+      visibility: visible;
     }
   }
 `;
