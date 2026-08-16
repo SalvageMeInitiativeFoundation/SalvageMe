@@ -107,6 +107,7 @@ const Form = styled.form`
     outline: none;
     color: white;
     cursor: default;
+    font-weight: 600;
   }
 `;
 

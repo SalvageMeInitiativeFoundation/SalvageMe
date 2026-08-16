@@ -256,24 +256,26 @@ const Home = () => {
                 <div className="inputbox-wrap">
                   <div className="inputbox">
                     <input
+                      id="username"
                       type="text"
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       required="required"
                     />
-                    <span>Name</span>
+                    <label htmlFor="username">Name</label>
                   </div>
                 </div>
 
                 <div className="inputbox-wrap">
                   <div className="inputbox">
                     <input
+                      id="email"
                       type="email"
                       value={email}
                       onChange={(e) => validateEmail(e.target.value)}
                       required="required"
                     />
-                    <span>Email</span>
+                    <label htmlFor="email">Email</label>
                   </div>
                   {emailError && <p>{emailError}</p>}
                 </div>
@@ -281,12 +283,13 @@ const Home = () => {
                 <div className="inputbox-wrap">
                   <div className="inputbox">
                     <input
+                      id="contact"
                       type="tel"
                       value={contact}
                       onChange={(e) => validateContact(e.target.value)}
                       required="required"
                     />
-                    <span>Contact</span>
+                    <label htmlFor="contact">Contact</label>
                   </div>
                   {contactError && <p>{contactError}</p>}
                 </div>
@@ -294,12 +297,13 @@ const Home = () => {
                 <div className="inputbox-wrap">
                   <div className="inputbox">
                     <input
+                      id="message"
                       type="text"
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       required="required"
                     />
-                    <span>Message</span>
+                    <label htmlFor="message">Message</label>
                   </div>
                 </div>
 
@@ -542,8 +546,8 @@ const Form = styled.div`
     width: 100%;
     border-radius: 10px;
     height: fit-content;
-    &:focus ~ span,
-    &:valid ~ span {
+    &:focus ~ label,
+    &:valid ~ label {
       transform: translateX(-13px) translateY(-35px);
       font-size: 1em;
     }
@@ -557,7 +561,7 @@ const Form = styled.div`
     width: 100%;
   }
 
-  & span {
+  & label {
     position: absolute;
     top: 14px;
     left: 20px;

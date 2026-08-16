@@ -75,7 +75,7 @@ const BackgroundImage = styled.div`
     background-position: center;
     background-size: cover;
     height: 100%;
-    border-radius: 0 0 15% 15%;
+    border-radius: 0 0 30px 30px;
 
     -webkit-transition:all 1.0s ease-in-out;
     -moz-transition:all 1.0s ease-in-out;
@@ -115,7 +115,7 @@ const ImageOverlay = styled.div`
     left: 0;
     background: black;
     opacity: 0.7;
-    border-radius: 0 0 15% 15%;
+    border-radius: 0 0 30px 30px;
     /* background-image: linear-gradient(to left, rgba(255, 0, 0, 0), rgba(255, 0, 0, 0.5)); */
 `;
 

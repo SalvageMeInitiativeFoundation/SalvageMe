@@ -25,7 +25,7 @@ const Login = (props) => {
 
   // ERRORS
   const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+  // const [passwordError, setPasswordError] = useState("");
   const [loginError, setLoginError] = useState("");
 
   //Loading
@@ -51,7 +51,7 @@ const Login = (props) => {
   const validatePassword = (value) => {
     setPassword(value);
     let paswdRes = isPasswordValid(value);
-    setPasswordError(paswdRes[1] ? paswdRes[1] : "");
+    // setPasswordError(paswdRes[1] ? paswdRes[1] : "");
   };
  
   const handleLogin = async (e) => {
@@ -83,11 +83,11 @@ const Login = (props) => {
       }
     } catch (error) {
       setIsLoading(false);
-      setLoginError('Failed to Login')
+      const msg = error?.response?.data?.message || error?.message || 'Error Signing In';
+      setLoginError(msg)
       setTimeout(() => {
         setLoginError('')
       }, 3000);
-      const msg = error?.response?.data?.message || error?.message || 'Error Signing In';
       toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
       console.error(error);
     }
@@ -128,12 +128,13 @@ const Login = (props) => {
               <div className="inputbox-wrap">
                 <div className="inputbox">
                   <input
+                    id="email"
                     type="email"
                     value={email}
                     onChange={(e) => validateEmail(e.target.value)}
                     required="required"
                   />
-                  <span>Email</span>
+                  <label htmlFor="email">Email</label>
                 </div>
                 {emailError && <p>{emailError}</p>}
               </div>
@@ -141,20 +142,21 @@ const Login = (props) => {
               <div className="inputbox-wrap">
                 <div className="inputbox">
                   <input
+                    id="password"
                     type="password"
                     value={password}
                     onChange={(e) => validatePassword(e.target.value)}
                     required="required"
                   />
-                  <span>Password</span>
+                  <label htmlFor="password">Password</label>
                 </div>
-                {passwordError && <p>{passwordError}</p>}
                 <a href="#" onClick={()=>setForgetPassword(!forgetPassword)}>Forget password?</a>
               </div>
               
               <div className="inputbox">
                 <input
                   type="button"
+                  className={((password && email) || (password && contact)) ? "submit-valid" : "submit-invalid"}
                   value={ isLoading? "Logging in..." : "Submit"}
                   onClick={!isLoading?handleLogin:null}
                   disabled={
@@ -265,8 +267,8 @@ const Form = styled.div`
     outline: none;
     display: block;
     width: 95%;
-    &:focus ~ span,
-    &:valid ~ span {
+    &:focus ~ label,
+    &:valid ~ label {
       transform: translateX(-13px) translateY(-35px);
       font-size: 1em;
     }
@@ -276,7 +278,7 @@ const Form = styled.div`
     color: #ff8c00
   }
 
-  & span {
+  & label {
     position: absolute;
     top: 14px;
     left: 20px;
@@ -290,6 +292,14 @@ const Form = styled.div`
     background: #ffcd90;
     color: #fff;
     border: #fff;
+    font-weight: 600;
+    &.submit-invalid {
+        background: #ffcd90;
+    }
+
+    &.submit-valid {
+        background: #ff8c00;
+    }
     &:hover {
       background: #ff8c00;
     }
