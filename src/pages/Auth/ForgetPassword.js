@@ -10,17 +10,19 @@ const ForgetPassword = (props) => {
   const subject = 'Forget Password';
   const salvageMeMail='salvagemeinitiative@gmail.com';
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async(e) => {
     let data = {
-      'data':email,
+      'email':email,
     }
     e.preventDefault();
+    setIsLoading(true);
     try {
       const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/auth/resetPasswordRequest`,data)
       if(res.status==200){
         setEmail("");
-        toast.success('Mail Sent successfully');
+        toast.success('Password reset link sent to your email successfully');
         props.close();
 
       }else{
@@ -31,30 +33,11 @@ const ForgetPassword = (props) => {
       const msg = error?.response?.data?.message || error?.message || 'Check internet connection';
       toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
       console.error(error);
+    }finally{
+      setIsLoading(false);
     }
   };
 
-  // const sendEmail = () => {
-  //   // Use the email service API to send the email
-  //   // Replace 'YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', and 'YOUR_USER_ID' with your actual IDs
-  //   emailjs.send(
-  //     `${process.env.REACT_APP_YOUR_SERVICE_ID}`,
-  //     `${process.env.REACT_APP_YOUR_TEMPLATE_ID}`,
-  //     {
-  //       from_name:email,
-  //       to_email: salvageMeMail,
-  //       subject: subject,
-  //     },
-  //     `${process.env.REACT_APP_EMAILJS_PUBLIC_KEY}`
-  //   ).then((response) => {
-  //     toast.success('Email sent');
-  //     console.log('SUCCESS!', response.status, response.text);
-  //  }, (err) => {
-  //     console.log('FAILED...', err);
-  //  });
-
-    
-  // };
 
   return (
     <Modal close={props.close}>
@@ -72,7 +55,9 @@ const ForgetPassword = (props) => {
               required
             />
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit" disabled={isLoading}>
+            {isLoading ? 'Submitting...' : 'Submit'}
+          </button>
         </Form>
       </Wrapper>
     </Modal>
