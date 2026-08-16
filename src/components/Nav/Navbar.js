@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useMemo } from "react";
 import styled from "styled-components";
 import { useState, useContext } from "react";
 import { connect } from "react-redux";
@@ -6,12 +6,32 @@ import { NavLink, Link,useNavigate, useLocation } from "react-router-dom";
 import { logOutAPI } from "../../actions";
 import { toast } from "react-toastify";
 import { UserContext } from "../../context/userContext/userContext";
+import { AVATARS } from "../../utils/constants";
 
 const Navbar = (props) => {
   const location = useLocation();
   const navigate=useNavigate();
   const { removeLocalUser, user } = useContext(UserContext);
-  const darkbackgroundRoutes = ["/donate", "/request","/dashboard"];
+  const avatarUrl = useMemo(() => {
+    if (user?.image) return user.image;
+
+    const seed =
+      user?.username ||
+      user?.id ||
+      Math.random().toString(36).slice(2, 10);
+
+    let hash = 0;
+
+    for (let i = 0; i < seed.length; i++) {
+      hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+    }
+
+    const idx = hash % AVATARS.length;
+
+    return AVATARS[idx];
+  }, [user?.image, user?.username, user?.id]);
+
+  const darkbackgroundRoutes = ["/donate", "/request","/dashboard", "/services/"];
 
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isDarkBackground, setIsDarkBackground] = useState(false);
@@ -68,11 +88,10 @@ const Navbar = (props) => {
               <NavLink>
                 <User className="user-sm">
                   <span>
-                    {user && user.image ? (
-                      <img src={user.image} alt="Profile picture" />
-                    ) : (
-                      <img src="/images/icons/user.svg" alt="Profile picture" />
-                    )}
+                    <img
+                      src={avatarUrl}
+                      alt="Profile picture"
+                    />
                     <span>
                       &nbsp; Me
                       <img
