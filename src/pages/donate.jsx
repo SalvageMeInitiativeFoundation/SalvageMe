@@ -292,7 +292,7 @@ function Donate() {
               className="button DonateButton"
               onClick={(e) =>isLoading? null : addDonation(picFile, e)}
             >
-              {isLoading ? "Loading...." : "Donate"}
+              {isLoading ? "Donating..." : "Donate"}
             </button>
           </DonationForm>
         </div>

@@ -54,6 +54,7 @@ const Navbar = (props) => {
     toast.success("Logout Successful", {
       position: toast.POSITION.TOP_RIGHT,
     });
+    closeNav();
     navigate('/')
   };
 
