@@ -44,6 +44,10 @@ const Navbar = (props) => {
     setIsNavOpen((prev) => !prev);
   };
 
+  const closeNav = () => {
+  setIsNavOpen(false);
+};
+
   const LogoutUser = (e) => {
     e.preventDefault();
     removeLocalUser();
@@ -71,16 +75,16 @@ const Navbar = (props) => {
           </Link>
         </Logo>
 
-        <NavbarToggle className={` ${isDarkBackground ? "darkBorder" : ""}`} onClick={handleToggleNav}>
-          <span className={`navbar-toggle-icon ${isDarkBackground ? "darkBackground" : ""}`}>&#9776;</span>
+        <NavbarToggle $isDarkBackground={!isDarkBackground} onClick={handleToggleNav}>
+          <span className='navbar-toggle-icon'>&#9776;</span>
         </NavbarToggle>
 
         <NavbarLinks className={`navbar-links ${isNavOpen ? "active" : ""}`}>
           <li className="navbar-link">
-            <NavLink to="/donate" onClick={handleToggleNav} className={({ isActive }) => (isActive ? "active" : "")}>Donate</NavLink>
+            <NavLink to="/donate" onClick={closeNav} className={({ isActive }) => (isActive ? "active" : "")}>Donate</NavLink>
           </li>
           <li className="navbar-link">
-            <NavLink to="/request" onClick={handleToggleNav} className={({ isActive }) => (isActive ? "active" : "")}>Request</NavLink>
+            <NavLink to="/request" onClick={closeNav} className={({ isActive }) => (isActive ? "active" : "")}>Request</NavLink>
           </li>
 
           {user ? (
@@ -104,7 +108,7 @@ const Navbar = (props) => {
                 </User>
               </NavLink>
               <div className="dropdown-content right">
-                <NavLink to="/dashboard" onClick={handleToggleNav}>Dashboard</NavLink>
+                <NavLink to="/dashboard" onClick={closeNav}>Dashboard</NavLink>
                 <Link to="">
                   <button
                     className="NavLoginLogoutButton"
@@ -119,7 +123,7 @@ const Navbar = (props) => {
           ) : (
             <>
               <li className="navbar-link">
-                <Link to="/login" onClick={handleToggleNav}>Login</Link>
+                <Link to="/login" onClick={closeNav}>Login</Link>
               </li>
             </>
           )}
@@ -170,21 +174,18 @@ const Logo = styled.div`
 const NavbarToggle = styled.button`
   display: none;
   background-color: transparent;
-  border: 1px solid #fff;
+  border: 2px solid
+    ${({ $isDarkBackground }) => ($isDarkBackground ? "#fff" : "#000")};
   border-radius: 5px;
   outline: none;
   cursor: pointer;
+
   .navbar-toggle-icon {
-    width: 25px;
-    height: 3px;
-    color: #fff;
-    margin-bottom: 5px;
+    color: ${({ $isDarkBackground }) =>
+      $isDarkBackground ? "#fff" : "#000"};
+    font-size: 32px;
+    line-height: 1;
   }
-  & .darkBackground {
-    color: black;
-  }
-  & .darkBorder {
-    border: 2px solid black;}
   @media (max-width: 768px) {
     display: block;
 
