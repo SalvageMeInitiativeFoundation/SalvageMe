@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import DonorBook from "../components/donorBook";
+import DonorBook from "../../components/donorBook";
 import styled from "styled-components";
-import Dropdown from "../components/dropdown";
+import Dropdown from "../../components/dropdown";
 import axios from "axios";
 import { MdCloudUpload } from "react-icons/md";
-import { UserContext } from "../context/userContext/userContext";
+import { UserContext } from "../../context/userContext/userContext";
 import { toast } from "react-toastify";
 
 function Donate() {
@@ -105,14 +105,48 @@ function Donate() {
     }
   };
 
+  const validateDonationData = () => {
+    const requiredFields = {
+      title: donationFormData?.title,
+      category: filterCategory,
+      level: donationLevel,
+      donor: donationFormData?.donor,
+      withOwner: donationFormData?.withOwner,
+      image: selectedImage,
+    };
+
+    const missingFields = Object.entries(requiredFields)
+      .filter(([_, value]) => value === null || value === undefined || value === "")
+      .map(([key]) => key);
+
+    if (missingFields.length > 0) {
+      toast.error(
+        `Please provide: ${missingFields.join(", ")}`,
+        { position: toast.POSITION.TOP_RIGHT }
+      );
+      return false;
+    }
+
+    return true;
+  };
+
   const addDonation = async (File, e) => {
     e.preventDefault();
+    
+    if (!validateDonationData()) {
+    setIsError(true);
+    setTimeout(() => {
+        setIsError(false);
+      }, 3000);
+    return;
+    }
+
     setIsError(false);
     setIsLoading(true);
     setIsSucessful(false);
+
     const mypic = new FormData();
-    if (selectedImage != null) {
-      try {
+    try {
         mypic.append("mypic", File);
         const urlResponse = await axios.post(
           `${process.env.REACT_APP_BASE_URL}/picture/image-upload`,
@@ -158,11 +192,10 @@ function Donate() {
           setFilterCategory(null);
           setDonationLevel(null);
           setSelectedImage(null);
-          setIsLoading(false);
           setIsSucessful(true);
           // clear success flag shortly after so future resets work
           setTimeout(() => setIsSucessful(false), 1200);
-          toast.success('Book donated successfully! We’ll arrange pickup and make it available to borrow.',{
+          toast.success('Book Successfully Donated, We will make arrangements for pickup and make it available for others to borrow.',{
             position: toast.POSITION.TOP_RIGHT
         })
         }
@@ -173,13 +206,7 @@ function Donate() {
       }finally{         
         setIsLoading(false);
       }
-    } else {
-      setIsLoading(false);
-      setIsError(true);
-      setTimeout(() => {
-        setIsError(false);
-      }, 3000);
-    }
+    
   };
 
 
@@ -190,7 +217,7 @@ function Donate() {
       <main className="Donate">
         <div className="DonateForm">
           <h1 style={{ textAlign: "center",color:'#ff8c00', marginBottom:"10px" }}>Donate a Book</h1>
-          <p className="DonateSubtitle" style={{textAlign:'center', marginBottom: '24px', color:'#6b6b6b'}}>Share a book - add a title, select a category, and upload an image to help us list it faster.</p>
+          <p className="DonateSubtitle" style={{textAlign:'center', marginBottom: '24px', color:'#6b6b6b'}}>Share a book - add a title, select a category, select a donation level, and upload an image to help us list it faster.</p>
           
           <DonationForm>
             {isError? (
@@ -263,8 +290,9 @@ function Donate() {
                 </div>
               </DonateFormDetailsBookDetails>
               <div className="ProfileImageDivContainer">
-                <div className="ProfileImageContainer">
-                  <label htmlFor="bookImage">
+              <label htmlFor="bookImage">
+                <div className="ProfileImageContainer" >
+                  
                     {selectedImage != null ? (
                       <img
                         src={preview}
@@ -274,12 +302,12 @@ function Donate() {
                     ) : (
                       <MdCloudUpload size={160} className="CloudImage" />
                     )}
-                  </label>
-                </div>
+                  
+                </div></label>
 
                 <input
                   type="file"
-                  name="BookImage"
+                  name="bookImage"
                   id="bookImage"
                   onChange={handleChange}
                   accept="image/*"
@@ -322,7 +350,7 @@ const DonationForm = styled.form`
 
   & .DonateFormDetails {
     display: grid;
-    grid-template-columns: 1fr minmax(220px, 360px);
+    grid-template-columns: minmax(65%, 1fr) minmax(220px, 360px);
     gap: 20px;
     margin-bottom: 10px;
     align-items: start;

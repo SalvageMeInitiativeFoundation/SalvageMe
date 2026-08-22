@@ -402,8 +402,8 @@ ul {
 
 .ProfileImageContainer{
   border-radius: 15px;
-  min-width: 300px;
-  min-height:300px;
+  min-width: 200px;
+  min-height:240px;
   border: #050505 solid 1px;
   margin-bottom: 20px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;

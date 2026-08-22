@@ -216,22 +216,40 @@ const NavbarLinks = styled.ul`
     }
 
     @media (min-width: 769px) {
-      border: 1px solid white;
-      padding: 5px 20px;
-      border-radius: 30px;
-      text-align: center;
       min-width: 60px;
-      transition: background-color 0.3s ease;
+      text-align: center;
+      margin-right: 10px;
 
-      &:hover {
+      a {
+        display: block;
+        text-decoration: none;
+        color: #ff8c00;
+        font-weight: 600;
+
+        padding: 5px 20px;
+        border: 1px solid white;
+        border-radius: 30px;
+
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease,
+          border-color 0.3s ease;
+      }
+
+      a:hover {
         background-color: #000;
-        cursor: default;
+        color: #fff;
       }
 
       a.active {
-        border: 1px solid #ff8c00;
-        border-radius: 30px;
-        padding: 5px 20px;
+        color: orange;
+        border-color: orange;
+      }
+
+      a.active:hover {
+        background-color: #000;
+        color: #fff;
+        border-color: #000;
       }
     }
   }

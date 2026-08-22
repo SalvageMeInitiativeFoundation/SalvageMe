@@ -1,4 +1,4 @@
-> SalvageMe - A React Book Donating and Requesting application.
+> SalvageMe - A Community-Based Pre-Owned Book Donation and Request Web Application.
 
 ## 🚀 Features
 
@@ -23,7 +23,7 @@
 ![DonationPage](donation-page.png)
 
 ## Guidelines
-- Always modify exixting component instead of creating new components
+- Always modify existing component instead of creating new components
 - Avoid redundancy in styling
 
 ----
