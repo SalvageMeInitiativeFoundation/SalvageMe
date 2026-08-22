@@ -240,7 +240,7 @@ const Signup = (props) => {
                                     className={isFormValid ? "submit-valid" : "submit-invalid"}
                                     disabled={!isFormValid}
                                     onClick={(event) => !isLoading?handleSignup(event):null}
-                                    value={ isLoading?"Signing Up..." : "Submit" }
+                                    value={ isLoading?"Signing Up..." : "Signup" }
                                 />
                             </div>
                         </form>

@@ -157,7 +157,7 @@ const Login = (props) => {
                 <input
                   type="button"
                   className={((password && email) || (password && contact)) ? "submit-valid" : "submit-invalid"}
-                  value={ isLoading? "Logging in..." : "Submit"}
+                  value={ isLoading? "Logging in..." : "Login" }
                   onClick={!isLoading?handleLogin:null}
                   disabled={
                     !((password && email) || (password && contact))

@@ -162,7 +162,7 @@ function Donate() {
           setIsSucessful(true);
           // clear success flag shortly after so future resets work
           setTimeout(() => setIsSucessful(false), 1200);
-          toast.success('Book Successfully Donated',{
+          toast.success('Book donated successfully! We’ll arrange pickup and make it available to borrow.',{
             position: toast.POSITION.TOP_RIGHT
         })
         }
