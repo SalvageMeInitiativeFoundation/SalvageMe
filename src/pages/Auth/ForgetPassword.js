@@ -55,8 +55,8 @@ const ForgetPassword = (props) => {
               required
             />
           </div>
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? 'Submitting...' : 'Submit'}
+          <button type="submit" disabled={isLoading||!email}>
+            {isLoading ? 'Sending Link...' : 'Reset Link'}
           </button>
         </Form>
       </Wrapper>
@@ -98,6 +98,10 @@ const Form = styled.form`
     color: #fff;
   }
 
+  input:focus{
+    border: 1px solid #ff8c00;
+  }
+
   button {
     background-color: #ff8c00;
     padding: 15px 20px 15px 20px;
@@ -106,7 +110,8 @@ const Form = styled.form`
     border: none;
     outline: none;
     color: white;
-    cursor: default;
+    cursor: pointer;
+    margin-top: 10px;
     font-weight: 600;
   }
 `;
