@@ -32,7 +32,7 @@ const ForgetPassword = (props) => {
     } catch (error) {
       const msg = error?.response?.data?.message || error?.message || 'Check internet connection';
       toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
-      console.error(error);
+      // console.error(error);
     }finally{
       setIsLoading(false);
     }

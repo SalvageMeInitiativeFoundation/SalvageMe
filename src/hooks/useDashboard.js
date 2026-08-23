@@ -12,7 +12,7 @@ const useDashboard = () => {
       },[])
       
       const fetchData =async()=>{
-        console.log(user._id)
+        // console.log(user._id)
         try {
           const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/request/user/${user._id}`,
             {
@@ -22,7 +22,7 @@ const useDashboard = () => {
             }
           );
           if(res.status==200){
-            console.log(res.data)
+            // console.log(res.data)
             setData(res.data);
             
           }

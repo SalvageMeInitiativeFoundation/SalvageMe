@@ -71,7 +71,7 @@ const Signup = (props) => {
         if(confirmPassword.length>0){
         let conPaswdRes = isConfirmPassword(passwordInput.password,passwordInput.confirmPassword)
         conPaswdRes?setConfirmPasswordError(""):setConfirmPasswordError("Password not matching");
-        console.log('confirm password response',conPaswdRes);
+        // console.log('confirm password response',conPaswdRes);
         }
         
     }; 
@@ -97,8 +97,8 @@ const Signup = (props) => {
                 payload
               );
               if (signUpUserResponse.status== 200) {
-                console.log('===========signup response======')
-                console.log(signUpUserResponse.data);
+                // console.log('===========signup response======')
+                // console.log(signUpUserResponse.data);
                 setLocalUser(signUpUserResponse.data);
                 setIsLoading(false);
                 toast.success('Account Succesfully Created',{
@@ -118,7 +118,7 @@ const Signup = (props) => {
             setIsLoading(false);
                         const msg = error?.response?.data?.message || error?.message || 'Could not create account';
                         toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
-                        console.error(error);
+                        // console.error(error);
             
         }
 

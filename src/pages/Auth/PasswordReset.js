@@ -59,7 +59,7 @@ const PasswordReset = (props) => {
       } catch (error) {
           const msg = error?.response?.data?.message || error?.message || 'Reset failed';
           toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
-          console.error(error);
+          // console.error(error);
       }
     } else {
       toast.error("Complete form, password mismatch", { position: toast.POSITION.TOP_RIGHT });
@@ -87,7 +87,7 @@ const PasswordReset = (props) => {
     } catch (error) {
       const msg = error?.response?.data?.message || error?.message || 'Token validation failed';
       toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
-      console.error(error);
+      // console.error(error);
     }
   };
 

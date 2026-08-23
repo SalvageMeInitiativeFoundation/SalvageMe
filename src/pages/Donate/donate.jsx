@@ -202,7 +202,7 @@ function Donate() {
       } catch (error) {
         const msg = error?.response?.data?.message || error?.message || 'Error Donating Book';
         toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
-        console.error("==image upload error==", error);
+        // console.error("==image upload error==", error);
       }finally{         
         setIsLoading(false);
       }
