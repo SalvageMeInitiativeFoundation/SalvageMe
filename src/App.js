@@ -38,9 +38,11 @@ function App() {
             <Route path="/about" element={<About />} /> 
             <Route path='/services/' element={<Technology/>}/>
             <Route path='/services/:category' element={<Technology/>}/>
-            <Route path='/dashboard' element={<Dashboard/>}/>
+            <Route path="/dashboard" element={<PrivateRoute />}>
+              <Route path='/dashboard' element={<Dashboard/>}/>
+            </Route>
             {/* <Route path="/request" element={<Books />} />  */}
-            <Route path="/books/:bookId" element={<BookDetailPage />} />
+            {/* <Route path="/books/:bookId" element={<BookDetailPage />} /> */}
             <Route path="/request" element={<PrivateRoute />}>
               <Route path="/request" element={<Request/>} />
             </Route>
