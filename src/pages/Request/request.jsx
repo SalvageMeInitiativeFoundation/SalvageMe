@@ -70,7 +70,7 @@ function Request() {
 
     setRecommendations(filteredRecommendations);
   } catch (error) {
-    console.error("Failed to fetch AI recommendations:", error);
+    // console.error("Failed to fetch AI recommendations:", error);
     setRecommendations([]);
   } finally {
     setRecommendationsLoading(false);
@@ -88,7 +88,7 @@ function Request() {
           },
         }
       );
-      console.log("Search By Title Result:", BookData.data);
+      // console.log("Search By Title Result:", BookData.data);
       setDonations(BookData.data);
     } catch (error) {
       const msg = error?.response?.data?.message || error?.message || 'Search failed';

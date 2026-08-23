@@ -43,7 +43,7 @@ function DonorBook({donation}) {
       setShowModal(false);
       const msg = error?.response?.data?.message || "Could not request book, try again";
       toast.error(msg, { position: toast.POSITION.TOP_RIGHT });
-      console.error("Error occurred while requesting book:", error);
+      // console.error("Error occurred while requesting book:", error);
     } finally {
       setIsSubmitting(false);
     }
