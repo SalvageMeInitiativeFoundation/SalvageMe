@@ -17,6 +17,7 @@ import "./index.css";
 // import 'rsuite/dist/rsuite.min.css';
 import Technology from './pages/Home/Technology';
 import Dashboard from './pages/Dashboard/Dashboard';
+import PrivacyPolicy from './pages/PrivacyPolicy/privacy';
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
             <Route path="/dashboard" element={<PrivateRoute />}>
               <Route path='/dashboard' element={<Dashboard/>}/>
             </Route>
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             {/* <Route path="/request" element={<Books />} />  */}
             {/* <Route path="/books/:bookId" element={<BookDetailPage />} /> */}
             <Route path="/request" element={<PrivateRoute />}>
