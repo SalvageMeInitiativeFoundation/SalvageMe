@@ -18,6 +18,7 @@ import "./index.css";
 import Technology from './pages/Home/Technology';
 import Dashboard from './pages/Dashboard/Dashboard';
 import PrivacyPolicy from './pages/PrivacyPolicy/privacy';
+import PageNotFound from './pages/NotFound/pageNotFound';
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
             <Route path="/login" element={<Login/>} />
             <Route path="/signup" element={<Signup/>} />
             <Route path="/passwordReset/:token/:id" element={<PasswordReset/>} />
+            <Route path="*" element={<PageNotFound/>} />
           </Routes>
         </BrowserRouter>
       </UserContextProvider>
