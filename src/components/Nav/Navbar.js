@@ -31,7 +31,7 @@ const Navbar = (props) => {
     return AVATARS[idx];
   }, [user?.image, user?.username, user?.id]);
 
-  const darkbackgroundRoutes = ["/donate", "/request","/dashboard", "/services/"];
+  const darkbackgroundRoutes = ["/donate", "/request","/dashboard", "/services/", "/privacy-policy"];
 
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isDarkBackground, setIsDarkBackground] = useState(false);
