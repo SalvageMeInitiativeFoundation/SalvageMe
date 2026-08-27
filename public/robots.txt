@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://salvageme.pakowdadson.com/sitemap.xml
+Sitemap: https://salvageme.papakowdadson.com/sitemap.xml
