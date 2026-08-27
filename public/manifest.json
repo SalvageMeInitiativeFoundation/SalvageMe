@@ -13,6 +13,11 @@
       "sizes": "64x64"
     },
     {
+      "src": "/images/logo/SalvageMe192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
       "src": "/images/logo/SalvageMe256.png",
       "type": "image/png",
       "sizes": "256x256"
