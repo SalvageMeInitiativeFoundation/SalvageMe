@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useState, useEffect } from "react";
 
 import { imageSliders } from "../../assets/data";
@@ -7,42 +7,55 @@ import { imageSliders } from "../../assets/data";
 
 const BackgroundSlider = (props) => {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [loaded, setLoaded] = useState({}); // { 0: true, 1: true, ... }
 
+    // Preload all slider images once
     useEffect(() => {
-        const timer = setTimeout(()=>{
-            if (currentSlide === 2){
-                setCurrentSlide(0);
-            }
-            else {
-                setCurrentSlide(currentSlide + 1);
-            }
-        }, 1000);
+        imageSliders.forEach((slide, index) => {
+            const img = new Image();
+            img.onload = () => setLoaded((prev) => ({ ...prev, [index]: true }));
+            // don't show the skeleton forever if an image fails
+            img.onerror = () => setLoaded((prev) => ({ ...prev, [index]: true }));
+            img.src = slide.url;
+        });
+    }, []);
 
-        return() => clearTimeout(timer);
-    },[currentSlide]);
+    // Auto-advance slides
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setCurrentSlide((prev) => (prev + 1) % imageSliders.length);
+        }, 5000);
+
+        return () => clearTimeout(timer);
+    }, [currentSlide]);
+
+    const isLoaded = !!loaded[currentSlide];
 
     const bgImageStyle = {
-        backgroundImage: `url(${imageSliders[currentSlide].url})`
-    }
+        backgroundImage: isLoaded ? `url(${imageSliders[currentSlide].url})` : "none",
+    };
 
-    const goToNext = (currentSlide) => {
-        setCurrentSlide(currentSlide);
-    }
+    const goToSlide = (index) => {
+        setCurrentSlide(index);
+    };
 
     return (
         <Container>
             <Wrapper>
-                <BackgroundImage style={bgImageStyle}/>
+                {!isLoaded && <Skeleton />}
+                <BackgroundImage style={bgImageStyle} />
                 <ImageOverlay />
                 <ImageInfo>
                     <Title><q> {imageSliders[currentSlide].title} </q></Title>
                     <Description> {imageSliders[currentSlide].description} </Description>
                     <Carousel>
                         {
-                            imageSliders.map((imageSliders,currentIndexSlide) => (
-                                <span key={currentIndexSlide} onClick={() => goToNext(currentIndexSlide)}
+                            imageSliders.map((slide, index) => (
+                                <span
+                                    key={index}
+                                    onClick={() => goToSlide(index)}
                                     style={{
-                                        backgroundColor:currentIndexSlide === currentSlide ? "#ff8c00" : "white",
+                                        backgroundColor: index === currentSlide ? "#ff8c00" : "white",
                                     }}
                                 ></span>
                             ))
@@ -51,7 +64,7 @@ const BackgroundSlider = (props) => {
                 </ImageInfo>
                 <Actions>
                     <ActionsWrap>
-                        <Action onClick={()=>props.scroll()}>Volunteer</Action>
+                        <Action onClick={() => props.scroll()}>Volunteer</Action>
                     </ActionsWrap>
                 </Actions>
             </Wrapper>
@@ -59,6 +72,11 @@ const BackgroundSlider = (props) => {
     );
 };
 
+
+const shimmer = keyframes`
+    0%   { background-position: -800px 0; }
+    100% { background-position: 800px 0; }
+`;
 
 const Container = styled.div`
     text-align: center;
@@ -71,16 +89,33 @@ const Wrapper = styled.div`
     position: relative;
 `;
 
+const Skeleton = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0 0 30px 30px;
+    background: linear-gradient(
+        90deg,
+        #2a2a2a 25%,
+        #3d3d3d 37%,
+        #2a2a2a 63%
+    );
+    background-size: 1600px 100%;
+    animation: ${shimmer} 1.5s infinite linear;
+`;
+
 const BackgroundImage = styled.div`
     background-position: center;
     background-size: cover;
     height: 100%;
     border-radius: 0 0 30px 30px;
 
-    -webkit-transition:all 1.0s ease-in-out;
-    -moz-transition:all 1.0s ease-in-out;
-    -o-transition:all 1.0s ease-in-out;
-    transition:all 1.0s ease-in-out;
+    -webkit-transition: all 1.0s ease-in-out;
+    -moz-transition: all 1.0s ease-in-out;
+    -o-transition: all 1.0s ease-in-out;
+    transition: all 1.0s ease-in-out;
 `;
 
 const ImageInfo = styled.div`
@@ -95,9 +130,6 @@ const ImageInfo = styled.div`
     z-index: 2;
     color: white;
     bottom: 30%;
-    /* border: 1px solid white; */
-    @media (min-width: 1440px) {
-    }
     @media (max-width: 768px) {
         width: 75%;
     }
@@ -116,7 +148,6 @@ const ImageOverlay = styled.div`
     background: black;
     opacity: 0.7;
     border-radius: 0 0 30px 30px;
-    /* background-image: linear-gradient(to left, rgba(255, 0, 0, 0), rgba(255, 0, 0, 0.5)); */
 `;
 
 const Title = styled.h1`
@@ -135,9 +166,9 @@ const Description = styled.p`
 `;
 
 const Carousel = styled.div`
-    display: flex; 
+    display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
     position: absolute;
     left: 0;
     right: 0;
@@ -152,10 +183,6 @@ const Carousel = styled.div`
         background-color: white;
         cursor: pointer;
         box-shadow: 3px 2px 2px rgba(73, 72, 72, 0.4);
-    }
-    @media (min-width: 1440px) {
-    }
-    @media (min-width: 2560px) {
     }
     @media (max-width: 768px) {
         span {
